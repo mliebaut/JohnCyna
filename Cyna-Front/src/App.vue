@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+
 </script>
 
 <template>
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+<!--    <a href="https://vite.dev" target="_blank">-->
+<!--      <img src="/vite.svg" class="logo" alt="Vite logo" />-->
+<!--    </a>-->
+<!--    <a href="https://vuejs.org/" target="_blank">-->
+<!--      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />-->
+<!--    </a>-->
+<!--  <HelloWorld msg="Vite + Vue" />-->
+    <div>
+      <nav>
+        <router-link to="/">Accueil</router-link>
+        <br>
+        <router-link to="/about">About</router-link>
+      </nav>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <RouterView />
 </template>
 
 <style scoped>
