@@ -16,7 +16,7 @@
       Dein Syria per speciosam interpatet diffusa
       Post hoc impie perpetratum quod in aliis quoque
       Ibi victu recreati et quiete, postquam abierat
-      Sed (saepe enim redeo ad Scipionem, cuius omnis
+      Sed saepe enim redeo ad Scipionem, cuius omnis
       Et quoniam mirari posse quosdam peregrinos
 
       J'aime les chats.
