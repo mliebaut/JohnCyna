@@ -25,6 +25,7 @@
     "koa-router": "^13.0.1"
   },
   "devDependencies": {
+    "@types/koa-router": "^7.4.8",
     "prisma": "^6.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3"
