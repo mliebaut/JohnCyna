@@ -9,7 +9,7 @@ CynaRouter
     .get('/', (ctx, next) => {
         ctx.body = 'Hello World!';
     })
-    .post('/',(ctx, next) => {
+    .post('/', async (ctx, next) => {
         console.log("Test");
         try {
             ctx.body = 'Hello World!';
@@ -19,9 +19,12 @@ CynaRouter
     })
     .post('/users', (ctx, next) => {
         console.log("Hi");
+        try {
+        } catch (e) {
+            console.log(e)
+        }
     })
     .post('/faker', async (ctx, next) => {
-        // handle your post request here
         // ctx.body = ctx.request.body;
         console.log("/faker")
         try {
@@ -33,13 +36,22 @@ CynaRouter
         }
     })
     .put('/users/:id', (ctx, next) => {
-        // ...
+        try {
+        } catch (e) {
+            console.log(e)
+        }
     })
     .del('/users/:id', (ctx, next) => {
-        // ...
+        try {
+        } catch (e) {
+            console.log(e)
+        }
     })
     .all('/users/:id', (ctx, next) => {
-        // ...
+        try {
+        } catch (e) {
+            console.log(e)
+        }
     });
 
 export default CynaRouter
