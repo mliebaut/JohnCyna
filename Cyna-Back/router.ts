@@ -11,8 +11,11 @@ CynaRouter
     })
     .post('/',(ctx, next) => {
         console.log("Test");
-        ctx.body = 'Hello World!';
-
+        try {
+            ctx.body = 'Hello World!';
+        } catch (e) {
+            console.log(e)
+        }
     })
     .post('/users', (ctx, next) => {
         console.log("Hi");
