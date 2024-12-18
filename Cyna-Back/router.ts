@@ -1,7 +1,9 @@
-
 import Router from 'koa-router';
-const CynaRouter = new Router();
+import * as fakertest from './faker';
+import {PrismaClient} from '@prisma/client'
 
+const prisma = new PrismaClient()
+const CynaRouter = new Router();
 
 CynaRouter
     .get('/', (ctx, next) => {
@@ -13,9 +15,19 @@ CynaRouter
 
     })
     .post('/users', (ctx, next) => {
+        console.log("Hi");
+    })
+    .post('/faker', async (ctx, next) => {
         // handle your post request here
         // ctx.body = ctx.request.body;
-        console.log("Hi")
+        console.log("/faker")
+        try {
+            const result = await fakertest.generate_fake_data();
+            console.log(result)
+            ctx.body = result
+        } catch (e) {
+            console.log(e)
+        }
     })
     .put('/users/:id', (ctx, next) => {
         // ...
