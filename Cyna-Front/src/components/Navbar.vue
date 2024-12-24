@@ -1,11 +1,11 @@
 <template>
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container">
-    <img src="/site-logo.png" width="180" alt="Cyna">
+    <img src="/site-logo.png" width="160" alt="Cyna">
     <div>
-      <a class="ms-4" aria-current="page" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" viewBox="0 0 576 512"><path fill="#7200ff" d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
-      <a class="ms-4" aria-current="page" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" viewBox="0 0 512 512"><path fill="#7200ff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></a>
-      <button class="navbar-toggler ms-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <a class="ms-2" aria-current="page" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" viewBox="0 0 576 512"><path fill="#7200ff" d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
+      <a class="ms-2" aria-current="page" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" viewBox="0 0 512 512"><path fill="#7200ff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></a>
+      <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
@@ -14,16 +14,13 @@
         <img src="/site-logo.png" width="140" alt="Cyna">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body d-contents">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 fs-5">
+      <div class="offcanvas-body">
+        <ul class="navbar-nav flex-grow-1 pe-3 fs-5">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="#">Accueil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Catégorie</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Panier</a>
           </li>
           <li class="nav-item">
             <button class="btn btn-primary m-2 w-75 fs-5">Se connecter</button>
@@ -69,6 +66,9 @@
   </script>
   
   <style>
+    .offcanvas-body{
+      display:contents;
+    }
     .btn-primary{
       --bs-btn-color: #fff;
       --bs-btn-bg: #7200ff;
