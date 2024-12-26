@@ -1,25 +1,23 @@
 <template>
-    <div class="mt-5">
-      <!-- Carousel -->
-      <div id="carouselExampleDark" class="carousel carousel-dark slide pt-5">
-        <div class="carousel-indicators ">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner container h-100">
-        
-        <div v-for="(carousel, index) in carouselData" :key="index" class="carousel-item row h-100 " :class="{ active: index == 0}">
-          <div class="banner h-100">
-            <div class="container h-100">
-              <div class="row h-100">
-                <div class="col-sm-5">
-                  <h1>{{ carousel.title }}</h1>
-                  <p>{{ carousel.description }}</p>
-                  <button class="btn btn-primary fs-4 px-4">{{ carousel.buttonText }}</button>
-                </div>
-                <div class="col-sm-7">
-                  <img class="img-fluid" :src="(`${carousel.image}`)" alt="">
+  <!-- Carousel -->
+  <div id="carouselExampleDark" class="carousel carousel-dark slide pt-5">
+    <div class="carousel-indicators ">
+     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner container h-100">     
+      <div v-for="(carousel, index) in carouselData" :key="index" class="carousel-item row h-100 " :class="{ active: index == 0}">
+        <div class="banner h-100">
+          <div class="container h-100">
+            <div class="row h-100">
+              <div class="col-sm-5">
+                <h1>{{ carousel.title }}</h1>
+                <p>{{ carousel.description }}</p>
+                <button class="btn btn-primary fs-4 px-4">{{ carousel.buttonText }}</button>
+              </div>
+               <div class="col-sm-7">
+                <img class="img-fluid" :src="(`${carousel.image}`)" alt="">
                 </div>
               </div>
             </div>
@@ -51,7 +49,7 @@
             <div class="card-body d-flex flex-column justify-content-center align-items-center ">
               <h3 class="card-title">{{ category.title }}</h3>
                 <p class="card-text fs-5 fw-medium">{{ category.description }}</p>
-                <a href="#" class="btn btn-primary">Voir catégorie</a>
+                <router-link class="btn btn-primary" :to="{ path: `/category/${category.title}`, query: { description: `${category.description}`, image: `${category.image}` }}">Voir catégorie</router-link>
             </div>
           </div>
         </div>
@@ -73,7 +71,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
   </template>
   <script>
