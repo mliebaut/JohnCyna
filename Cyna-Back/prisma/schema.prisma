@@ -53,15 +53,14 @@ model Image {
   url               String?
 }
 
-model Adress {
-  id                Int     @id @default(autoincrement())
-  streetName        String
-  streetNumber      Int
-  postalCode        Int
-  cityName          String
-  country           String
-  extraInformation  String?
 model Address {
+  id               Int     @id @default(autoincrement())
+  streetName       String
+  streetNumber     Int
+  postalCode       Int
+  cityName         String
+  country          String
+  extraInformation String?
 }
 
 // - TODO: Rajouter un lien entre adresse et entreprise
