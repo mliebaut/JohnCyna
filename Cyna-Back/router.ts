@@ -17,13 +17,6 @@ CynaRouter
             console.log(e)
         }
     })
-    .post('/users', (ctx, next) => {
-        console.log("Hi");
-        try {
-        } catch (e) {
-            console.log(e)
-        }
-    })
     .post('/faker', async (ctx, next) => {
         // ctx.body = ctx.request.body;
         console.log("/faker")
@@ -31,18 +24,6 @@ CynaRouter
             const result = await fakertest.generate_fake_data();
             console.log(result)
             ctx.body = result
-        } catch (e) {
-            console.log(e)
-        }
-    })
-    .put('/users/:id', (ctx, next) => {
-        try {
-        } catch (e) {
-            console.log(e)
-        }
-    })
-    .del('/users/:id', (ctx, next) => {
-        try {
         } catch (e) {
             console.log(e)
         }

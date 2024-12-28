@@ -61,6 +61,7 @@ model Adress {
   cityName          String
   country           String
   extraInformation  String?
+model Address {
 }
 
 // - TODO: Rajouter un lien entre adresse et entreprise
