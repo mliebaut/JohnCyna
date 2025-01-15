@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import AboutView from './AboutView.vue'
 //import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
-import CategoryView from '../views/Category.vue';
+import CategoryViewView from '../views/CategoryView.vue';
 
 
 const routes = [
@@ -15,7 +15,7 @@ const routes = [
     {
         path: '/category/:title',
         name: 'Category',
-        component: CategoryView
+        component: CategoryViewView
     },
     {
         path: '/about',
@@ -47,14 +47,14 @@ const routes = [
     {
         path:'/connexion',
         name:'connexion',
-        component: () => import("../views/connexionView.vue")
+        component: () => import("../views/ConnexionView.vue")
 
     },
 
     {
         path:'/produit',
         name:'produit',
-        component: () => import("../views/produitView.vue")
+        component: () => import("../views/ProduitView.vue")
 
     },
     {

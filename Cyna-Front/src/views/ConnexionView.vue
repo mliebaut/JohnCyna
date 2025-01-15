@@ -1,35 +1,28 @@
 <template>
-
-<form>
-<h1>Se connecter</h1>
-       
+  <form>
+    <h1>Se connecter</h1>
     <div class="inputs">
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Mot de passe">
+      <input placeholder="Email" type="email"/>
+      <input placeholder="Mot de passe" type="password">
     </div>
-    
+
     <p class="inscription">Je n'ai pas de <span>compte</span>. Je m'en <span>crée</span> un.</p>
     <div align="center">
       <button type="submit">Se connecter</button>
     </div>
   </form>
-
-
 </template>
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-<style >
-body{
+<style>
+body {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   flex-direction: columns;
   align-items: center;
   background-color: #f5f5f5;
   font-family: 'Roboto', sans-serif;
 }
+
 form {
   margin-top: 20px;
   background-color: #fff;
@@ -37,57 +30,66 @@ form {
   border-radius: 10px;
   min-width: 300px;
 }
-form h1{
+
+form h1 {
   color: #302082;
-  text-align:center;
+  text-align: center;
 }
-form .social-media{
+
+form .social-media {
   margin-top: -10px;
   display: flex;
-  flex-wrap:wrap;
-  justify-content:center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-form .social-media p{
+
+form .social-media p {
   padding: 5px;
   width: 20px;
   margin-left: 10px;
   border-radius: 100%;
   border: 1px solid #545454;
   text-align: center;
-  cursor:pointer;
+  cursor: pointer;
   color: #545454;
 }
-form p.choose-email{
-  text-align:center;
+
+form p.choose-email {
+  text-align: center;
 }
+
 form .inputs {
   display: flex;
   flex-direction: column;
 }
-form .inputs input[type='email'], input[type='password']{
+
+form .inputs input[type='email'], input[type='password'] {
   padding: 15px;
-  border:none;
+  border: none;
   border-radius: 5px;
-  background-color:#f2f2f2;
-  outline:none;
+  background-color: #f2f2f2;
+  outline: none;
   margin-bottom: 15px;
 }
-form p.inscription{
+
+form p.inscription {
   font-size: 14px;
   margin-bottom: 20px;
   color: #878787;
 }
-form p.inscription span{
+
+form p.inscription span {
   color: #302082;
 }
-form button{
+
+form button {
   padding: 15px 25px;
   border-radius: 5px;
-  border:none;
+  border: none;
   font-size: 15px;
   color: #fff;
   background-color: #302082;
-  outline:none;
-  cursor:pointer;
+  outline: none;
+  cursor: pointer;
 }
 </style> 
