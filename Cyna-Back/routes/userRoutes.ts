@@ -19,6 +19,10 @@ userRouter
         console.log("/user/create");
         try {
             const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #4478897")
+                return;
+            }
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
             const hashed_password = await PassFunc.hashMyPassword(receivedData.password)
             const new_user: any = await prisma.user.create({

@@ -33,64 +33,68 @@ model Product {
   description        String?
   inStock            Boolean? @default(false)
   categories         Category[]
-  order Order[]
+  order              Order[]
+  Basket             Basket[]
 }
 
 model Category {
-  id                Int     @id @default(autoincrement())
-  name              String
-  description       String?
-  products          Product[]
+  id                 Int     @id @default(autoincrement())
+  name               String
+  description        String?
+  products           Product[]
 }
 
 model Order {
-  id                Int     @id @default(autoincrement())
-  referenceNumber   Int?
-  user              User[]
-  products          Product[]
+  id                 Int     @id @default(autoincrement())
+  referenceNumber    Int?
+  user               User[]
+  products           Product[]
 }
 
 model Image {
-  id                Int     @id @default(autoincrement())
-  url               String?
+  id                 Int     @id @default(autoincrement())
+  url                String?
 }
 
 model Address {
-  id               Int     @id @default(autoincrement())
-  streetName       String
-  streetNumber     Int
-  postalCode       Int
-  cityName         String
-  country          String
-  extraInformation String?
+  id                 Int     @id @default(autoincrement())
+  streetName         String
+  streetNumber       Int
+  postalCode         Int
+  cityName           String
+  country            String
+  extraInformation   String?
+  Company            Company[]
 }
 
 // - TODO: Rajouter un lien entre adresse et entreprise
 // - TODO: Rajouter des attributs à entreprise?
 
 model Company {
-  id                Int     @id @default(autoincrement())
-  name              String?
+  id                 Int     @id @default(autoincrement())
+  name               String?
+  addresses          Address[]
 }
 
 
 model Basket {
-  id                Int     @id @default(autoincrement())
-  name              String?
-  price             Int?
-  subscriptionType  String?
+  id                 Int     @id @default(autoincrement())
+  name               String?
+  price              Int?
+  subscriptionType   String?
+  Products           Product[]
 }
 
-// - TODO: Modifier le nom de cet Enum
+// - TODO: Modifier le nom des types dans l'enum
 enum TypeSubscription {
   TEST1
   TEST2
 }
 
 model Subscription {
-  id                Int     @id @default(autoincrement())
-  type              TypeSubscription?
-  price             Int?
-  duration          Int?
+  id                 Int     @id @default(autoincrement())
+  type               TypeSubscription?
+  price              Int?
+  duration           Int?
 }
 
