@@ -1,2 +1,4 @@
 .idea/
 node_modules
+Cyna-Back/env
+.env
