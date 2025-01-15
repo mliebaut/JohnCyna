@@ -15,6 +15,29 @@ productRouter
         console.log(e)
     }
     })
+    .post('/product_search', async (ctx, next) => {
+        console.log("/product_search");
+        try {
+            const receivedData = ctx.request.body;
+            console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
+            console.log(receivedData);
+            if(receivedData.length > 0) {
+                ctx.body = "No data."
+                return;
+            }
+            const search_result = await prisma.product.findMany({
+                where: {
+                    OR: [
+                        {
+
+                        }
+                    ]
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    })
     .post('/product_create', async (ctx, next) => {
         console.log("/product_create");
         try {
