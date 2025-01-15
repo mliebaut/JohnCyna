@@ -41,13 +41,20 @@ const routes = [
     {
         path:'/Inscription',
         name:'Inscription',
-        component: () => import("../views/Inscription.vue")
+        component: () => import("../views/InscriptionView.vue")
 
     },
     {
         path:'/connexion',
         name:'connexion',
-        component: () => import("../views/connexion.vue")
+        component: () => import("../views/connexionView.vue")
+
+    },
+
+    {
+        path:'/produit',
+        name:'produit',
+        component: () => import("../views/produitView.vue")
 
     },
     {
@@ -57,6 +64,7 @@ const routes = [
     }
 
    
+
 
 
 ]

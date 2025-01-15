@@ -2,14 +2,7 @@
 
 <form>
 <h1>Se connecter</h1>
-    <div class="social-media">
-      <p><i class="fab fa-google"></i></p>
-      <p><i class="fab fa-youtube"></i></p>
-      <p><i class="fab fa-facebook-f"></i></p>
-      <p><i class="fab fa-twitter"></i></p>
-    </div>
-    <p class="choose-email">ou utiliser mon adresse e-mail :</p>
-    
+       
     <div class="inputs">
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Mot de passe">
@@ -45,7 +38,7 @@ form {
   min-width: 300px;
 }
 form h1{
-  color: #eb7371;
+  color: #302082;
   text-align:center;
 }
 form .social-media{
@@ -85,7 +78,7 @@ form p.inscription{
   color: #878787;
 }
 form p.inscription span{
-  color: #eb7371;
+  color: #302082;
 }
 form button{
   padding: 15px 25px;
@@ -93,8 +86,8 @@ form button{
   border:none;
   font-size: 15px;
   color: #fff;
-  background-color: #eb7371;
+  background-color: #302082;
   outline:none;
   cursor:pointer;
 }
-</style>
+</style> 
