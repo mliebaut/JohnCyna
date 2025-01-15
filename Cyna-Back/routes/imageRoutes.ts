@@ -1,10 +1,7 @@
 import Router from 'koa-router';
-// import * as fakertest from './faker';
 import {PrismaClient} from '@prisma/client'
-import productRouter from "./productRoutes";
 
 const prisma = new PrismaClient()
-
 const imageRouter = new Router();
 
 imageRouter
