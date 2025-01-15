@@ -2,3 +2,4 @@
 node_modules
 Cyna-Back/env
 .env
+/Cyna-Back/prisma/migrations/
