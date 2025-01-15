@@ -6,18 +6,20 @@
       <input placeholder="Mot de passe" type="password">
     </div>
 
-    <p class="inscription">Je n'ai pas de <span>compte</span>. Je m'en <span>crée</span> un.</p>
-    <div align="center">
+    <p class="inscription"><router-link to="/inscription">Je n'ai pas de <span>compte</span>. Je m'en <span>crée</span> un.</router-link></p>
+    <div>
       <button type="submit">Se connecter</button>
     </div>
   </form>
 </template>
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 <style>
 body {
   display: flex;
   justify-content: center;
-  flex-direction: columns;
+  flex-direction: column;
   align-items: center;
   background-color: #f5f5f5;
   font-family: 'Roboto', sans-serif;
@@ -92,4 +94,6 @@ form button {
   outline: none;
   cursor: pointer;
 }
-</style> 
+</style>
+<script setup lang="ts">
+</script>
