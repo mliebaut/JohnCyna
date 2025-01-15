@@ -27,6 +27,8 @@ model User {
 
 model Product {
   id                 Int     @id @default(autoincrement())
+  ean                String?
+  GUID               String?
   name               String?
   description        String?
   inStock            Boolean? @default(false)
