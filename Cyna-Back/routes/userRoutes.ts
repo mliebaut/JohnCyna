@@ -1,5 +1,6 @@
 import Router from 'koa-router';
-// import * as fakertest from './faker';
+// Ici sont les routes de User
+
 import {PrismaClient} from '@prisma/client'
 
 const prisma = new PrismaClient()
