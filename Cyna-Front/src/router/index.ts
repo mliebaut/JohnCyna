@@ -26,7 +26,32 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: () => import("../views/LoginView.vue") 
+    },
+    {
+        path: '/mentions-legales',
+        name: 'Mentions Legales',
+        component: () => import("../views/MentionsLegalesView.vue")
+    },
+    {
+        path:'/contact',
+        name:'Contact',
+        component: () => import("../views/ContactView.vue")
+
+    },
+    {
+        path:'/Inscription',
+        name:'Inscription',
+        component: () => import("../views/Inscription.vue")
+
+    },
+    {
+        path:'/connexion',
+        name:'connexion',
+        component: () => import("../views/connexion.vue")
+
     }
+
+
 ]
 
 const router = createRouter({
