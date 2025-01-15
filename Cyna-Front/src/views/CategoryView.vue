@@ -23,22 +23,16 @@
     </div>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        products: [
-          { name: 'Produit 1', price: 29.99, image: '/product1.jpg'},
-          { name: 'Produit 2', price: 49.99, image: '/product2.jpg'},
-          { name: 'Produit 3', price: 79.99, image: '/product3.jpg'},
-          { name: 'Produit 4', price: 29.99, image: '/product1.jpg'},
-          { name: 'Produit 5', price: 49.99, image: '/product2.jpg'},
-          { name: 'Produit 6', price: 79.99, image: '/product3.jpg'},
-        ],
-      };
-    },
-  };
-  </script>
+<script setup lang="ts">
+const products =  [
+        { name: 'Produit 1', price: 29.99, image: '/product1.jpg'},
+        { name: 'Produit 2', price: 49.99, image: '/product2.jpg'},
+        { name: 'Produit 3', price: 79.99, image: '/product3.jpg'},
+        { name: 'Produit 4', price: 29.99, image: '/product1.jpg'},
+        { name: 'Produit 5', price: 49.99, image: '/product2.jpg'},
+        { name: 'Produit 6', price: 79.99, image: '/product3.jpg'},
+      ]
+</script>
 
 <style>
     .banner-category{
@@ -55,6 +49,6 @@
       align-items: center;
       display: flex;
       color: white;
-      text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
+      text-shadow: #000 0 0 1px,   #000 0 0 1px,   #000 0 0 1px;
     }
 </style>
