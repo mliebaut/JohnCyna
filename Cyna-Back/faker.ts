@@ -18,7 +18,7 @@ export async function generate_fake_data() {
                 name: faker.company.name()
             }
         })
-        await prisma.adress.create({
+        await prisma.address.create({
             data: {
                 streetName: faker.location.street(),
                 streetNumber: faker.number.int(150),
