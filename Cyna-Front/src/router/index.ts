@@ -49,7 +49,14 @@ const routes = [
         name:'connexion',
         component: () => import("../views/connexion.vue")
 
+    },
+    {
+        path: '/panier',
+        name: 'Panier',
+        component: () => import("../views/PanierView.vue") 
     }
+
+   
 
 
 ]
