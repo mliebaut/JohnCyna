@@ -23,6 +23,8 @@ model User {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   orders             Order[]
+
+  Company Company[]
 }
 
 model Product {
@@ -53,6 +55,7 @@ model Order {
 
 model Image {
   id                 Int     @id @default(autoincrement())
+  altText            String?
   url                String?
 }
 
@@ -73,7 +76,9 @@ model Address {
 model Company {
   id                 Int     @id @default(autoincrement())
   name               String?
-  addresses          Address[]
+  website            String?
+  Addresses          Address[]
+  Contacts           User[]
 }
 
 

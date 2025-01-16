@@ -13,4 +13,16 @@ companyRouter
             console.log(e)
         }
     })
+    .post('/company/create', async (ctx, next) => {
+        console.log("/company/create");
+        try {
+            ctx.body = await prisma.company.create({
+                data: {
+
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    })
 export default companyRouter
