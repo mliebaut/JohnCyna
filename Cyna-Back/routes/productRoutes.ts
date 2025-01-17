@@ -54,6 +54,7 @@ productRouter
                     }
                 }}
             )
+            console.log(new_product)
             ctx.body = new_product
         } catch (e) {
             console.log(e)
