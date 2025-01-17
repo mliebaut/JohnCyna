@@ -43,12 +43,37 @@ userRouter
     .post('/user/login', async (ctx, next) => {
         console.log("/user/login");
         try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #4477797")
+                return;
+            }
 
         } catch (e) {
             console.log(e)
         }
     })
     // - TODO: Mettre en place une mise à jour selective. Genre, tu envoie seulement le nom et prenom, ca change que ça.
+    .post('/user/searchById', async (ctx, next) => {
+        console.log("/user/searchById")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #55954959")
+                return;
+            }
+            let result = await prisma.user.findMany({
+                where:{
+                    id: receivedData.userId,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
     .post('user/update', async (ctx, next) => {
         console.log("/user/update");
         try {

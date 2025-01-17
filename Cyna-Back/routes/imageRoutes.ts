@@ -22,10 +22,9 @@ imageRouter
                 return;
             }
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
-            const hashed_password = await PassFunc.hashMyPassword(received_image.password)
             const new_image: any = await prisma.image.create({
                     data: {
-                        altText: received_image.altText,
+                        // altText: received_image.alText,
                         url: received_image.url
                     }
                 }
@@ -34,6 +33,26 @@ imageRouter
             ctx.body = new_image;
         } catch (e) {
             console.log(e)
+        }
+    })
+    .post('/image/searchById', async (ctx, next) => {
+        console.log("/image/searchById")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #7595959")
+                return;
+            }
+            let result = await prisma.image.findMany({
+                where:{
+                    id: receivedData.imageId,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
         }
     })
 

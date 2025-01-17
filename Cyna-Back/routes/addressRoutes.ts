@@ -41,5 +41,45 @@ addressRouter
             ctx.body = e;
         }
     })
+    .post('/address/searchById', async (ctx, next) => {
+        console.log("/address/searchById")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #5115959")
+                return;
+            }
+            let result = await prisma.address.findMany({
+                where:{
+                        id: receivedData.addressId,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/address/searchByPostalCode', async (ctx, next) => {
+        console.log("/address/searchByPostalCode")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #5595959")
+                return;
+            }
+            let result = await prisma.address.findMany({
+                where:{
+                    postalCode: receivedData.postalCode,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
 
 export default addressRouter

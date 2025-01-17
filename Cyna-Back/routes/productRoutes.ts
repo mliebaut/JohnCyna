@@ -23,6 +23,7 @@ productRouter
                 ctx.body = "No data."
                 return;
             }
+// - TODO: Recherche de produits. Une version qui s'adapte à une liste d'inputs.
             const search_result = await prisma.product.findMany({
                 where: {
                     OR: [
@@ -34,6 +35,7 @@ productRouter
             })
         } catch (e) {
             console.log(e)
+            ctx.body = e;
         }
     })
     .post('/product_create', async (ctx, next) => {
@@ -59,6 +61,26 @@ productRouter
         } catch (e) {
             console.log(e)
         }
-    });
+    })
+    .post('/product/searchById', async (ctx, next) => {
+    console.log("/product/searchById")
+    try {
+        const receivedData = ctx.request.body;
+        if(!receivedData){
+            console.log("No Data Received #5595959")
+            return;
+        }
+        let result = await prisma.product.findMany({
+            where:{
+                id: receivedData.productId,
+            }
+        })
+        console.log(result)
+        ctx.body = result;
+    } catch (e) {
+        console.log(e);
+        ctx.body = e;
+    }
+})
 
 export default productRouter

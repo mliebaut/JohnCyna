@@ -13,4 +13,24 @@ orderRouter
             console.log(e)
         }
     })
+    .post('/order/searchById', async (ctx, next) => {
+        console.log("/order/searchById")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received #4784559")
+                return;
+            }
+            let result = await prisma.order.findMany({
+                where:{
+                    id: receivedData.orderId,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
 export default orderRouter
