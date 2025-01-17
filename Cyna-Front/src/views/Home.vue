@@ -110,9 +110,7 @@
     },
   };
   </script>
-  
   <style scoped>
-
     #carouselExampleDark{
       height: 48em;
       background-image: url(/background-hero.png);
