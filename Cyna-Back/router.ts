@@ -10,7 +10,7 @@ CynaRouter
         ctx.body = 'Hello World!';
     })
     .post('/', async (ctx, next) => {
-        console.log("Test");
+        console.log("/ - Empty Post request");
         try {
             ctx.body = 'Hello World!';
         } catch (e) {
@@ -18,7 +18,6 @@ CynaRouter
         }
     })
     .post('/faker', async (ctx, next) => {
-        // ctx.body = ctx.request.body;
         console.log("/faker")
         try {
             const result = await fakertest.generate_fake_data();
