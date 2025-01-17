@@ -1,12 +1,7 @@
 <template>
   <div class="container">
-
-
-
     <div class="wrapper">
-
       <div class="company-info">
-
         <ul>
           <li><i class="fa fa-road"></i> 10 rue de Penthièvre 75008 Paris</li>
           <li><i class="fa fa-phone"></i> +33 1 89 70 14 36</li>
@@ -14,44 +9,34 @@
           <li><i class="fa fa-map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3184.598655404628!2d2.3165953999999997!3d48.8731085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66f92d97833e7%3A0xa369c34f0b09cf72!2s10%20Rue%20de%20Penthi%C3%A8vre%2C%2075008%20Paris!5e1!3m2!1sfr!2sfr!4v1736945723410!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></i></li>
         </ul>
       </div>
-
       <div class="contact">
         <h3>Contact</h3>
-
         <form id="contact-form">
-
           <p>
             <label>Nom</label>
             <input type="text" name="name" id="name" required>
           </p>
-
           <p>
             <label>Prenom</label>
             <input type="text" name="company" id="company">
           </p>
-
           <p>
             <label>E-mail </label>
             <input type="email" name="email" id="email" required>
           </p>
-
           <p>
             <label>Numéro de téléphone</label>
             <input type="text" name="phone" id="phone">
           </p>
-
           <p class="full">
             <label>Message</label>
             <textarea name="message" rows="5" id="message"></textarea>
           </p>
-
           <p class="full">
             <button type="submit">Envoyer</button>
           </p>
-
         </form>
       </div>
-
     </div>
   </div>
 </template>
