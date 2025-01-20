@@ -25,8 +25,8 @@ model User {
   Orders             Order[]
   Company            Company[]
   Addresses          Address[]
-
 }
+
 
 model Product {
   id                 Int     @id @default(autoincrement())
@@ -51,6 +51,8 @@ model Category {
 model Order {
   id                 Int     @id @default(autoincrement())
   referenceNumber    Int?
+  price              Float?
+  paid               Boolean @default(false)
   user               User[]
   products           Product[]
 }
@@ -107,3 +109,15 @@ model Subscription {
   duration           Int?
 }
 
+// C'est un WIP, hein? Mais si on gère le backoffice, ca, ca marche.
+model userRole {
+  id                 Int     @id @default(autoincrement())
+  roleName           String?
+  permissions        userPermission
+}
+
+enum userPermission {
+  ProductManagement
+  Admin
+  Debug
+}
