@@ -42,8 +42,6 @@
 </template>
 
 <script setup>
-import {ping_server} from "../Functions/functions.ts";
-ping_server()
 
 </script>
 
