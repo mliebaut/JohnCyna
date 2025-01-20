@@ -25,6 +25,7 @@ CynaRouter
             ctx.body = result
         } catch (e) {
             console.log(e)
+            ctx.body = e
         }
     })
     .all('/users/:id', (ctx, next) => {

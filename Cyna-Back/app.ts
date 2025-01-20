@@ -21,6 +21,8 @@ const app = new Koa();
 app.use(koaBody())
 // app.use(bodyParser());
 
+
+// C'est propre, hein?
 app.use(CynaRouter.routes())
 app.use(CynaRouter.allowedMethods());
 app.use(addressRouter.routes())

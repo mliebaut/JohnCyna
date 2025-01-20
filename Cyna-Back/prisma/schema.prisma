@@ -23,8 +23,7 @@ model User {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   orders             Order[]
-
-  Company Company[]
+  Company            Company[]
 }
 
 model Product {
