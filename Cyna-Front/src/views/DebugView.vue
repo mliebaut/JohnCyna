@@ -19,6 +19,7 @@ import * as Funcs from "../functions/functions.ts";
 import {ref} from "vue";
 
 const userId = ref("")
+console.log(userId);
 
 </script>
 
