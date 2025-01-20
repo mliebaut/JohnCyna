@@ -5,6 +5,21 @@ const prisma = new PrismaClient()
 
 export async function generate_fake_data() {
     for (let i = 0; i < 10; i++) {
+        await prisma.image.create({
+            data: {
+                altText: faker.commerce.productDescription(),
+                url: faker.image.url()
+            }
+        })
+        await prisma.address.create({
+            data: {
+                streetName: faker.location.street(),
+                streetNumber: faker.number.int(150),
+                postalCode: parseInt(faker.location.zipCode()),
+                cityName: faker.location.city(),
+                country: faker.location.country()
+            }
+        })
         await prisma.user.create({
             data: {
                 email: faker.internet.email(),
@@ -15,16 +30,8 @@ export async function generate_fake_data() {
         })
         await prisma.company.create({
             data: {
-                name: faker.company.name()
-            }
-        })
-        await prisma.address.create({
-            data: {
-                streetName: faker.location.street(),
-                streetNumber: faker.number.int(150),
-                postalCode: parseInt(faker.location.zipCode()),
-                cityName: faker.location.city(),
-                country: faker.location.country()
+                name: faker.company.name(),
+                website: faker.internet.domainName(),
             }
         })
         await prisma.product.create({
@@ -46,20 +53,21 @@ export async function generate_fake_data() {
         })
     }
 
-
-
 // - TODO: Faire un loop qui regarde ping la BDD, qui trouve une liste d'Users, d'Orders, de Products, qui prends une liste valide de ID's, et qui les utilisent pour ces jointures.
 
     const userNumber = await prisma.user.count()
     const orderNumber = await prisma.order.count()
     const productNumber = await prisma.product.count()
-    // let userList = await prisma.user.findMany({take: 10})
-    for (let i = 0; i < 10; i++) {
+    const companyNumber = await prisma.company.count()
+    const addressNumber = await prisma.address.count()
+    const categoriesNumber = await prisma.category.count()
+    const imagesNumber = await prisma.image.count()
+    for (let i = 0; i < Math.round(userNumber * 0.8) ; i++) {
         await prisma.user.update({
             where: {id: faker.number.int({min: 1, max: userNumber})},
             data: {
-                orders: {
-                    connect: {id: 1}
+                Orders: {
+                    connect: {id: faker.number.int({min: 1, max: orderNumber})}
                 }
             }
         })
@@ -73,8 +81,46 @@ export async function generate_fake_data() {
                 }
             })
         }
-
+        await prisma.company.update({
+            where: {id: faker.number.int({min: 1, max: companyNumber})},
+            data:{
+                Addresses: {
+                    connect: {id: faker.number.int({min: 1, max: addressNumber})}
+                },
+            }
+        })
+        await prisma.company.update({
+            where: {id: faker.number.int({min: 1, max: companyNumber})},
+            data:{
+                Contacts: {
+                    connect: {id: faker.number.int({min: 1, max: userNumber})}
+                }
+            }
+        })
+        await prisma.address.update({
+            where: {id: faker.number.int({min: 1, max: addressNumber})},
+            data: {
+                User: {
+                    connect: {id: faker.number.int({min: 1, max: userNumber})}
+                }
+            }
+        })
+        await prisma.product.update({
+            where: {id: faker.number.int({min: 1, max: productNumber})},
+            data: {
+                categories: {
+                    connect: {id: faker.number.int({min: 1, max: categoriesNumber})}
+                }
+            }
+        })
+        await prisma.product.update({
+            where: {id: faker.number.int({min: 1, max: productNumber})},
+            data: {
+                images: {
+                    connect: {id: faker.number.int({min: 1, max: imagesNumber})}
+                }
+            }
+        })
     }
-
 }
 

@@ -22,8 +22,10 @@ model User {
   password           String
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
-  orders             Order[]
+  Orders             Order[]
   Company            Company[]
+  Addresses          Address[]
+
 }
 
 model Product {
@@ -36,6 +38,7 @@ model Product {
   categories         Category[]
   order              Order[]
   Basket             Basket[]
+  images             Image[]
 }
 
 model Category {
@@ -56,6 +59,7 @@ model Image {
   id                 Int     @id @default(autoincrement())
   altText            String?
   url                String?
+  Product            Product[]
 }
 
 model Address {
@@ -67,6 +71,7 @@ model Address {
   country            String
   extraInformation   String?
   Company            Company[]
+  User               User[]
 }
 
 // - TODO: Rajouter un lien entre adresse et entreprise
@@ -74,7 +79,7 @@ model Address {
 
 model Company {
   id                 Int     @id @default(autoincrement())
-  name               String?
+  name               String
   website            String?
   Addresses          Address[]
   Contacts           User[]
