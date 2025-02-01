@@ -57,6 +57,11 @@ const routes = [
         path: '/panier',
         name: 'Panier',
         component: () => import("../views/PanierView.vue") 
+    },
+    {
+        path: '/debug',
+        name: 'Debug',
+        component: () => import("../views/DebugView.vue")
     }
 ]
 
