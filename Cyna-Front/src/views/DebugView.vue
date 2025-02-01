@@ -5,7 +5,7 @@
     <hr>
     <div>
       Debug du ping
-      <button @click="Funcs.ping_server()"></button>
+      <button @click="ping_server()"></button>
     </div>
     <div>
       ID : {{ userID }}
@@ -15,11 +15,20 @@
 </template>
 
 <script setup lang="ts">
-import * as Funcs from "../functions/functions.ts";
-import {ref} from "vue";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          import {ref} from "vue";
+import Serv_Url from "../main.ts";
 
-const userId = ref("")
-console.log(userId);
+const userID = ref("")
+
+async function ping_server(){
+  const response = await fetch(Serv_Url, {
+    method: "POST",
+    body: JSON.stringify({ username: "example" }),
+    // headers: myHeaders,
+    mode:"no-cors"
+  });
+  console.log(response);
+}
 
 </script>
 
