@@ -62,6 +62,11 @@ const routes = [
         path: '/debug',
         name: 'Debug',
         component: () => import("../views/DebugView.vue")
+    },
+    {
+        path: '/cgu',
+        name: 'CGU',
+        component: () => import("../views/CguView.vue")
     }
 ]
 
