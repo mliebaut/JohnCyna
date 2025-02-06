@@ -59,9 +59,15 @@
         </div>
 
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Mentions légales</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-body-secondary">CGU</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Contact</a></li>
+          <li class="nav-item">
+            <router-link class="nav-link text-body-secondary" to="/mentions-legales">Mentions légales</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link text-body-secondary" to="/cgu">CGU</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link text-body-secondary" to="/contact">Contact</router-link>
+          </li>
           <li class="nav-item"><p class="text-body-secondary mt-2">&copy; 2025 Company, Inc</p></li>
         </ul>
         </div>
