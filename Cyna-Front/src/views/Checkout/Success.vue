@@ -1,4 +1,5 @@
 // Success.vue
+
 <template>
     <div class="mt-5">
         <h1>Paiement réussi 🎉</h1>
