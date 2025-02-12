@@ -30,7 +30,7 @@ companyRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #5595959")
+                console.log("No Data Received - Error #5595959")
                 return;
             }
             let result = await prisma.company.findMany({

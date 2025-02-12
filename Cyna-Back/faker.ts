@@ -122,5 +122,6 @@ export async function generate_fake_data() {
             }
         })
     }
+    return "Fini de remplir la BDD"
 }
 

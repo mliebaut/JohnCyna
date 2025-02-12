@@ -20,7 +20,7 @@ userRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #4478897")
+                console.log("No Data Received - Error #4478897")
                 return;
             }
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
@@ -45,7 +45,7 @@ userRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #4477797")
+                console.log("No Data Received - Error #4477797")
                 return;
             }
 
@@ -53,13 +53,23 @@ userRouter
             console.log(e)
         }
     })
-    // - TODO: Mettre en place une mise à jour selective. Genre, tu envoie seulement le nom et prenom, ca change que ça.
+    // - TODO: Mettre en place une mise à jour selective. Genre, tu envoie seulement le nom et prénom, ca change que ça.
     .post('/user/searchById', async (ctx, next) => {
         console.log("/user/searchById")
         try {
             const receivedData = ctx.request.body;
-            if(!receivedData){
-                console.log("No Data Received #55954959")
+            console.log(typeof receivedData)
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #55954959")
+                ctx.body = "No Data Received - Error #55954959";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData.userId){
+                console.log("No user ID in the data - Error #7D954959")
+                // return "No user ID in the data - Error #7D954959"
+                ctx.body = "No user ID in the data - Error #7D954959"
+                ctx.status = 404;
                 return;
             }
             let result = await prisma.user.findMany({
@@ -70,6 +80,7 @@ userRouter
             console.log(result)
             ctx.body = result;
         } catch (e) {
+            console.log("Error : ")
             console.log(e);
             ctx.body = e;
         }

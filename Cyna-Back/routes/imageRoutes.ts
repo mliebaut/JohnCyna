@@ -18,7 +18,7 @@ imageRouter
         try {
             const received_image = ctx.request.body;
             if(!received_image){
-                console.log("No Data Received #4471297")
+                console.log("No Data Received - Error #97521954")
                 return;
             }
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
@@ -40,7 +40,7 @@ imageRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #7595959")
+                console.log("No Data Received - Error #7595959")
                 return;
             }
             let result = await prisma.image.findMany({

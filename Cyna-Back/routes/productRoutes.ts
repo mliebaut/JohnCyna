@@ -67,7 +67,7 @@ productRouter
     try {
         const receivedData = ctx.request.body;
         if(!receivedData){
-            console.log("No Data Received #5595959")
+            console.log("No Data Received - Error #13595959")
             return;
         }
         let result = await prisma.product.findMany({
