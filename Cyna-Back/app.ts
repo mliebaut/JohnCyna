@@ -14,7 +14,8 @@ import subscriptionRoutes from "./routes/subscriptionRoutes";
 import userRouter from "./routes/userRoutes";
 
 //  Import du router Stripe
-import stripeRouter from "./stripe"; 
+import stripeRouter from "./routes/stripe";
+import successRouter from "./routes/success";
 
 const app = new Koa();
 
@@ -31,14 +32,14 @@ app.use(
 //  Middleware pour parser les requêtes JSON
 app.use(koaBody());
 
-//  Route de test pour vérifier que le serveur fonctionne
-app.use(async (ctx, next) => {
-    if (ctx.path === "/") {
-        ctx.body = "Hello Koa";
-        return;
-    }
-    await next();
-});
+// //  Route de test pour vérifier que le serveur fonctionne
+// app.use(async (ctx, next) => {
+//     if (ctx.path === "/") {
+//         ctx.body = "Hello Koa";
+//         return;
+//     }
+//     await next();
+// });
 
 //  Intégration des routes existantes
 app.use(CynaRouter.routes()).use(CynaRouter.allowedMethods());
@@ -53,5 +54,6 @@ app.use(userRouter.routes()).use(userRouter.allowedMethods());
 
 //  Intégration des routes Stripe
 app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
+app.use(successRouter.routes()).use(successRouter.allowedMethods());
 
 export default app;
