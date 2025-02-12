@@ -49,7 +49,7 @@ const routes = [
     },
     {
         path:'/connexion',
-        name:'connexion',
+        name:'Connexion',
         component: () => import("../views/ConnexionView.vue")
     },
 

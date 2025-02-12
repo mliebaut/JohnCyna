@@ -1,25 +1,30 @@
 <template>
-  <form>
-    <h1>Créer un compte</h1>
-    <div class="inputs">
-      <input placeholder="Nom" type="text"/>
-      <input placeholder="Prénom" type="text"/>
-      <input placeholder="Email" type="email"/>
-      <input placeholder="Mot de passe" type="password">
-    </div>
-
-    <p class="inscription">J'ai déja un <span><a href="/connexion">compte</a></span>.</p>
-    <div>
-      <button type="submit">Continuer</button>
-    </div>
-  </form>
+  <section class="inscription">
+    <form>
+      <h1>Créer un compte</h1>
+      <div class="inputs">
+        <input placeholder="Nom" type="text"/>
+        <input placeholder="Prénom" type="text"/>
+        <input placeholder="Email" type="email"/>
+        <input placeholder="Mot de passe" type="password">
+      </div>
+      <router-link to="/connexion">J'ai déja un compte</router-link>
+      <div>
+        <button class="btn btn-primary fs-4 px-4 mt-2">Créer mon compte</button>
+      </div>
+    </form>
+  </section>
 </template>
 
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 <style>
-body {
+.inscription {
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -34,6 +39,7 @@ form {
   padding: 40px 60px;
   border-radius: 10px;
   min-width: 300px;
+  width: 500px;
 }
 
 form h1 {
@@ -68,7 +74,7 @@ form .inputs {
   flex-direction: column;
 }
 
-form .inputs input[type='Nom'], input[type='Prenom'], [type='email'], input[type='password'] {
+form .inputs input[type='text'], [type='email'], input[type='password'] {
   padding: 15px;
   border: none;
   border-radius: 5px;
