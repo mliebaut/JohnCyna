@@ -4,9 +4,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 //import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
+import AjoutPanierView from '../views/AjoutPanierView.vue';
+
 
 
 const routes = [
+
+    {
+        path: '/ajout-panier',
+        name: 'ajout-panier',
+        component: AjoutPanierView
+    },
     {
         path: '/',
         name: 'Home',
@@ -73,6 +81,7 @@ const routes = [
         name: 'CGU',
         component: () => import("../views/CguView.vue")
     }
+   
 ]
 
 const router = createRouter({
