@@ -7,39 +7,29 @@ const CynaRouter = new Router();
 
 CynaRouter
     .get('/', (ctx, next) => {
-        ctx.body = 'Hello World!';
+        ctx.body = 'Hello Koa!!';
     })
     .post('/', async (ctx, next) => {
         console.log("/ - Empty Post request");
-        ctx.body = 'Hello World!';
+        try {
+            ctx.body = 'Hello My Koa!';
+        } catch (e) {
+            console.log(e)
+        }
     })
     .post('/faker', async (ctx, next) => {
         console.log("/faker")
         try {
             const result = await fakertest.generate_fake_data();
             console.log(result)
-            if(result){
-                ctx.body = result;
-            } else {
-                ctx.body = result
-            }
+            ctx.body = result
         } catch (e) {
             console.log(e)
             ctx.body = e
         }
     })
-    // .all('/users/:id', (ctx, next) => {
-    //     try {
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // })
-    .all('/ping', async (ctx, next) => {
-        console.log("/ping")
+    .all('/users/:id', (ctx, next) => {
         try {
-            ctx.body = 'Selapin';
-            ctx.response.body = 'Server up and running...';
-            ctx.status = 200;
         } catch (e) {
             console.log(e)
         }
