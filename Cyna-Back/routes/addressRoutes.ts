@@ -21,7 +21,7 @@ addressRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #5595959")
+                console.log("No Data Received - Error #5595959")
                 return;
             }
             console.log(`Request Body: ${JSON.stringify(receivedData)}`)
@@ -46,7 +46,7 @@ addressRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #5115959")
+                console.log("No Data Received - Error #5115959")
                 return;
             }
             let result = await prisma.address.findMany({
@@ -66,7 +66,7 @@ addressRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #5595959")
+                console.log("No Data Received - Error #5595959")
                 return;
             }
             let result = await prisma.address.findMany({

@@ -18,7 +18,7 @@ categoryRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #495951")
+                console.log("No Data Received - Error #495951")
                 return;
             }
             let result = await prisma.category.findMany({
