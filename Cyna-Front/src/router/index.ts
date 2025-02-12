@@ -83,6 +83,18 @@ const routes = [
         path: '/cgu',
         name: 'CGU',
         component: () => import("../views/CguView.vue")
+    },
+    {   path: "/checkout",
+        name: 'checkout', 
+        component: () => import("../views/Checkout.vue") 
+    },
+    {   path: "/success",
+        name: 'success', 
+        component: () => import("../views/Checkout/Success.vue") 
+    },
+    {   path: "/cancel", 
+        name: 'cancel',
+        component: () => import("../views/Checkout/Cancel.vue") 
     }
    
 ]
