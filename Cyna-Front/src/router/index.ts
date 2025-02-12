@@ -4,6 +4,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 //import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
+import Checkout from "@/components/Checkout.vue";
+import Success from "@/components/Checkout/Success.vue";
+import Cancel from "@/components/Checkout/Cancel.vue";
 
 
 const routes = [
@@ -72,6 +75,18 @@ const routes = [
         path: '/cgu',
         name: 'CGU',
         component: () => import("../views/CguView.vue")
+    },
+    {   path: "/checkout",
+        name: 'checkout', 
+        component: () => import("../views/Checkout.vue") 
+    },
+    {   path: "/success",
+        name: 'success', 
+        component: () => import("../views/Checkout/Success.vue") 
+    },
+    {   path: "/cancel", 
+        name: 'cancel',
+        component: () => import("../views/Checkout/Cancel.vue") 
     }
 ]
 
