@@ -127,7 +127,7 @@ import {useRouter} from "vue-router";
 import Serv_Url from "../main.ts";
 
 export default {
-  name: "ConnexionView",
+  name: "Connexion",
   setup() {
     const data = reactive({
       email: '',
@@ -135,12 +135,11 @@ export default {
     });
 
     const submit = async () => {
-      await fetch(Serv_Url + '/login', {
+      await fetch(Serv_Url + '/user/login', {
         method: 'POST',
         body: JSON.stringify(data),
         mode: "no-cors"
       });
-
     }
 
     return {

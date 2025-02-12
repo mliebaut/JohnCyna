@@ -44,6 +44,19 @@ userRouter
         console.log("/user/login");
         try {
             const receivedData = ctx.request.body;
+            console.log(receivedData)
+            console.log(receivedData.email)
+            const existingUserPassword = await prisma.user.findUnique({
+                select: {
+                  password: true,
+                },
+                where:{
+                    email: receivedData.email,
+                }
+            })
+            if (existingUserPassword == receivedData.password){
+                console.log("OUI")
+            }
             if(!receivedData){
                 console.log("No Data Received #4477797")
                 return;
