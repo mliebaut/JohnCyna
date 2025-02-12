@@ -58,7 +58,6 @@ userRouter
         console.log("/user/searchById")
         try {
             const receivedData = ctx.request.body;
-            console.log(typeof receivedData)
             if(Object.keys(receivedData).length == 0){
                 console.log("No Data Received - Error #55954959")
                 ctx.body = "No Data Received - Error #55954959";
@@ -67,7 +66,6 @@ userRouter
             }
             if(!receivedData.userId){
                 console.log("No user ID in the data - Error #7D954959")
-                // return "No user ID in the data - Error #7D954959"
                 ctx.body = "No user ID in the data - Error #7D954959"
                 ctx.status = 404;
                 return;
@@ -80,6 +78,36 @@ userRouter
             console.log(result)
             ctx.body = result;
         } catch (e) {
+            console.log("Error : ")
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/user/searchByEmail', async (ctx, next) => {
+        console.log("/user/searchByEmail")
+        try {
+            const receivedData = ctx.request.body;
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #444959")
+                ctx.body = "No Data Received - Error #444959";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData.email){
+                console.log("No user email the data - Error #7D954235")
+                ctx.body = "No user email in the data - Error #7D954235"
+                ctx.status = 404;
+                return;
+            }
+            let result = await prisma.user.findMany({
+                where:{
+                    id: receivedData.email,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        }
+        catch (e) {
             console.log("Error : ")
             console.log(e);
             ctx.body = e;
