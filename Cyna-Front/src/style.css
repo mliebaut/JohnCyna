@@ -22,6 +22,10 @@ a:hover {
   color: #535bf2;
 }
 
+img {
+  object-fit: cover;
+}
+
 body {
   margin: 0;
   place-items: center;
