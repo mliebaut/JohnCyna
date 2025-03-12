@@ -95,8 +95,12 @@ const routes = [
     {   path: "/cancel", 
         name: 'cancel',
         component: () => import("../views/Checkout/Cancel.vue") 
+    },
+    {
+        path: "/historique",
+        name: "Historique",
+        component: () => import("../views/OrderHistory.vue") 
     }
-   
 ]
 
 const router = createRouter({
