@@ -11,7 +11,7 @@ export default {
     });
 
     const submit = async () => {
-      await fetch(Serv_Url + '/login', {
+      await fetch(Serv_Url + '/user/login', {
         method: 'POST',
         body: JSON.stringify(data),
         mode: "no-cors"

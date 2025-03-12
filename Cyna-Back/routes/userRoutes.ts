@@ -23,44 +23,57 @@ userRouter
                 console.log("No Data Received #4478897")
                 return;
             }
-            console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
-            const hashed_password = await PassFunc.hashMyPassword(receivedData.password)
+            var content = JSON.parse(receivedData);
+            console.log(content);
+            var nom = Object.values(content)[0];
+            var prenom = Object.values(content)[1];
+            var email = Object.values(content)[2];
+            var password = Object.values(content)[3];
+
+            const hashed_password = await PassFunc.hashMyPassword(password.toString())
             const new_user: any = await prisma.user.create({
                     data: {
-                        email: receivedData.email,
-                        lastName: receivedData.lastName,
-                        firstName: receivedData.firstName,
+                        email: email,
+                        lastName: nom,
+                        firstName: prenom,
                         password: hashed_password.toString()
                     }
                 }
             )
             console.log(new_user)
-            ctx.body = new_user
         } catch (e) {
             console.log(e)
         }
     })
     .post('/user/login', async (ctx, next) => {
         console.log("/user/login");
-        try {
+        try {            
             const receivedData = ctx.request.body;
-            console.log(receivedData)
-            console.log(receivedData.email)
+            if(!receivedData){
+                console.log("No Data Received #4477797")
+                return;
+            }
+            var content = JSON.parse(receivedData);
+            var email = Object.values(content)[0];
+            var password = Object.values(content)[1];
+
             const existingUserPassword = await prisma.user.findUnique({
                 select: {
                   password: true,
                 },
                 where:{
-                    email: receivedData.email,
+                    email: Object.values(content)[0],
                 }
             })
-            if (existingUserPassword == receivedData.password){
+
+            var passwordDB = Object.values(existingUserPassword)[0];
+
+            if (await PassFunc.checkMyPassword(password, passwordDB)){
                 console.log("OUI")
+            }else{
+                console.log("NON")
             }
-            if(!receivedData){
-                console.log("No Data Received #4477797")
-                return;
-            }
+
 
         } catch (e) {
             console.log(e)

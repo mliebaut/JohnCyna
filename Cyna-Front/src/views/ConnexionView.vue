@@ -122,31 +122,8 @@ form button {
 </style>
 
 <script lang="ts" >
-import {reactive} from 'vue';
-import {useRouter} from "vue-router";
-import Serv_Url from "../main.ts";
+import auth from "../functions/authentification.ts";
 
-export default {
-  name: "Connexion",
-  setup() {
-    const data = reactive({
-      email: '',
-      password: ''
-    });
-
-    const submit = async () => {
-      await fetch(Serv_Url + '/user/login', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        mode: "no-cors"
-      });
-    }
-
-    return {
-      data,
-      submit
-    }
-  }
-}
+export default auth;
 </script>
 
