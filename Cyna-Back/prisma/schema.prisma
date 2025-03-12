@@ -25,6 +25,7 @@ model User {
   Orders             Order[]
   Company            Company[]
   Addresses          Address[]
+  role               UserPermission @default(USER)
 }
 
 
@@ -109,15 +110,16 @@ model Subscription {
   duration           Int?
 }
 
-// C'est un WIP, hein? Mais si on gère le backoffice, ca, ca marche.
-model userRole {
-  id                 Int     @id @default(autoincrement())
-  roleName           String?
-  permissions        userPermission
-}
+// // C'est un WIP, hein? Mais si on gère le backoffice, ca, ca marche.
+// model UserRole {
+//   id                 Int     @id @default(autoincrement())
+//   roleName           String?
+//   permissions        UserPermission @default(USER)
+// }
 
-enum userPermission {
-  ProductManagement
-  Admin
-  Debug
+enum UserPermission {
+  USER
+  PRODUCTMANAGER
+  ADMIN
+  DEVDEBUG
 }

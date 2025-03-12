@@ -18,7 +18,7 @@ orderRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #4784559")
+                console.log("No Data Received - Error #8888888")
                 return;
             }
             let result = await prisma.order.findMany({
