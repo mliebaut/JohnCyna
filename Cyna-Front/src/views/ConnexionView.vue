@@ -1,17 +1,17 @@
 <template>
   <section class="connexion">
-    <form @submit.prevent="submit">
+    <form @submit.prevent="login">
       <h1>Se connecter</h1>
       <div class="inputs">
-        <input v-model="data.email" placeholder="Email" type="email"/>
-        <input v-model="data.password" placeholder="Mot de passe" type="password">
+        <input v-model="email" placeholder="Email" type="email"/>
+        <input v-model="password" placeholder="Mot de passe" type="password">
       </div>
       <router-link to="/inscription">Je n'ai pas de compte</router-link>
       <div>
         <button class="btn btn-primary fs-4 px-4 mt-2" type="submit">Connexion</button>
       </div>
     </form>
-
+    
   </section>
 </template>
 
@@ -122,8 +122,24 @@ form button {
 </style>
 
 <script lang="ts" >
-import auth from "../functions/authentification.ts";
+import { useUserStore } from "../store/user.ts";
 
-export default auth;
+export default {
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    async login() {
+      await this.userStore.signIn(this.email, this.password);
+    },
+  },
+};
+
 </script>
-

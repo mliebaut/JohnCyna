@@ -38,11 +38,6 @@ const routes = [
         component: () => import("../views/MentionsLegalesView.vue")
     },
     {
-        path:'/contact',
-        name:'Contact',
-        component: () => import("../views/ContactView.vue")
-    },
-    {
         path:'/inscription',
         name:'Inscription',
         component: () => import("../views/InscriptionView.vue")

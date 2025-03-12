@@ -1,12 +1,12 @@
 <template>
   <section class="inscription">
-    <form @submit.prevent="submit">
+    <form @submit.prevent="register">
       <h1>Créer un compte</h1>
       <div class="inputs">
-        <input v-model="data.nom" placeholder="Nom" type="text"/>
-        <input v-model="data.prenom" placeholder="Prénom" type="text"/>
-        <input v-model="data.email" placeholder="Email" type="email"/>
-        <input v-model="data.password" placeholder="Mot de passe" type="password">
+        <input v-model="nom" placeholder="Nom" type="text"/>
+        <input v-model="prenom" placeholder="Prénom" type="text"/>
+        <input v-model="email" placeholder="Email" type="email"/>
+        <input v-model="password" placeholder="Mot de passe" type="password">
       </div>
       <router-link to="/connexion">J'ai déja un compte</router-link>
       <div>
@@ -104,36 +104,28 @@ form button {
   cursor: pointer;
 }
 </style>
-<script setup lang="ts">
-</script>
 
 <script lang="ts" >
-import Serv_Url from "../main.ts";
-import {reactive} from 'vue';
+import { useUserStore } from "../store/user.ts";
 
 export default {
-  name: "Inscription",
   setup() {
-    const data = reactive({
-      nom: '',
-      prenom: '',
-      email: '',
-      password: ''
-    });
-
-    const submit = async () => {
-      await fetch(Serv_Url + '/user/create', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        mode: "no-cors"
-      });
-
-    }
-
+    const userStore = useUserStore();
+    return { userStore };
+  },
+  data() {
     return {
-      data,
-      submit
-    }
-  }
-}
+      nom: "",
+      prenom: "",
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    async register() {
+      await this.userStore.signUp(this.nom, this.prenom, this.email, this.password);
+    },
+  },
+};
+
 </script>

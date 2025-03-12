@@ -18,8 +18,11 @@ import subscriptionRoutes from "./routes/subscriptionRoutes";
 import userRouter from "./routes/userRoutes";
 
 const app = new Koa();
+const cors = require('@koa/cors');
+
 app.use(koaBody())
 // app.use(bodyParser());
+app.use(cors());
 
 
 // C'est propre, hein?

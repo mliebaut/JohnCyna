@@ -40,7 +40,7 @@ userRouter
                     }
                 }
             )
-            console.log(new_user)
+            ctx.body = new_user;
         } catch (e) {
             console.log(e)
         }
@@ -57,23 +57,27 @@ userRouter
             var email = Object.values(content)[0];
             var password = Object.values(content)[1];
 
-            const existingUserPassword = await prisma.user.findUnique({
+            const existingUser = await prisma.user.findUnique({
                 select: {
-                  password: true,
+                    lastName: true,  
+                    firstName: true,
+                    email: true,
+                    password: true,
                 },
                 where:{
                     email: Object.values(content)[0],
                 }
             })
 
-            var passwordDB = Object.values(existingUserPassword)[0];
+            if(!existingUser){
+                console.log("User not found")
+                return;
+            }
+            var passwordDB = Object.values(existingUser)[3];
 
             if (await PassFunc.checkMyPassword(password, passwordDB)){
-                console.log("OUI")
-            }else{
-                console.log("NON")
+                ctx.body = existingUser;
             }
-
 
         } catch (e) {
             console.log(e)

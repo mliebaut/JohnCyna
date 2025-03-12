@@ -34,12 +34,18 @@
               <li><a class="dropdown-item text-center" href="#">Categorie4</a></li>
             </ul>
           </li>
+          <li v-if="userStore.user" class="nav-item">
+          <p >Welcome, {{ userStore.user.lastName }}</p>
+          <a @click="userStore.logout()">Se déconnecter</a>
+          </li>
+          <div v-else>
           <li class="nav-item">
             <router-link class="btn btn-primary m-2 w-75 fs-5" :to="{ name: 'Connexion'}">Se connecter</router-link>
           </li>
           <li class="nav-item">
             <router-link class="btn btn-primary m-2 w-75 fs-5" :to="{ name: 'Inscription'}">Créer un compte</router-link>
           </li>
+        </div>
         </ul>
 
         <div class="navbar-nav">
@@ -77,10 +83,16 @@
 </nav>
   </template>
   
-  <script>
+  <script lang="ts" >
+  import { useUserStore } from "../store/user.ts";
+  
   export default {
-    name: 'Home',
+    setup() {
+      const userStore = useUserStore();
+      return { userStore };
+    },
   };
+  
   </script>
   
   <style>
