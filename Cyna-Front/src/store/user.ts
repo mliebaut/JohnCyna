@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import Serv_Url from "../main.ts";
-import router from 'vue-router'
+
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -23,6 +23,7 @@ export const useUserStore = defineStore("user", {
       if (res){
         const user = await res.json()
         this.user = user;
+        window.location.href = "/";
       }
       } catch (e) {
         console.log(e)
@@ -37,9 +38,11 @@ export const useUserStore = defineStore("user", {
       if (res){
         const user = await res.json();
         this.user = user;
+        window.location.href = "/";
       }
       } catch (e) {
-        console.log(e)
+        alert("L'e-mail ou le mot de passe est incorrect");
+        console.log(e);
     }
     },
     async logout() {
