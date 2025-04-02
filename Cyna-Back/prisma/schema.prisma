@@ -60,6 +60,7 @@ model Order {
 
 model Image {
   id                 Int     @id @default(autoincrement())
+  // Alt text c'est la description si jamais l'image ne passe pas.
   altText            String?
   url                String?
   Product            Product[]
@@ -77,17 +78,16 @@ model Address {
   User               User[]
 }
 
-// - TODO: Rajouter un lien entre adresse et entreprise
-// - TODO: Rajouter des attributs à entreprise?
+// - TODO: Rajouter des attributs à entreprise? Il manque peut-être des trucs.
 
 model Company {
   id                 Int     @id @default(autoincrement())
   name               String
+  phone              String?
   website            String?
   Addresses          Address[]
   Contacts           User[]
 }
-
 
 model Basket {
   id                 Int     @id @default(autoincrement())
