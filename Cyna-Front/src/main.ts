@@ -5,7 +5,6 @@ import router from './router'
 import { createPinia } from "pinia";
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
-import { createPinia } from 'pinia'
 
 const Serv_Url = 'http://127.0.0.1:3001'
 export default Serv_Url;
@@ -36,4 +35,3 @@ pinia.use((context) => {
 app.use(router)
 app.use(pinia)
 app.mount('#app')
-app.use(createPinia())
