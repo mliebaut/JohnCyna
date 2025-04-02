@@ -9,6 +9,7 @@ import Success from "@/components/Checkout/Success.vue";
 import Cancel from "@/components/Checkout/Cancel.vue";
 import AjoutPanierView from '../views/AjoutPanierView.vue';
 
+import HomeView1 from '../views/HomeView1.vue';
 
 
 const routes = [
@@ -18,6 +19,13 @@ const routes = [
         name: 'ajout-panier',
         component: AjoutPanierView
     },
+    
+
+      {
+        path: '/',
+        name: 'Home',
+        component: HomeView1
+      },
     {
         path: '/',
         name: 'Home',
