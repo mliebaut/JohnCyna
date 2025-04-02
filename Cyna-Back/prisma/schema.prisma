@@ -25,6 +25,7 @@ model User {
   Orders             Order[]
   Company            Company[]
   Addresses          Address[]
+  ProfilePictures    ProfilePictures[]
   role               UserPermission @default(USER)
 }
 
@@ -122,4 +123,11 @@ enum UserPermission {
   PRODUCTMANAGER
   ADMIN
   DEVDEBUG
+}
+
+model ProfilePictures {
+  id                 Int     @id @default(autoincrement())
+  avatarLocation     String?
+
+  User User[]
 }
