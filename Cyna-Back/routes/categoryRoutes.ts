@@ -33,5 +33,71 @@ categoryRouter
             ctx.body = e;
         }
     })
+    .post('/category/create', async (ctx, next) => {
+        console.log("/category/create")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #459751")
+                return;
+            }
+            let result = await prisma.category.create({
+                data:{
+                    name: receivedData.categoryName,
+                    description: receivedData.categoryDescription,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/category/update', async (ctx, next) => {
+        console.log("/category/update")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #759751")
+                return;
+            }
+            let result = await prisma.category.update({
+                where:{
+                  id: receivedData.categoryId,
+                },
+                data:{
+                    name: receivedData.categoryName,
+                    description: receivedData.categoryDescription,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/category/delete', async (ctx, next) => {
+        console.log("/category/delete")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #45951")
+                return;
+            }
+            let result = await prisma.category.delete({
+                where:{
+                    id: receivedData.categoryId,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+
 
 export default categoryRouter
