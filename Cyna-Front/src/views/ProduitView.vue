@@ -186,16 +186,12 @@
 
 </template>
 <script setup lang="ts">
-import {ref} from "vue";
-const button = document.querySelector('.product__button');
-
-function buttonAnimate() {
-  button.classList.add('product__button--success');
 const button = document.querySelector('.product__button');
 
 function buttonAnimate() {
   button.classList.add('product__button--success');
 }
+
 
 </script>
 <style scoped>
