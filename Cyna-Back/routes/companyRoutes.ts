@@ -86,7 +86,7 @@ companyRouter
                 },
                 data: {
                     Addresses: {
-                        connect: receivedData.adressId
+                        connect: {id: receivedData.adressId}
                     },
                 }
             })
@@ -110,8 +110,8 @@ companyRouter
                     id: receivedData.companyId,
                 },
                 data: {
-                    Addresses: {
-                        connect: receivedData.contactId
+                    Contacts: {
+                        connect: {id: receivedData.contactId}
                     },
                 }
             })

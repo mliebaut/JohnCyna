@@ -55,9 +55,7 @@ productRouter
                         description: receivedData.description,
                         inStock: receivedData.inStock,
                         categories: {
-                            connect: {
-                                id: receivedData.categoryID
-                            }
+                            connect: { id: receivedData.categoryID }
                         }
                     }
                 }
