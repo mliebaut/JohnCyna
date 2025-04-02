@@ -7,12 +7,12 @@ const CynaRouter = new Router();
 
 CynaRouter
     .get('/', (ctx, next) => {
-        ctx.body = 'Hello World!';
+        ctx.body = 'Hello Koa!!';
     })
     .post('/', async (ctx, next) => {
         console.log("/ - Empty Post request");
         try {
-            ctx.body = 'Hello World!';
+            ctx.body = 'Hello My Koa!';
         } catch (e) {
             console.log(e)
         }

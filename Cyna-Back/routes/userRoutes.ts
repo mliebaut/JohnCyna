@@ -20,46 +20,84 @@ userRouter
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #4478897")
+                console.log("No Data Received - Error #4478897")
                 return;
             }
-            console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
-            const hashed_password = await PassFunc.hashMyPassword(receivedData.password)
+            var content = JSON.parse(receivedData);
+            console.log(content);
+            var nom = Object.values(content)[0];
+            var prenom = Object.values(content)[1];
+            var email = Object.values(content)[2];
+            var password = Object.values(content)[3];
+
+            const hashed_password = await PassFunc.hashMyPassword(password.toString())
             const new_user: any = await prisma.user.create({
                     data: {
-                        email: receivedData.email,
-                        lastName: receivedData.lastName,
-                        firstName: receivedData.firstName,
+                        email: email,
+                        lastName: nom,
+                        firstName: prenom,
                         password: hashed_password.toString()
                     }
                 }
             )
-            console.log(new_user)
-            ctx.body = new_user
+            ctx.body = new_user;
         } catch (e) {
             console.log(e)
         }
     })
     .post('/user/login', async (ctx, next) => {
         console.log("/user/login");
-        try {
+        try {            
             const receivedData = ctx.request.body;
             if(!receivedData){
-                console.log("No Data Received #4477797")
+                console.log("No Data Received - Error #4477797")
                 return;
+            }
+            var content = JSON.parse(receivedData);
+            var email = Object.values(content)[0];
+            var password = Object.values(content)[1];
+
+            const existingUser = await prisma.user.findUnique({
+                select: {
+                    lastName: true,  
+                    firstName: true,
+                    email: true,
+                    password: true,
+                },
+                where:{
+                    email: Object.values(content)[0],
+                }
+            })
+
+            if(!existingUser){
+                console.log("User not found")
+                return;
+            }
+            var passwordDB = Object.values(existingUser)[3];
+
+            if (await PassFunc.checkMyPassword(password, passwordDB)){
+                ctx.body = existingUser;
             }
 
         } catch (e) {
             console.log(e)
         }
     })
-    // - TODO: Mettre en place une mise à jour selective. Genre, tu envoie seulement le nom et prenom, ca change que ça.
+    // - TODO: Mettre en place une mise à jour selective. Genre, tu envoie seulement le nom et prénom, ca change que ça.
     .post('/user/searchById', async (ctx, next) => {
         console.log("/user/searchById")
         try {
             const receivedData = ctx.request.body;
-            if(!receivedData){
-                console.log("No Data Received #55954959")
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #55954959")
+                ctx.body = "No Data Received - Error #55954959";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData.userId){
+                console.log("No user ID in the data - Error #7D954959")
+                ctx.body = "No user ID in the data - Error #7D954959"
+                ctx.status = 404;
                 return;
             }
             let result = await prisma.user.findMany({
@@ -70,6 +108,37 @@ userRouter
             console.log(result)
             ctx.body = result;
         } catch (e) {
+            console.log("Error : ")
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/user/searchByEmail', async (ctx, next) => {
+        console.log("/user/searchByEmail")
+        try {
+            const receivedData = ctx.request.body;
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #444959")
+                ctx.body = "No Data Received - Error #444959";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData.email){
+                console.log("No user email the data - Error #7D954235")
+                ctx.body = "No user email in the data - Error #7D954235"
+                ctx.status = 404;
+                return;
+            }
+            let result = await prisma.user.findMany({
+                where:{
+                    id: receivedData.email,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        }
+        catch (e) {
+            console.log("Error : ")
             console.log(e);
             ctx.body = e;
         }

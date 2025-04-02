@@ -53,6 +53,8 @@ export async function generate_fake_data() {
         })
     }
 
+
+
 // - TODO: Faire un loop qui regarde ping la BDD, qui trouve une liste d'Users, d'Orders, de Products, qui prends une liste valide de ID's, et qui les utilisent pour ces jointures.
 
     const userNumber = await prisma.user.count()
@@ -71,6 +73,7 @@ export async function generate_fake_data() {
                 }
             }
         })
+
         for (let j = 0; j < 5; j++) {
             await prisma.order.update({
                 where: {id: faker.number.int({min: 1, max: orderNumber})},
@@ -122,5 +125,30 @@ export async function generate_fake_data() {
             }
         })
     }
+    for (let i = 0; i < Math.round(userNumber * 0.1) ; i++) {
+        await prisma.user.update({
+            where: {id: faker.number.int({min: 1, max: userNumber})},
+            data: {
+                role: "ADMIN"
+            }
+        })
+    }
+    for (let i = 0; i < Math.round(userNumber * 0.2) ; i++) {
+        await prisma.user.update({
+            where: {id: faker.number.int({min: 1, max: userNumber})},
+            data: {
+                role: "PRODUCTMANAGER"
+            }
+        })
+    }
+    for (let i = 0; i < Math.round(userNumber * 0.1) ; i++) {
+        await prisma.user.update({
+            where: {id: faker.number.int({min: 1, max: userNumber})},
+            data: {
+                role: "DEVDEBUG"
+            }
+        })
+    }
+
 }
 

@@ -6,7 +6,7 @@
           <li><i class="fa fa-road"></i> 10 rue de Penthièvre 75008 Paris</li>
           <li><i class="fa fa-phone"></i> +33 1 89 70 14 36</li>
           <li><i class="fa fa-envelope"></i>contact@cyna-it.fr</li>
-          <li><i class="fa fa-map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3184.598655404628!2d2.3165953999999997!3d48.8731085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66f92d97833e7%3A0xa369c34f0b09cf72!2s10%20Rue%20de%20Penthi%C3%A8vre%2C%2075008%20Paris!5e1!3m2!1sfr!2sfr!4v1736945723410!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></i></li>
+          <li><i class="fa fa-map"> <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1120.716712360364!2d6.221258255083997!3d49.10415772003259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sfr!2sfr!4v1739354861537!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></i></li>
         </ul>
       </div>
       <div class="contact">

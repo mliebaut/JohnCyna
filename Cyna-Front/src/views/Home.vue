@@ -110,7 +110,9 @@
     },
   };
   </script>
+  
   <style scoped>
+
     #carouselExampleDark{
       height: 48em;
       background-image: url(/background-hero.png);
@@ -133,7 +135,7 @@
     .category .card{
       height: 400px;
       color: white;
-      text-shadow: #000 0 0 1px,   #000 0 0 1px,   #000 0 0 1px;
+      text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
     }
 
     .category .card-content {
