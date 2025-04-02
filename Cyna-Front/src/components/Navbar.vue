@@ -34,9 +34,9 @@
               <li><a class="dropdown-item text-center" href="#">Categorie4</a></li>
             </ul>
           </li>
-          <li v-if="userStore.user" class="nav-item">
-          <p >Welcome, {{ userStore.user.lastName }}</p>
-          <a @click="userStore.logout()">Se déconnecter</a>
+          <li v-if="userStore.user" class="nav-item mt-5">
+          <p class="text-body-secondary">Bonjour, {{ userStore.user.lastName }}</p>
+          <a @click="userStore.logout()" class="nav-link" href="#">Se déconnecter</a>
           </li>
           <div v-else>
           <li class="nav-item">

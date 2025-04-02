@@ -41,7 +41,8 @@ export const useUserStore = defineStore("user", {
         window.location.href = "/";
       }
       } catch (e) {
-        alert("L'e-mail ou le mot de passe est incorrect");
+        console.log(document.querySelector('.alert'));
+        document.querySelector('.alert').style.display = 'block';
         console.log(e);
     }
     },
