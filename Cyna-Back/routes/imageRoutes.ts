@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import {PrismaClient} from '@prisma/client'
+import {Image, PrismaClient} from '@prisma/client'
 
 const prisma = new PrismaClient()
 const imageRouter = new Router();
@@ -24,7 +24,7 @@ imageRouter
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
             const new_image: any = await prisma.image.create({
                     data: {
-                        // altText: received_image.alText,
+                        altText: received_image.alText,
                         url: received_image.url
                     }
                 }
@@ -55,6 +55,51 @@ imageRouter
             ctx.body = e;
         }
     })
+    .post('/image/update', async (ctx, next) => {
+        console.log("/image/update")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #75959154")
+                return;
+            }
+            let result = await prisma.image.update({
+                where: {
+                    id: receivedData.imageId
+                },
+                data: {
+                    altText: receivedData.altText,
+                    url: receivedData.imageUrl
+                },
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/image/delete', async (ctx, next) => {
+        console.log("/image/delete")
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #75959151")
+                return;
+            }
+            let result = await prisma.image.delete({
+                where: {
+                    id: receivedData.imageId
+                }
+            })
+            console.log(result)
+            ctx.body = result;
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+
 
 
 export default imageRouter
