@@ -58,7 +58,11 @@ const routes = [
         name:'Connexion',
         component: () => import("../views/ConnexionView.vue")
     },
-
+    {
+        path:'/reset-password',
+        name:'Mot de passe oublié',
+        component: () => import("../views/MotDePasseOublieView.vue")
+    },
     {
         path:'/produit',
         name:'produit',
@@ -90,7 +94,12 @@ const routes = [
     {   path: "/cancel", 
         name: 'cancel',
         component: () => import("../views/Checkout/Cancel.vue") 
-    }
+    },
+    {
+        path:'/private',
+        name:'Private page',
+        component: () => import("../views/PrivatePageView.vue")
+    },
    
 ]
 

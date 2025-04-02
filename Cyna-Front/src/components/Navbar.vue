@@ -83,8 +83,8 @@
 </nav>
   </template>
   
-  <script lang="ts" >
-  import { useUserStore } from "../store/user.ts";
+  <script>
+  import { useUserStore } from "../stores/user.js";
   
   export default {
     setup() {
