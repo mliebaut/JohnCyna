@@ -103,7 +103,15 @@ const routes = [
         path: "/historique",
         name: "Historique",
         component: () => import("../views/OrderHistory.vue") 
-    }
+    },
+    {
+        path: '/account',
+        name: 'UserAccount',
+        component: () => import('../views/UserAccount.vue'),
+        meta: {
+          requiresAuth: true // Cette route nécessite une authentification
+        }
+      }
 ]
 
 const router = createRouter({
