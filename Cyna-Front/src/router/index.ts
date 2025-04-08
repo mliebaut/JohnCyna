@@ -63,7 +63,6 @@ const routes = [
         name: 'Connexion',
         component: () => import("../views/ConnexionView.vue")
     },
-
     {
         path: '/produit',
         name: 'produit',
@@ -108,8 +107,43 @@ const routes = [
         path: '/account',
         name: 'UserAccount',
         component: () => import('../views/UserAccount.vue'),
+    },
+    {
+        path: '/backoffice',
+        name: 'BackOffice',
+        component: () => import('../views/BackOffice/BackOfficeView.vue'),
 
-    }
+    },
+    {
+        path: '/backoffice',
+        name: 'BackOffice',
+        component: () => import('../views/BackOffice/BackOfficeView.vue'),
+
+    },
+    {
+        path: '/backoffice/users',
+        name: 'BackOffice Users',
+        component: () => import('../views/BackOffice/BackOfficeUserView.vue'),
+
+    },
+    {
+        path: '/backoffice/produits',
+        name: 'BackOffice Produits',
+        component: () => import('../views/BackOffice/BackOfficeProduitView.vue'),
+
+    },
+    {
+        path: '/backoffice/entreprises',
+        name: 'BackOffice Entreprises',
+        component: () => import('../views/BackOffice/BackOfficeEntrepriseView.vue'),
+
+    },
+    {
+        path: '/backoffice/adresses',
+        name: 'BackOffice Adresses',
+        component: () => import('../views/BackOffice/BackOfficeAdresseView.vue'),
+
+    },
 ]
 
 const router = createRouter({
