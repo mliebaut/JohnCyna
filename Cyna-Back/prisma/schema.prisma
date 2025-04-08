@@ -15,18 +15,18 @@ datasource db {
 }
 
 model User {
-  id                 Int     @id @default(autoincrement())
-  email              String  @unique
-  lastName           String
-  firstName          String
-  password           String
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  Orders             Order[]
-  Company            Company[]
-  Addresses          Address[]
-  ProfilePictures    ProfilePictures[]
-  role               UserPermission @default(USER)
+  id              Int               @id @default(autoincrement())
+  email           String            @unique
+  lastName        String
+  firstName       String
+  password        String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  Orders          Order[]
+  Company         Company[]
+  Addresses       Address[]
+  ProfilePictures ProfilePictures[]
+  role            UserPermission    @default(USER)
 }
 
 model Product {
@@ -63,11 +63,11 @@ model Order {
 }
 
 model Image {
-  id                 Int     @id @default(autoincrement())
+  id      Int       @id @default(autoincrement())
   // Alt text c'est la description si jamais l'image ne passe pas.
-  altText            String?
-  url                String?
-  Product            Product[]
+  altText String?
+  url     String?
+  Product Product[]
 }
 
 model Address {
@@ -87,7 +87,7 @@ model Address {
 model Company {
   id        Int       @id @default(autoincrement())
   name      String
-  phone              String?
+  phone     String?
   website   String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -131,8 +131,8 @@ enum UserPermission {
 }
 
 model ProfilePictures {
-  id                 Int     @id @default(autoincrement())
-  avatarLocation     String?
+  id             Int     @id @default(autoincrement())
+  avatarLocation String?
 
   User User[]
 }

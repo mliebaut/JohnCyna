@@ -23,12 +23,12 @@ userRouter
                 console.log("No Data Received - Error #4478897")
                 return;
             }
-            var content = JSON.parse(receivedData);
+            const content = JSON.parse(receivedData);
             console.log(content);
-            var nom = Object.values(content)[0];
-            var prenom = Object.values(content)[1];
-            var email = Object.values(content)[2];
-            var password = Object.values(content)[3];
+            const nom = Object.values(content)[0];
+            const prenom = Object.values(content)[1];
+            const email = Object.values(content)[2];
+            const password = Object.values(content)[3];
 
             const hashed_password = await PassFunc.hashMyPassword(password.toString())
             const new_user: any = await prisma.user.create({
@@ -53,9 +53,9 @@ userRouter
                 console.log("No Data Received - Error #4477797")
                 return;
             }
-            var content = JSON.parse(receivedData);
-            var email = Object.values(content)[0];
-            var password = Object.values(content)[1];
+            const content = JSON.parse(receivedData);
+            const email = Object.values(content)[0];
+            const password = Object.values(content)[1];
 
             const existingUser = await prisma.user.findUnique({
                 select: {
@@ -73,7 +73,7 @@ userRouter
                 console.log("User not found")
                 return;
             }
-            var passwordDB = Object.values(existingUser)[3];
+            const passwordDB = Object.values(existingUser)[3];
 
             if (await PassFunc.checkMyPassword(password, passwordDB)){
                 ctx.body = existingUser;
