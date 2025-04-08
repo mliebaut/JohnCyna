@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getAllUsers} from "../../functions/functions.ts";
+import {getAllUsers} from "@/functions/functions.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 

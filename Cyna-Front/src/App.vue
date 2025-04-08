@@ -1,13 +1,8 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
-=======
 // import HelloWorld from './components/HelloWorld.vue'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 import ChatBot from './components/ChatBot.vue'
->>>>>>> origin/dev
 </script>
 
 <template>

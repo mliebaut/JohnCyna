@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 </script>
 
