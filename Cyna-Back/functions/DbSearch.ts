@@ -15,8 +15,6 @@ async function search_funct_to_rename(object_we_received: any) {
         "firstName": object_we_received.firstName || undefined,
         //"lastName": object_we_received.lastName || undefined
     }
-    // console.log("Object we created")
-    // console.log(new_object)
     const result = await prisma.user.findMany({
         where: {
             email: new_object.email,
