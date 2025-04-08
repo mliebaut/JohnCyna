@@ -1,9 +1,30 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client'
+import * as PassFunc from "./functions/password";
 
 const prisma = new PrismaClient()
 
 export async function generate_fake_data() {
+    const password_1234 = await PassFunc.hashMyPassword("1234")
+
+    await prisma.user.create({
+        data: {
+            email: "johncyna@mewo.fr",
+            lastName: "Cyna",
+            firstName: "John",
+            password: password_1234,
+            role: "USER",
+        }
+    })
+    await prisma.user.create({
+        data: {
+            email: "faker@faker.lol",
+            lastName: "Sang-hyeok",
+            firstName: "Lee",
+            password: password_1234,
+            role: "ADMIN",
+        }
+    })
     for (let i = 0; i < 10; i++) {
         await prisma.image.create({
             data: {
