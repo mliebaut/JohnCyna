@@ -117,7 +117,7 @@
   
   <script lang="ts">
   import { defineComponent, ref, computed } from 'vue';
-  import { UserService } from '../services/user.service';
+  import { UserService } from '../functions/user.service';
   
   export default defineComponent({
     name: 'UserAccount',

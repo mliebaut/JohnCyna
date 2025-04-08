@@ -161,7 +161,7 @@ userRouter
             console.log(e)
         }
     })
-    .del('/user/delete', async (ctx, next) => {
+    .post('/user/delete', async (ctx, next) => {
         console.log("/user/delete");
         try {
             const receivedData = ctx.request.body;

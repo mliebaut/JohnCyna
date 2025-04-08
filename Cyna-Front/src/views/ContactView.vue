@@ -1,3 +1,7 @@
+<script setup lang="ts">
+// import ChatBot from '../components/ChatBot.vue'
+</script>
+
 <template>
   <div class="container">
     <div class="wrapper">
@@ -39,11 +43,8 @@
       </div>
     </div>
   </div>
+  <ChatBot />
 </template>
-
-<script setup>
-
-</script>
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');
 

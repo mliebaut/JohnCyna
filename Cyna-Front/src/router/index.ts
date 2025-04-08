@@ -108,9 +108,7 @@ const routes = [
         path: '/account',
         name: 'UserAccount',
         component: () => import('../views/UserAccount.vue'),
-        meta: {
-          requiresAuth: true // Cette route nécessite une authentification
-        }
+        
       }
 ]
 

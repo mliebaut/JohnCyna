@@ -6,7 +6,15 @@
         <input v-model="email" placeholder="Email" type="email"/>
         <input v-model="password" placeholder="Mot de passe" type="password">
       </div>
-      <router-link to="/inscription">Je n'ai pas de compte</router-link>
+      <div class="d-flex flex-column">
+        <router-link to="/inscription">Je n'ai pas de compte</router-link>
+        <div class="alert" style="display: none;">
+        <p class="text-brand">
+          Le mot de passe est incorrect
+        </p>
+      </div>
+        <router-link to="/inscription">Mot de passe oublié</router-link>
+      </div>
       <div>
         <button class="btn btn-primary fs-4 px-4 mt-2" type="submit">Connexion</button>
       </div>

@@ -3,10 +3,10 @@
     <form @submit.prevent="register">
       <h1>Créer un compte</h1>
       <div class="inputs">
-        <input v-model="nom" placeholder="Nom" type="text"/>
-        <input v-model="prenom" placeholder="Prénom" type="text"/>
-        <input v-model="email" placeholder="Email" type="email"/>
-        <input v-model="password" placeholder="Mot de passe" type="password">
+        <input v-model="nom" v-on:input="check" placeholder="Nom" type="text"/>
+        <input v-model="prenom" v-on:input="check" placeholder="Prénom" type="text"/>
+        <input v-model="email" v-on:input="check" placeholder="Email" type="email"/>
+        <input v-model="password" v-on:input="check" placeholder="Mot de passe" type="password">
       </div>
       <router-link to="/connexion">J'ai déja un compte</router-link>
       <div>

@@ -14,8 +14,8 @@ import subscriptionRoutes from "./routes/subscriptionRoutes";
 import userRouter from "./routes/userRoutes";
 
 //  Import du router Stripe
-import stripeRouter from "./routes/stripe";
-import successRouter from "./routes/success";
+//import stripeRouter from "./routes/stripe";
+//import successRouter from "./routes/success";
 
 const app = new Koa();
 
@@ -53,7 +53,7 @@ app.use(subscriptionRoutes.routes()).use(subscriptionRoutes.allowedMethods());
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
 
 //  Intégration des routes Stripe
-app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
-app.use(successRouter.routes()).use(successRouter.allowedMethods());
+//app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
+//app.use(successRouter.routes()).use(successRouter.allowedMethods());
 
 export default app;

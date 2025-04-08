@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import Serv_Url from "../main.ts";
-import router from 'vue-router'
+
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -23,6 +23,7 @@ export const useUserStore = defineStore("user", {
       if (res){
         const user = await res.json()
         this.user = user;
+        window.location.href = "/";
       }
       } catch (e) {
         console.log(e)
@@ -37,9 +38,12 @@ export const useUserStore = defineStore("user", {
       if (res){
         const user = await res.json();
         this.user = user;
+        window.location.href = "/";
       }
       } catch (e) {
-        console.log(e)
+        console.log(document.querySelector('.alert'));
+        document.querySelector('.alert').style.display = 'block';
+        console.log(e);
     }
     },
     async logout() {
