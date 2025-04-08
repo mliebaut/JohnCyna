@@ -29,34 +29,37 @@ model User {
   role               UserPermission @default(USER)
 }
 
-
 model Product {
-  id                 Int     @id @default(autoincrement())
-  ean                String?
-  GUID               String?
-  name               String?
-  description        String?
-  inStock            Boolean? @default(false)
-  categories         Category[]
-  order              Order[]
-  Basket             Basket[]
-  images             Image[]
+  id          Int        @id @default(autoincrement())
+  ean         String?
+  GUID        String?
+  name        String?
+  description String?
+  inStock     Boolean?   @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  categories  Category[]
+  order       Order[]
+  Basket      Basket[]
+  images      Image[]
 }
 
 model Category {
-  id                 Int     @id @default(autoincrement())
-  name               String
-  description        String?
-  products           Product[]
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  products    Product[]
 }
 
 model Order {
-  id                 Int     @id @default(autoincrement())
-  referenceNumber    Int?
-  price              Float?
-  paid               Boolean @default(false)
-  user               User[]
-  products           Product[]
+  id              Int       @id @default(autoincrement())
+  referenceNumber Int?
+  price           Float?
+  paid            Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  user            User[]
+  products        Product[]
 }
 
 model Image {
@@ -68,34 +71,36 @@ model Image {
 }
 
 model Address {
-  id                 Int     @id @default(autoincrement())
-  streetName         String
-  streetNumber       Int
-  postalCode         Int
-  cityName           String
-  country            String
-  extraInformation   String?
-  Company            Company[]
-  User               User[]
+  id               Int       @id @default(autoincrement())
+  streetName       String
+  streetNumber     Int
+  postalCode       Int
+  cityName         String
+  country          String
+  extraInformation String?
+  Company          Company[]
+  User             User[]
 }
 
 // - TODO: Rajouter des attributs à entreprise? Il manque peut-être des trucs.
 
 model Company {
-  id                 Int     @id @default(autoincrement())
-  name               String
+  id        Int       @id @default(autoincrement())
+  name      String
   phone              String?
-  website            String?
-  Addresses          Address[]
-  Contacts           User[]
+  website   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Addresses Address[]
+  Contacts  User[]
 }
 
 model Basket {
-  id                 Int     @id @default(autoincrement())
-  name               String?
-  price              Int?
-  subscriptionType   String?
-  Products           Product[]
+  id               Int       @id @default(autoincrement())
+  name             String?
+  price            Int?
+  subscriptionType String?
+  Products         Product[]
 }
 
 // - TODO: Modifier le nom des types dans l'enum
@@ -105,10 +110,10 @@ enum TypeSubscription {
 }
 
 model Subscription {
-  id                 Int     @id @default(autoincrement())
-  type               TypeSubscription?
-  price              Int?
-  duration           Int?
+  id       Int               @id @default(autoincrement())
+  type     TypeSubscription?
+  price    Int?
+  duration Int?
 }
 
 // // C'est un WIP, hein? Mais si on gère le backoffice, ca, ca marche.

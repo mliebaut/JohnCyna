@@ -5,6 +5,7 @@ const prisma = new PrismaClient()
 const productRouter = new Router();
 
 productRouter
+    // -
     .post('/product', async (ctx, next) => {
         console.log("/product");
         try {

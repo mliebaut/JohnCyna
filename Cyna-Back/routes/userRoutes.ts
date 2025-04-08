@@ -83,6 +83,16 @@ userRouter
             console.log(e)
         }
     })
+    .post('/user/searchAll', async (ctx, next) => {
+        console.log("/user/searchAll");
+        try {
+            let result = await prisma.user.findMany()
+            console.log(result)
+            ctx.body = result
+        } catch (e) {
+            console.log(e)
+        }
+    })
     // - TODO: Mettre en place une mise à jour selective. Genre, tu envoie seulement le nom et prénom, ca change que ça.
     .post('/user/searchById', async (ctx, next) => {
         console.log("/user/searchById")
