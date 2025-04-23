@@ -16,6 +16,18 @@ addressRouter
         }
     })
 
+    .post('/address/searchAll', async (ctx, next) => {
+        console.log("/address/searchAll");
+        try {
+            ctx.body = await prisma.address.findMany();
+        } catch (e) {
+            console.log(e);
+        }
+    })
+
+
+
+
     .post('/address/create', async (ctx, next) => {
         console.log("/address/create")
         try {

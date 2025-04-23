@@ -98,6 +98,7 @@ userRouter
         console.log("/user/searchById")
         try {
             const receivedData = ctx.request.body;
+            console.log(receivedData);
             if(Object.keys(receivedData).length == 0){
                 console.log("No Data Received - Error #55954959")
                 ctx.body = "No Data Received - Error #55954959";
@@ -110,10 +111,10 @@ userRouter
                 ctx.status = 404;
                 return;
             }
-            let result = await prisma.user.findMany({
+            let result = await prisma.user.findFirstOrThrow({
                 where:{
-                    id: receivedData.userId,
-                }
+                    id: receivedData.userId
+                },
             })
             console.log(result)
             ctx.body = result;

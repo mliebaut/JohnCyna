@@ -7,6 +7,7 @@ import CategoryViewView from '../views/CategoryView.vue';
 import AjoutPanierView from '../views/AjoutPanierView.vue';
 
 import HomeView1 from '../views/HomeView1.vue';
+import path from 'path';
 
 
 const routes = [
@@ -108,6 +109,7 @@ const routes = [
         name: 'UserAccount',
         component: () => import('../views/UserAccount.vue'),
     },
+  
     {
         path: '/backoffice',
         name: 'BackOffice',
@@ -115,13 +117,7 @@ const routes = [
 
     },
     {
-        path: '/backoffice',
-        name: 'BackOffice',
-        component: () => import('../views/BackOffice/BackOfficeView.vue'),
-
-    },
-    {
-        path: '/backoffice/users',
+        path: '/backoffice/user',
         name: 'BackOffice Users',
         component: () => import('../views/BackOffice/BackOfficeUserView.vue'),
 
@@ -149,6 +145,8 @@ const routes = [
         component: () => import('../views/BackOffice/BackOfficeAdresseView.vue'),
 
     },
+
+   
 ]
 
 const router = createRouter({

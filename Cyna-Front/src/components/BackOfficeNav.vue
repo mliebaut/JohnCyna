@@ -10,13 +10,13 @@
         <RouterLink to="/backoffice/user">Gestion des utilisateurs</RouterLink>
       </div>
       <div>
-        <RouterLink to="/backoffice/produit">Gestion des produits</RouterLink>
+        <RouterLink to="/backoffice/produits">Gestion des produits</RouterLink>
       </div>
       <div>
         <RouterLink to="/backoffice/entreprises">Gestion des entreprises</RouterLink>
       </div>
       <div>
-        <RouterLink to="/backoffice/produit">Gestion des adresses</RouterLink>
+        <RouterLink to="/backoffice/adresses">Gestion des adresses</RouterLink>
       </div>
       </div>
     </nav>

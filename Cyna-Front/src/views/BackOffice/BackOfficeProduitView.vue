@@ -3,9 +3,9 @@ import {getAllProducts} from "@/functions/functions.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
-const myUsers = ref()
+const myProduits = ref()
 onMounted(async () => {
-  myUsers.value = await getAllProducts()
+  myProduits.value = await getAllProducts()
 })
 
 function editProduct(id: number) {
@@ -45,7 +45,7 @@ function deleteProduct(id: number) {
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in myUsers" scope="row">
+        <tr v-for="item in myProduits" scope="row">
           <td>
             {{ item.id }}
           </td>

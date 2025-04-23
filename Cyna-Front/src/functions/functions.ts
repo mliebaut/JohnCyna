@@ -3,7 +3,6 @@ import Serv_Url from "../main.ts";
 export async function ping_server(){
     const response = await fetch(Serv_Url + "/ping", {
         method: "POST",
-        mode:"no-cors"
     });
     if(!response) {
         console.log("No response from server")
@@ -17,10 +16,9 @@ export async function find_user_by_id(user_id : number){
     try {
         const response = await fetch(Serv_Url + "/user/searchById", {
             method: "POST",
-            body: JSON.stringify({ user_id: user_id }),
-            mode:"no-cors"
-        });
-        console.log(response);
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ userId: user_id }),
+        }).then(res => res.json())
         return response;
     } catch (e) {
         console.log(e);
@@ -67,4 +65,30 @@ export async function getAllProducts(){
     }
 }
 
+export async function getAlladdress(){
+    try {
+        const response = await fetch(Serv_Url + "/address/searchAll", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        //  console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+export async function getAllEntreprise(){
+    try {
+        const response = await fetch(Serv_Url + "/company/searchAll", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
 
