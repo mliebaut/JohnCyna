@@ -1,21 +1,20 @@
 
 Back 
 ```shell
-
-npm run main --prefix Cyna-Back
+cd Cyna-Back
+npm run main
 ```
 Front
 ```shell
-
-npm run dev --prefix Cyna-Front
+cd Cyna-Front
+npm run dev
 ```
 Prisma Studio
 ```shell
-cd cyna-back
-```
-```shell
+cd Cyna-Back
 npx prisma studio
 ```
+
 _________________
 _________________
 _________________
