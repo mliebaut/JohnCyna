@@ -4,9 +4,25 @@ import * as PassFunc from "./functions/password";
 
 const prisma = new PrismaClient()
 
-export async function generate_fake_data() {
-    const password_1234 = await PassFunc.hashMyPassword("1234")
 
+async function generate_unique_users() {
+    const password_1234 = await PassFunc.hashMyPassword("1234")
+    const unique_check =  await prisma.user.findMany({
+        where: {
+            OR: [
+                {
+                    email: "johncyna@mewo.fr",
+                },
+                {
+                    email: "faker@faker.lol",
+                }
+            ]
+        }
+    })
+    if(unique_check.length > 0){
+        return;
+    }
+    console.log(unique_check)
     await prisma.user.create({
         data: {
             email: "johncyna@mewo.fr",
@@ -25,6 +41,12 @@ export async function generate_fake_data() {
             role: "ADMIN",
         }
     })
+}
+
+
+export async function generate_fake_data() {
+    await generate_unique_users()
+    const password_1234 = await PassFunc.hashMyPassword("1234")
     for (let i = 0; i < 10; i++) {
         await prisma.image.create({
             data: {
@@ -73,6 +95,7 @@ export async function generate_fake_data() {
             }
         })
     }
+
 
 
 
