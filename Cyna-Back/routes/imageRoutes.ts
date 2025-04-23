@@ -5,14 +5,6 @@ const prisma = new PrismaClient()
 const imageRouter = new Router();
 
 imageRouter
-    .post('/image', async (ctx, next) => {
-        console.log("/image");
-        try {
-            ctx.body = await prisma.image.findMany()
-        } catch (e) {
-            console.log(e)
-        }
-    })
     .post('/image/create', async (ctx, next) => {
         console.log("/image/create");
         try {
@@ -33,6 +25,15 @@ imageRouter
             ctx.body = new_image;
         } catch (e) {
             console.log(e)
+        }
+    })
+    .post('/image/SearchAll', async (ctx, next) => {
+        console.log("/image/SearchAll")
+        try {
+            ctx.body = await prisma.image.findMany({});
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
         }
     })
     .post('/image/searchById', async (ctx, next) => {
