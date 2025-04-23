@@ -1,24 +1,19 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
-// import AboutView from './AboutView.vue'
+//import AboutView from './AboutView.vue'
 //import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
 import AjoutPanierView from '../views/AjoutPanierView.vue';
-
 import HomeView1 from '../views/HomeView1.vue';
-import path from 'path';
 
 
 const routes = [
-
     {
         path: '/ajout-panier',
         name: 'ajout-panier',
         component: AjoutPanierView
     },
-
-
     {
         path: '/',
         name: 'Home',
@@ -109,18 +104,15 @@ const routes = [
         name: 'UserAccount',
         component: () => import('../views/UserAccount.vue'),
     },
-  
     {
         path: '/backoffice',
         name: 'BackOffice',
         component: () => import('../views/BackOffice/BackOfficeView.vue'),
-
     },
     {
         path: '/backoffice/user',
         name: 'BackOffice Users',
         component: () => import('../views/BackOffice/BackOfficeUserView.vue'),
-
     },
     {
         path: '/backoffice/dashboard',
@@ -131,22 +123,17 @@ const routes = [
         path: '/backoffice/produits',
         name: 'BackOffice Produits',
         component: () => import('../views/BackOffice/BackOfficeProduitView.vue'),
-
     },
     {
         path: '/backoffice/entreprises',
         name: 'BackOffice Entreprises',
         component: () => import('../views/BackOffice/BackOfficeEntrepriseView.vue'),
-
     },
     {
         path: '/backoffice/adresses',
         name: 'BackOffice Adresses',
         component: () => import('../views/BackOffice/BackOfficeAdresseView.vue'),
-
     },
-
-   
 ]
 
 const router = createRouter({

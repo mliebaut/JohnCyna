@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import BackOfficeNav from "@/components/BackOfficeNav.vue";
 </script>
 
 <template>
-  <!-- <BackOfficeNav /> -->
-
   <main style="padding: 2rem; font-family: sans-serif; background-color: #f8f9fa; min-height: 100vh;">
     <h2 style="margin-bottom: 2rem; text-align: center;">🎛️ Interface Back Office</h2>
 

@@ -108,7 +108,6 @@
 
 </template>
 <script setup lang="ts">
-import {ref} from "vue";
 const button = document.querySelector('.product__button');
 
 function buttonAnimate() {
