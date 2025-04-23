@@ -9,6 +9,7 @@
         <input v-model="email" placeholder="Email" type="email"/>
         <button class="btn btn-primary fs-4 px-4 mt-2" type="submit">Envoyer</button>
       </div>
+      <p class="reset-link text-body-secondary" style="display: none;">{{ userStore.urlResetPassword }}</p>
     </form>
     
   </section>
@@ -18,6 +19,7 @@
 <script>
 import { useUserStore } from "../stores/user.js";
 
+
 export default {
   setup() {
     const userStore = useUserStore();
@@ -26,11 +28,12 @@ export default {
   data() {
     return {
       email: "",
+      url: ""
     };
   },
   methods: {
     async resetPassword() {
-      await this.userStore.resetPassword(this.email);
+      await this.userStore.resetPassword(this.email)
     },
   },
 };

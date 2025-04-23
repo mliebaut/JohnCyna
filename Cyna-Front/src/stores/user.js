@@ -5,7 +5,8 @@ import Serv_Url from "../main.ts";
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
-    returnUrl: null
+    returnUrl: null,
+    urlResetPassword: null,
   }),
 
   actions: {
@@ -60,22 +61,23 @@ export const useUserStore = defineStore("user", {
         method: "POST",
         body: JSON.stringify({ email }),
       });
-  
-      const token = await res.json();
-      console.log(token);
+
+      const data = await res.json();
+      document.querySelector('.reset-link').style.display = 'block';
+      this.urlResetPassword =  window.location.origin + "/update-password?token=" + data.token
       } catch (e) {
       console.log(e);
       }
     },
     async newPassword(password) {
-      try {
-      const res = await fetch(Serv_Url + '/new-password', {
+      try { 
+      const params = new URLSearchParams(window.location.search.substring(1));
+      const token = params.get("token");
+      const res = await fetch(Serv_Url + '/update-password', {
         method: "POST",
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ token, password }),
       });
-  
-      const token = await res.json();
-      console.log(token);
+      const data = await res.json();
       } catch (e) {
       console.log(e);
       }

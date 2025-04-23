@@ -64,6 +64,11 @@ const routes = [
         component: () => import("../views/MotDePasseOublieView.vue")
     },
     {
+        path:'/update-password',
+        name:'Réinitialiser le mot de passe',
+        component: () => import("../views/NouveauMotDePasseView.vue")
+    },
+    {
         path:'/produit',
         name:'produit',
         component: () => import("../views/ProduitView.vue")

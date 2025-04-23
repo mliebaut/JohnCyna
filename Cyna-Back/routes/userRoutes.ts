@@ -161,14 +161,14 @@ userRouter
                 ctx.status = 404;
                 return;
             }
-            let content = JSON.parse(receivedData);
+            const content = JSON.parse(receivedData);
 
             const existingUser = await prisma.user.findUnique({
                 select: {
+                    id: true,
                     lastName: true,  
                     firstName: true,
                     email: true,
-                    password: true,
                 },
                 where:{
                     email: Object.values(content)[0] as string,
@@ -178,14 +178,88 @@ userRouter
                 console.log("User not found")
                 return;
             }
-            const token = jwt.sign(existingUser, "secret");
-            console.log(token);
-            ctx.body = token;
+            const token = jwt.sign(existingUser, "secret",{expiresIn: '15m'});
+            const userToUpdate: any = await prisma.user.update({
+                where: {
+                    email: Object.values(content)[0] as string,
+                },
+                data: {
+                    resetPasswordToken: token,
+                }
+            })
+            ctx.body = JSON.stringify({ token });
         }
         catch (e) {
-            console.log("Error : ")
-            console.log(e);
+            console.log("Error : " + e)
             ctx.body = e;
+        }
+    })
+    .post('/update-password', async (ctx, next) => {
+        console.log("/update-password");
+        try {
+            const receivedData = ctx.request.body;
+            if (receivedData) {
+                const content = JSON.parse(receivedData);
+                const token: string = Object.values(content)[0] as string;
+                const password: string = Object.values(content)[1] as string;
+                await jwt.verify(token, "secret", function(error: any){
+                    if (error) {
+                        console.log("Incorrect token or it is expired")
+                        return;
+                    }else {
+                        const existingUser: any = prisma.user.findUnique({
+                            select: {
+                                lastName: true,  
+                                firstName: true,
+                                email: true,
+                                password: true,
+                            },
+                            where: {
+                                resetPasswordToken: token,
+                            }
+                        })
+                        if(!existingUser){
+                            console.log("User with this token does not exist")
+                            return;
+                        }else {
+                            const userToUpdate: any =  prisma.user.update({
+                                where: {
+                                    resetPasswordToken: token
+                                },
+                                data: {
+                                    password: password,
+                                }
+                            })
+                            if(!userToUpdate){
+                                console.log("User with this token does not exist")
+                                return;
+                        }
+                    }
+                    }
+                    console.log(token)
+                    console.log(password)
+                })
+            }
+            /*const existingUser: any = await prisma.user.findUnique({
+                select: {
+                    lastName: true,  
+                    firstName: true,
+                    email: true,
+                    password: true,
+                },
+                where:{
+                    resetPasswordToken: receivedData,
+                }
+            })
+            if(!existingUser){
+                console.log("User with this token does not exist")
+                return;
+            }
+            */
+           /* const content = JSON.parse(receivedData);
+            console.log(Object.values(content)[1] as string)*/
+        } catch (e) {
+            console.log(e)
         }
     })
     .post('user/update', async (ctx, next) => {
