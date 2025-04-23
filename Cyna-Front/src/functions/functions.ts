@@ -65,7 +65,7 @@ export async function getAllProducts(){
     }
 }
 
-export async function getAlladdress(){
+export async function getAllAddresses(){
     try {
         const response = await fetch(Serv_Url + "/address/searchAll", {
             method: "POST"

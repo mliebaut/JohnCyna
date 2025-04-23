@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {getAllAdresses} from "../../functions/functions.ts";
+import {getAllAddresses} from "@/functions/functions.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
 const myAdresses = ref()
 onMounted(async () => {
-  myAdresses.value = await getAllAdresses()
+  myAdresses.value = await getAllAddresses()
 })
 
 function editAdresses(id: number) {
