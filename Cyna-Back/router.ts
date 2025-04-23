@@ -21,8 +21,7 @@ CynaRouter
         console.log("/faker")
         try {
             const result = await fakertest.generate_fake_data();
-            console.log(result)
-            ctx.body = result
+            ctx.body = "Generated Basic Fixtures."
         } catch (e) {
             console.log(e)
             ctx.body = e
