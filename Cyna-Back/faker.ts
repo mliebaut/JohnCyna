@@ -22,7 +22,6 @@ async function generate_unique_users() {
     if(unique_check.length > 0){
         return;
     }
-    console.log(unique_check)
     await prisma.user.create({
         data: {
             email: "johncyna@mewo.fr",
@@ -43,64 +42,7 @@ async function generate_unique_users() {
     })
 }
 
-
-export async function generate_fake_data() {
-    await generate_unique_users()
-    const password_1234 = await PassFunc.hashMyPassword("1234")
-    for (let i = 0; i < 10; i++) {
-        await prisma.image.create({
-            data: {
-                altText: faker.commerce.productDescription(),
-                url: faker.image.url()
-            }
-        })
-        await prisma.address.create({
-            data: {
-                streetName: faker.location.street(),
-                streetNumber: faker.number.int(150),
-                postalCode: parseInt(faker.location.zipCode()),
-                cityName: faker.location.city(),
-                country: faker.location.country()
-            }
-        })
-        await prisma.user.create({
-            data: {
-                email: faker.internet.email(),
-                lastName: faker.person.lastName(),
-                firstName: faker.person.firstName(),
-                password: faker.food.adjective()
-            }
-        })
-        await prisma.company.create({
-            data: {
-                name: faker.company.name(),
-                website: faker.internet.domainName(),
-            }
-        })
-        await prisma.product.create({
-            data: {
-                name: faker.internet.domainWord(),
-                description: faker.hacker.phrase()
-            }
-        })
-        await prisma.category.create({
-            data: {
-                name: faker.commerce.product(),
-                description: faker.commerce.productDescription()
-            }
-        })
-        await prisma.order.create({
-            data: {
-                referenceNumber: faker.number.int(2000),
-            }
-        })
-    }
-
-
-
-
-// - TODO: Faire un loop qui regarde ping la BDD, qui trouve une liste d'Users, d'Orders, de Products, qui prends une liste valide de ID's, et qui les utilisent pour ces jointures.
-
+async function connect_entities(){
     const userNumber = await prisma.user.count()
     const orderNumber = await prisma.order.count()
     const productNumber = await prisma.product.count()
@@ -193,6 +135,59 @@ export async function generate_fake_data() {
             }
         })
     }
+}
 
+export async function generate_fake_data() {
+    await generate_unique_users()
+    const password_1234 = await PassFunc.hashMyPassword("1234")
+    for (let i = 0; i < 10; i++) {
+        await prisma.image.create({
+            data: {
+                altText: faker.commerce.productDescription(),
+                url: faker.image.url()
+            }
+        })
+        await prisma.address.create({
+            data: {
+                streetName: faker.location.street(),
+                streetNumber: faker.number.int(150),
+                postalCode: parseInt(faker.location.zipCode()),
+                cityName: faker.location.city(),
+                country: faker.location.country()
+            }
+        })
+        await prisma.user.create({
+            data: {
+                email: faker.internet.email(),
+                lastName: faker.person.lastName(),
+                firstName: faker.person.firstName(),
+                password: faker.food.adjective()
+            }
+        })
+        await prisma.company.create({
+            data: {
+                name: faker.company.name(),
+                website: faker.internet.domainName(),
+            }
+        })
+        await prisma.product.create({
+            data: {
+                name: faker.internet.domainWord(),
+                description: faker.hacker.phrase()
+            }
+        })
+        await prisma.category.create({
+            data: {
+                name: faker.commerce.product(),
+                description: faker.commerce.productDescription()
+            }
+        })
+        await prisma.order.create({
+            data: {
+                referenceNumber: faker.number.int(2000),
+            }
+        })
+    }
+    await connect_entities()
 }
 
