@@ -1,27 +1,40 @@
 <script setup lang="ts">
-import {getAllUsers} from "@/functions/functions.ts";
+import {find_user_by_id, getAllUsers} from "@/functions/functions.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
 const myUsers = ref()
+const myModal = ref()
+const closeButton = ref()
+const selectedUser = ref()
+const modalOpen = ref(false)
 onMounted(async () => {
   myUsers.value = await getAllUsers()
+  myModal.value = document.querySelector("#myModal")
+  closeButton.value = document.querySelector("#closeButton")
 })
 
-function editUser(id: number) {
-  console.log(id)
-  // Popup
+async function editUser(id: number) {
+  selectedUser.value = await find_user_by_id(id)
+  openModal()
 }
 
 function deleteUser(id: number) {
   console.log(id)
-
 }
+
+function openModal() {
+  modalOpen.value = true
+}
+function closeModal() {
+  modalOpen.value = false;
+}
+
 
 </script>
 
 <template>
-  <main>
+  <main @click="closeModal">
     <br>
     <BackOfficeNav></BackOfficeNav>
     <h3>
@@ -75,10 +88,64 @@ function deleteUser(id: number) {
         </tr>
         </tbody>
       </table>
+      <!-- The Modal -->
+      <div id="myModal" class="modal" v-if="modalOpen">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close" @click="closeModal">&times;</span>
+          <p>Edition d'utilisateur</p>
+          <div>ID: {{ selectedUser.id }}</div>
+          <div>
+            Email : {{  selectedUser.email }}
+          </div>
+          <div>
+            FirstName: {{  selectedUser.firstName }}
+          </div>
+          <div>
+            LastName : {{  selectedUser.lastName }}
+          </div>
+          <div>
+            Role : {{  selectedUser.role }}
+          </div>
+          <div>
+            Created : {{  selectedUser.createdAt }}
+          </div>
+          <div>
+            Updated : {{  selectedUser.updatedAt }}
+
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
+
+/* https://www.w3schools.com/howto/howto_css_modals.asp */
+/* The Modal (background) */
+.modal {
+  display: block;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
 
 </style>
