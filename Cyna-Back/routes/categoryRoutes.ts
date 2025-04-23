@@ -5,12 +5,34 @@ const prisma = new PrismaClient()
 const categoryRouter = new Router();
 
 categoryRouter
-    .post('/category', async (ctx, next) => {
-        console.log("/category");
+    .post('/category/create', async (ctx, next) => {
+        console.log("/category/create")
         try {
-            ctx.body = await prisma.category.findMany()
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #459751")
+                return;
+            }
+            let result = await prisma.category.create({
+                data:{
+                    name: receivedData.categoryName,
+                    description: receivedData.categoryDescription,
+                }
+            })
+            console.log(result)
+            ctx.body = result;
         } catch (e) {
-            console.log(e)
+            console.log(e);
+            ctx.body = e;
+        }
+    })
+    .post('/category/searchAll', async (ctx, next) => {
+        console.log("/category/searchAll")
+        try {
+            ctx.body = await prisma.category.findMany({});
+        } catch (e) {
+            console.log(e);
+            ctx.body = e;
         }
     })
     .post('/category/searchById', async (ctx, next) => {
@@ -24,27 +46,6 @@ categoryRouter
             let result = await prisma.category.findMany({
                 where:{
                     id: receivedData.categoryId,
-                }
-            })
-            console.log(result)
-            ctx.body = result;
-        } catch (e) {
-            console.log(e);
-            ctx.body = e;
-        }
-    })
-    .post('/category/create', async (ctx, next) => {
-        console.log("/category/create")
-        try {
-            const receivedData = ctx.request.body;
-            if(!receivedData){
-                console.log("No Data Received - Error #459751")
-                return;
-            }
-            let result = await prisma.category.create({
-                data:{
-                    name: receivedData.categoryName,
-                    description: receivedData.categoryDescription,
                 }
             })
             console.log(result)
@@ -98,6 +99,5 @@ categoryRouter
             ctx.body = e;
         }
     })
-
 
 export default categoryRouter
