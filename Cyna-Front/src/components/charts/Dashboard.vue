@@ -40,4 +40,4 @@
 import SalesPerDayChart from './SalesPerDayChart.vue'
 import AvgBasketChart from './AvgBasketChart.vue'
 import SalesByCategoryChart from './SalesByCategoryChart.vue'
-</script
+</script>
