@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import {getAllUsers} from "../../functions/functions.ts";
+import {getAllEntreprise} from "../../functions/functions.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
-const myUsers = ref()
+const myEntreprises = ref()
 onMounted(async () => {
-  myUsers.value = await getAllUsers()
+  myEntreprises.value = await getAllEntreprise()
 })
 
-function editUser(id: number) {
+function editEntreprises(id: number) {
   console.log(id)
   // Popup
 }
 
-function deleteUser(id: number) {
+function deleteEntreprises(id: number) {
   console.log(id)
 
 }
@@ -32,43 +32,35 @@ function deleteUser(id: number) {
       <table class="table table-striped table-sm">
         <thead>
         <tr>
-          <th>ID Utilisateur</th>
-          <th>Email</th>
-          <th>Prénom</th>
-          <th>Nom</th>
+          <th>ID Entreprise</th>
+          <th>nom</th>
+          <th>phone</th>
+          <th>site web</th>
           <th>Role</th>
-          <th>Created At</th>
-          <th>Updated At</th>
+         
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in myUsers" scope="row">
+        <tr v-for="item in myEntreprises" scope="row">
           <td>
             {{ item.id }}
           </td>
+          
           <td>
-            {{ item.email }}
+            {{ item.name }}
           </td>
           <td>
-            {{ item.firstName }}
+            {{ item.phone }}
           </td>
           <td>
-            {{ item.lastName }}
+            {{ item.website }}
           </td>
+         
           <td>
-            {{ item.role }}
-          </td>
-          <td>
-            {{ item.createdAt }}
-          </td>
-          <td>
-            {{ item.updatedAt }}
-          </td>
-          <td>
-            <button class="btn btn-success" @click="editUser(item.id)">
+            <button class="btn btn-success" @click="editEntreprises(item.id)">
               Edit
             </button>
-            <button class="btn btn-danger" @click="deleteUser(item.id)">
+            <button class="btn btn-danger" @click="deleteEntreprises(item.id)">
               Delete
             </button>
           </td>

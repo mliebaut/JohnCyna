@@ -10,7 +10,7 @@ import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
       <RouterLink
-        to="/backoffice/users"
+        to="/backoffice/user"
         class="card-link"
       >
         👤 Gestion des utilisateurs

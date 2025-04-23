@@ -67,4 +67,29 @@ export async function getAllProducts(){
     }
 }
 
+export async function getAlladdress(){
+    try {
+        const response = await fetch(Serv_Url + "/address/searchAll", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        //  console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+    
 
+export async function getAllEntreprise(){
+    try {
+        const response = await fetch(Serv_Url + "/company/searchAll", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
