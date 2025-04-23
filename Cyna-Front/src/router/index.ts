@@ -127,6 +127,11 @@ const routes = [
 
     },
     {
+        path: '/backoffice/dashboard',
+        name: 'Dashboard',
+        component: () => import('../components/charts/Dashboard.vue') 
+    },
+    {
         path: '/backoffice/produits',
         name: 'BackOffice Produits',
         component: () => import('../views/BackOffice/BackOfficeProduitView.vue'),

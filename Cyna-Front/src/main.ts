@@ -6,6 +6,10 @@ import { createPinia } from "pinia";
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 
+import { Chart as ChartJS, registerables } from 'chart.js'
+ChartJS.register(...registerables)
+
+
 const Serv_Url = 'http://127.0.0.1:3001'
 export default Serv_Url;
 
