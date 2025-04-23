@@ -13,6 +13,19 @@ companyRouter
             console.log(e)
         }
     })
+
+    .post('/company/searchAll', async (ctx, next) => {
+        console.log("/company/searchAll");
+        try {
+            ctx.body = await prisma.address.findMany();
+        } catch (e) {
+            console.log(e);
+        }
+    })
+
+
+
+
     .post('/company/create', async (ctx, next) => {
         console.log("/company/create");
         try {
