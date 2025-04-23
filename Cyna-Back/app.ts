@@ -15,15 +15,11 @@ import userRouter from "./routes/userRoutes";
 import dashboardRoutes from './routes/dashboardRoutes'
 
 
-
-
-
 //  Import du router Stripe
 //import stripeRouter from "./routes/stripe";
 //import successRouter from "./routes/success";
 
 const app = new Koa();
-
 //  Middleware CORS pour autoriser le frontend (Vue.js)
 app.use(
     cors({
@@ -36,15 +32,6 @@ app.use(
 
 //  Middleware pour parser les requêtes JSON
 app.use(koaBody());
-
-// //  Route de test pour vérifier que le serveur fonctionne
-// app.use(async (ctx, next) => {
-//     if (ctx.path === "/") {
-//         ctx.body = "Hello Koa";
-//         return;
-//     }
-//     await next();
-// });
 
 //  Intégration des routes existantes
 app.use(CynaRouter.routes()).use(CynaRouter.allowedMethods());

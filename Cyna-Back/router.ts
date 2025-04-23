@@ -11,11 +11,7 @@ CynaRouter
     })
     .post('/', async (ctx, next) => {
         console.log("/ - Empty Post request");
-        try {
             ctx.body = 'Hello My Koa!';
-        } catch (e) {
-            console.log(e)
-        }
     })
     .post('/faker', async (ctx, next) => {
         console.log("/faker")
@@ -27,11 +23,5 @@ CynaRouter
             ctx.body = e
         }
     })
-    .all('/users/:id', (ctx, next) => {
-        try {
-        } catch (e) {
-            console.log(e)
-        }
-    });
 
 export default CynaRouter
