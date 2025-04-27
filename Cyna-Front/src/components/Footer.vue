@@ -16,13 +16,21 @@
           </svg></a></li>
         </ul>
       </div>
-  
+
       <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Mentions légales</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">CGU</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact</a></li>
+        <li class="nav-item">
+          <router-link class="nav-link px-2 text-body-secondary" to="/mentions-legales">Mentions légales</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link px-2 text-body-secondary" to="/cgu">CGU</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link px-2 text-body-secondary" to="/contact">Contact</router-link>
+        </li>
       </ul>
     </footer>
   </div>
   
   </template>
+<script setup lang="ts">
+</script>
