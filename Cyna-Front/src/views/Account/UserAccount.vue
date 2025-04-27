@@ -117,11 +117,11 @@
   
   <script lang="ts">
   import { defineComponent, ref, computed } from 'vue';
-  import { UserService } from '../functions/user.service';
-  
+  import { UserService } from '../../functions/user.service.ts';
+
   export default defineComponent({
     name: 'UserAccount',
-    
+
     setup() {
       // User data
       const user = ref({
@@ -129,32 +129,32 @@
         fullName: '',
         email: '',
       });
-      
+
       // Password form
       const passwordForm = ref({
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
       });
-      
+
       // UI states
       const isSubmitting = ref(false);
       const showSuccessAlert = ref(false);
       const showErrorAlert = ref(false);
       const errorMessage = ref('');
-      
+
       // Password validation
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
       const isPasswordValid = computed(() => {
         if (!passwordForm.value.newPassword) return null;
         return passwordRegex.test(passwordForm.value.newPassword);
       });
-      
+
       const doPasswordsMatch = computed(() => {
         if (!passwordForm.value.confirmPassword) return null;
         return passwordForm.value.newPassword === passwordForm.value.confirmPassword;
       });
-      
+
       // Load user data on component mount
       const loadUserData = async () => {
         try {
@@ -164,17 +164,17 @@
           showError("Impossible de charger les informations de l'utilisateur.");
         }
       };
-      
+
       // Update personal information
       const updatePersonalInfo = async () => {
         isSubmitting.value = true;
-        
+
         try {
           await UserService.updatePersonalInfo({
             fullName: user.value.fullName,
             email: user.value.email
           });
-          
+
           showSuccess();
         } catch (error) {
           showError("Une erreur s'est produite lors de la mise à jour de vos informations.");
@@ -182,24 +182,24 @@
           isSubmitting.value = false;
         }
       };
-      
+
       // Update password
       const updatePassword = async () => {
         isSubmitting.value = true;
-        
+
         try {
           await UserService.updatePassword({
             currentPassword: passwordForm.value.currentPassword,
             newPassword: passwordForm.value.newPassword
           });
-          
+
           // Reset password form
           passwordForm.value = {
             currentPassword: '',
             newPassword: '',
             confirmPassword: ''
           };
-          
+
           showSuccess();
         } catch (error) {
           showError("Une erreur s'est produite lors du changement de mot de passe.");
@@ -207,7 +207,7 @@
           isSubmitting.value = false;
         }
       };
-      
+
       // Show success alert
       const showSuccess = () => {
         showSuccessAlert.value = true;
@@ -215,7 +215,7 @@
           showSuccessAlert.value = false;
         }, 5000);
       };
-      
+
       // Show error alert
       const showError = (message: string) => {
         errorMessage.value = message;
@@ -224,10 +224,10 @@
           showErrorAlert.value = false;
         }, 5000);
       };
-      
+
       // Load user data on component creation
       loadUserData();
-      
+
       return {
         user,
         passwordForm,
