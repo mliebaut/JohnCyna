@@ -102,7 +102,12 @@ const routes = [
     {
         path: '/account',
         name: 'UserAccount',
-        component: () => import('../views/UserAccount.vue'),
+        component: () => import('../views/Account/UserAccount.vue'),
+    },
+    {
+        path: '/account1',
+        name: 'Account',
+        component: () => import('../views/Account/AccountView.vue'),
     },
     {
         path: '/backoffice',

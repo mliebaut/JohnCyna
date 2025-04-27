@@ -14,6 +14,7 @@ export async function ping_server(){
 
 export async function find_user_by_id(user_id : number){
     try {
+        if(user_id == null){console.log("No User Info Given."); return;}
         const response = await fetch(Serv_Url + "/user/searchById", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
