@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run all" type="CompoundRunConfigurationType">
+    <toRun name="Run Back" type="ShConfigurationType" />
+    <toRun name="Run Dev" type="ShConfigurationType" />
+    <toRun name="Run Studio" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
