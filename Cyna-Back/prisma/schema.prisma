@@ -20,7 +20,7 @@ model User {
   lastName           String
   firstName          String
   password           String
-  resetPasswordToken String   @unique @db.VarChar(400)
+  resetPasswordToken String?  @db.VarChar(400)
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   Orders             Order[]

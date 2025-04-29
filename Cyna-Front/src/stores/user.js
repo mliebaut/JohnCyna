@@ -78,6 +78,9 @@ export const useUserStore = defineStore("user", {
         body: JSON.stringify({ token, password }),
       });
       const data = await res.json();
+      if (res){
+        window.location.href = "/";
+      }
       } catch (e) {
       console.log(e);
       }

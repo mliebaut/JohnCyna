@@ -202,13 +202,14 @@ userRouter
                 const content = JSON.parse(receivedData);
                 const token: string = Object.values(content)[0] as string;
                 const password: string = Object.values(content)[1] as string;
-                await jwt.verify(token, "secret", function(error: any){
+                await jwt.verify(token, "secret", async function(error: any){
                     if (error) {
                         console.log("Incorrect token or it is expired")
                         return;
                     }else {
-                        const existingUser: any = prisma.user.findUnique({
+                        const existingUser: any = await prisma.user.findFirst({
                             select: {
+                                id: true,
                                 lastName: true,  
                                 firstName: true,
                                 email: true,
@@ -222,42 +223,25 @@ userRouter
                             console.log("User with this token does not exist")
                             return;
                         }else {
-                            const userToUpdate: any =  prisma.user.update({
+                            const hashed_password = await PassFunc.hashMyPassword(password.toString())
+                            const userToUpdate: any = await prisma.user.update({
                                 where: {
-                                    resetPasswordToken: token
+                                    id: Object.values(existingUser)[0] as number
                                 },
                                 data: {
-                                    password: password,
+                                    resetPasswordToken: null,
+                                    password: hashed_password,
                                 }
                             })
+                            ctx.body = userToUpdate;
                             if(!userToUpdate){
                                 console.log("User with this token does not exist")
                                 return;
+                            }
                         }
                     }
-                    }
-                    console.log(token)
-                    console.log(password)
                 })
             }
-            /*const existingUser: any = await prisma.user.findUnique({
-                select: {
-                    lastName: true,  
-                    firstName: true,
-                    email: true,
-                    password: true,
-                },
-                where:{
-                    resetPasswordToken: receivedData,
-                }
-            })
-            if(!existingUser){
-                console.log("User with this token does not exist")
-                return;
-            }
-            */
-           /* const content = JSON.parse(receivedData);
-            console.log(Object.values(content)[1] as string)*/
         } catch (e) {
             console.log(e)
         }

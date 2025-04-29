@@ -28,10 +28,9 @@
               Catégories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item text-center" href="#">Categorie1</a></li>
-              <li><a class="dropdown-item text-center" href="#">Categorie2</a></li>
-              <li><a class="dropdown-item text-center" href="#">Categorie3</a></li>
-              <li><a class="dropdown-item text-center" href="#">Categorie4</a></li>
+              <div v-for="category in categories" :key="category.title">
+                <li><router-link class="dropdown-item text-center" :to="{ path: `/category/${category.title}`}" >{{ category.title }}</router-link></li>
+              </div>
             </ul>
           </li>
           <li v-if="userStore.user" class="nav-item mt-5">
@@ -85,8 +84,14 @@
   
   <script>
   import { useUserStore } from "../stores/user.js";
+  import categorie from '../json/categorie.json'
   
   export default {
+    data() {
+      return {
+        categories: categorie,
+      };
+    },
     setup() {
       const userStore = useUserStore();
       return { userStore };

@@ -39,7 +39,9 @@ export default {
       return true;
     },
     async newPassword() {
-      await this.userStore.newPassword(this.password);
+      if (this.password == this.confirmPassword){
+        await this.userStore.newPassword(this.password);
+      }
     },
   },
 };
