@@ -105,7 +105,11 @@ const routes = [
         name:'Private page',
         component: () => import("../views/PrivatePageView.vue")
     },
-   
+    {
+        path: "/historique",
+        name: "Historique",
+        component: () => import("../views/OrderHistory.vue") 
+    }
 ]
 
 const router = createRouter({
