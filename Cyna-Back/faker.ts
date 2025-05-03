@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 async function generate_unique_users() {
     const password_1234 = await PassFunc.hashMyPassword("1234")
-    const unique_check =  await prisma.user.findMany({
+    const unique_check =  await prisma.user.findFirst({
         where: {
             OR: [
                 {
@@ -19,7 +19,7 @@ async function generate_unique_users() {
             ]
         }
     })
-    if(unique_check.length > 0){
+    if(unique_check != null) {
         return;
     }
     await prisma.user.create({
@@ -139,7 +139,6 @@ async function connect_entities(){
 
 export async function generate_fake_data() {
     await generate_unique_users()
-    const password_1234 = await PassFunc.hashMyPassword("1234")
     for (let i = 0; i < 10; i++) {
         await prisma.image.create({
             data: {
@@ -158,10 +157,10 @@ export async function generate_fake_data() {
         })
         await prisma.user.create({
             data: {
-                email: faker.internet.email(),
+                email: faker.internet.email().toLowerCase(),
                 lastName: faker.person.lastName(),
                 firstName: faker.person.firstName(),
-                password: faker.food.adjective()
+                password: await PassFunc.hashMyPassword(faker.food.adjective())
             }
         })
         await prisma.company.create({

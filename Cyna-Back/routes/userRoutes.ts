@@ -20,7 +20,7 @@ userRouter
             const hashed_password = await PassFunc.hashMyPassword(receivedData.password.toString())
             const new_user: any = await prisma.user.create({
                     data: {
-                        email: receivedData.email,
+                        email: receivedData.email.toLowerCase(),
                         lastName: receivedData.lastName,
                         firstName: receivedData.firstName,
                         password: hashed_password.toString()
@@ -139,7 +139,7 @@ userRouter
                     id: receivedData.id
                 },
                 data: {
-                    email: receivedData.email,
+                    email: receivedData.email.toLowerCase(),
                     lastName: receivedData.lastName,
                     firstName: receivedData.firstName,
                     role: receivedData.role
@@ -176,9 +176,6 @@ userRouter
                 console.log("No Data Received - Error #11-7")
                 return;
             }
-            const content = JSON.parse(receivedData);
-            const email = Object.values(content)[0];
-            const password = Object.values(content)[1];
 
             const existingUser = await prisma.user.findUnique({
                 select: {
@@ -188,18 +185,25 @@ userRouter
                     password: true,
                 },
                 where:{
-                    email: Object.values(content)[0],
+                    email: receivedData.email
                 }
             })
 
             if(!existingUser){
                 console.log("User not found")
-                return;
+                ctx.body = "User not found";
             }
-            const passwordDB = Object.values(existingUser)[3];
 
-            if (await PassFunc.checkMyPassword(password, passwordDB)){
-                ctx.body = existingUser;
+            const passwordResult = await PassFunc.checkMyPassword(receivedData.password, existingUser.password);
+            console.log(passwordResult)
+            if (passwordResult){
+                console.log("Passwords Match")
+                //Envoie d'un token ICI
+                ctx.body = "Passwords Match!";
+            } else {
+                console.log("Wrong Password")
+                ctx.status = 404;
+                ctx.body = 'Wrong Password'
             }
 
         } catch (e) {
