@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import {PrismaClient} from '@prisma/client'
 import * as PassFunc from '../functions/password'
+import {UserPermission} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
@@ -9,30 +10,32 @@ const userRouter = new Router();
 userRouter
     .post('/user/create', async (ctx, next) => {
         console.log("/user/create");
+        console.log(ctx.request.body);
         try {
-            const receivedData = ctx.request.body;
+            const receivedData = ctx.request.body.createdUser;
             if(!receivedData){
                 console.log("No Data Received - Error #11-1")
                 return;
             }
-            const content = JSON.parse(receivedData);
-            console.log(content);
-            const nom = Object.values(content)[0];
-            const prenom = Object.values(content)[1];
-            const email = Object.values(content)[2];
-            const password = Object.values(content)[3];
-
-            const hashed_password = await PassFunc.hashMyPassword(password.toString())
+            const hashed_password = await PassFunc.hashMyPassword(receivedData.password.toString())
             const new_user: any = await prisma.user.create({
                     data: {
-                        email: email,
-                        lastName: nom,
-                        firstName: prenom,
+                        email: receivedData.email,
+                        lastName: receivedData.lastName,
+                        firstName: receivedData.firstName,
                         password: hashed_password.toString()
                     }
                 }
             )
             ctx.body = new_user;
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    .post('/user/getAllRoles', async (ctx, next) => {
+        console.log("/user/getAllRoles");
+        try {
+            ctx.body = UserPermission;
         } catch (e) {
             console.log(e)
         }
@@ -106,22 +109,46 @@ userRouter
             ctx.body = e;
         }
     })
-    .post('user/update', async (ctx, next) => {
+    .post('/user/update', async (ctx, next) => {
         console.log("/user/update");
+        console.log(ctx.request.body);
         try {
-            const receivedData = ctx.request.body;
+            if(!ctx.request.body){
+                console.log("No Data Received - Error #11-17")
+                ctx.body = "No Data Received - Error #11-17";
+                ctx.status = 404;
+                return
+            }
+            const receivedData = ctx.request.body.updatedUser;
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #11-14")
+                ctx.body = "No Data Received - Error #11-14";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData.email){
+                console.log("No user email the data - Error #11-9")
+                ctx.body = "No user email in the data - Error #11-9"
+                ctx.status = 404;
+                return;
+            }
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
             console.log(receivedData);
             const userToUpdate: any = await prisma.user.update({
                 where: {
-                    id: receivedData.userId
+                    id: receivedData.id
                 },
                 data: {
-                    //     METTRE LES ARGUMENTS ICI
+                    email: receivedData.email,
+                    lastName: receivedData.lastName,
+                    firstName: receivedData.firstName,
+                    role: receivedData.role
                 }
             })
+            ctx.body = userToUpdate;
         } catch (e) {
             console.log(e)
+            ctx.body = e;
         }
     })
     .post('/user/delete', async (ctx, next) => {

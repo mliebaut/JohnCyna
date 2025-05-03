@@ -46,6 +46,63 @@ export async function getAllUsers(){
             method: "POST"
         })
             .then(res => res.json())
+        // console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function getAllRoles(){
+    try {
+        const response = await fetch(Serv_Url + "/user/getAllRoles", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        // console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function createUser(createdUser : any){
+    try {
+        const response = await fetch(Serv_Url + "/user/create", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({ createdUser}),
+        })
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function updateUser(updatedUser: any){
+    try {
+        const response = await fetch(Serv_Url + "/user/update", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({ updatedUser}),
+        })
+            // .then(res => res.json())
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function deleteUser(deletedUserId: any){
+    try {
+        const response = await fetch(Serv_Url + "/user/delete", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({ userId: deletedUserId }),
+        })
+        // .then(res => res.json())
         console.log(response);
         return response;
     } catch (e) {

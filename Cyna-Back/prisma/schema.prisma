@@ -15,7 +15,7 @@ model User {
   firstName       String
   password        String
   createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  updatedAt       DateTime          @default(now()) @updatedAt
   Orders          Order[]
   Company         Company[]
   Addresses       Address[]
