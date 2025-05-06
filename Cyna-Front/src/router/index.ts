@@ -69,7 +69,12 @@ const routes = [
         component: () => import("../views/NouveauMotDePasseView.vue")
     },
     {
-        path:'/produit',
+        path:'/confirm-email',
+        name:'Confirmer email',
+        component: () => import("../views/ConfirmEmailView.vue")
+    },
+    {
+        path:'/produit/:id',
         name:'produit',
         component: () => import("../views/ProduitView.vue")
     },

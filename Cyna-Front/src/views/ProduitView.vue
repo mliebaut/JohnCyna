@@ -3,26 +3,38 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width">
   </head>
 
-  <div class="container">
+  <div v-if="product" class="container">
     <div class="article">
-      <div class="carousel">
-        <div class="img">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820219_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820223_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820222_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820221_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820220_1.jpg">
+      <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="span-cont"></div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <img src="https://loremflickr.com/cache/resized/defaultImage.small_1280_529_nofilter.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img src="https://loremflickr.com/cache/resized/defaultImage.small_1280_529_nofilter.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://loremflickr.com/cache/resized/defaultImage.small_1280_529_nofilter.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
       <div class="description">
-        <h2>ProCompute Cloud</h2>
+        <h2>{{ product.name }}</h2>
         <p>
-          Puce Apple M1 16 Go SSD 512 Go 13.3" LED Retina Wi-Fi AX/Bluetooth Webcam Touch Bar Mac OS Big Sur
-        </p>
-        <p>
-          ProCompute Cloud révolutionne votre manière de travailler en vous offrant un environnement Mac virtuel ultra-performant.
-          Boosté par l’infrastructure Apple Silicon, notre service cloud vous permet d’accéder à une puissance de calcul inégalée avec jusqu'à 2,8 fois plus de rapidité, des performances graphiques 5 fois supérieures et une disponibilité continue 24/7. Profitez d’une interface macOS fluide et sécurisée, d’un stockage SSD évolutif et d’une compatibilité totale avec vos outils professionnels, où que vous soyez.
+          {{ product.description }}
         </p>
       </div>
       <div class="achats">
@@ -44,12 +56,12 @@
           </svg>
         </p>
         <p>
-          1 899.95€
+          {{ product.price }} €
         </p>
         <p>
           3 en stock
         </p>
-        <button>Ajouter au panier</button>
+        <a href="#" class="btn btn-primary product__button">Ajouter au panier</a>
       </div>
     </div>
     <div class="tech">
@@ -108,11 +120,30 @@
 
 </template>
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref, watch, onMounted } from 'vue'
+import { useRoute } from 'vue-router';
+import { find_product_by_id } from "../functions/product.ts";
+
 const button = document.querySelector('.product__button');
+const route = useRoute();
+let params = route.params.id;
+console.log(route.params.id);
+
+const product = ref<null | { name: string; description: string ;price: number; image: string }>(null);
+
+onMounted(async () => {
+  product.value = await find_product_by_id(parseInt(params[0]));
+});
+
+watch(() => route.params.id, async (newValue) => {
+  product.value = await find_product_by_id(parseInt(newValue[0]));
+});
 
 function buttonAnimate() {
-  button.classList.add('product__button--success');
+  if (button){
+    button.classList.add('product__button--success');
+  }
+
 }
 
 </script>
@@ -163,7 +194,7 @@ footer {
   cursor: pointer;
   transition: 0.5s;
 }
-
+/*
 .carousel,
 .achats {
   width: clamp(200px, 100%, 400px);
@@ -179,12 +210,12 @@ footer {
 .carousel > .img > img {
   transition: 0.5s;
 }
-
+*/
 .stars > * {
   fill: #5397b4;
   width: 20px;
 }
-
+/*
 button {
   padding: 10px 20px;
   border: none;
@@ -199,7 +230,7 @@ button:hover {
   transform: scale(1.1);
   transition: 0.5s ease;
 }
-
+*/
 .tech {
   border-top: 1px solid rgb(200 200 200);
   display: block;

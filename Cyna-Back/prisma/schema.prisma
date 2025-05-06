@@ -21,6 +21,8 @@ model User {
   firstName          String
   password           String
   resetPasswordToken String?  @db.VarChar(400)
+  confirmEmailToken  String?  @db.VarChar(400)
+  emailConfirmed     Boolean  @default(false)
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   Orders             Order[]

@@ -7,6 +7,7 @@ export const useUserStore = defineStore("user", {
     user: null,
     returnUrl: null,
     urlResetPassword: null,
+    urlConfirmEmail: null,
   }),
 
   actions: {
@@ -26,9 +27,9 @@ export const useUserStore = defineStore("user", {
         body: JSON.stringify({ nom, prenom ,email, password }),
       });
       if (res){
-        const user = await res.json()
-        this.user = user;
-        window.location.href = "/";
+        const data = await res.json();
+        this.urlConfirmEmail =  window.location.origin + "/confirm-email?token=" + data.token
+        document.querySelector('.confirm-link').style.display = 'block';
       }
       } catch (e) {
         console.log(e)
@@ -64,7 +65,7 @@ export const useUserStore = defineStore("user", {
 
       const data = await res.json();
       document.querySelector('.reset-link').style.display = 'block';
-      this.urlResetPassword =  window.location.origin + "/update-password?token=" + data.token
+      this.urlConfirmEmail =  window.location.origin + "/update-password?token=" + data.token
       } catch (e) {
       console.log(e);
       }

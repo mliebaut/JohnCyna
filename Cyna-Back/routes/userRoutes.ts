@@ -17,6 +17,7 @@ userRouter
             console.log(e)
         }
     })
+    /*
     .post('/user/create', async (ctx, next) => {
         console.log("/user/create");
         try {
@@ -43,6 +44,59 @@ userRouter
                 }
             )
             ctx.body = new_user;
+        } catch (e) {
+            console.log(e)
+        }
+    })
+        */
+
+    .post('/user/create', async (ctx, next) => {
+        console.log("/user/create");
+        try {
+            const receivedData = ctx.request.body;
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #444959")
+                ctx.body = "No Data Received - Error #444959";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData){
+                console.log("No user email the data - Error #7D954235")
+                ctx.body = "No user email in the data - Error #7D954235"
+                ctx.status = 404;
+                return;
+            }
+            const content = JSON.parse(receivedData);
+            console.log(content);
+            const nom = Object.values(content)[0] as string;
+            const prenom = Object.values(content)[1] as string;
+            const email = Object.values(content)[2] as string;
+            const password = Object.values(content)[3] as string;
+
+            const hashed_password = await PassFunc.hashMyPassword(password.toString())
+            const new_user: any = await prisma.user.create({
+                data: {
+                    email: email,
+                    lastName: nom,
+                    firstName: prenom,
+                    password: hashed_password.toString()
+                }
+            }
+        )
+            if(!new_user){
+                console.log("Create User failed")
+                return;
+            }
+            const token = jwt.sign(new_user, "secret",{expiresIn: '15m'});
+            const userToUpdate: any = await prisma.user.update({
+                where: {
+                    email: Object.values(content)[2] as string,
+                },
+                data: {
+                    confirmEmailToken: token,
+                }
+            })
+            ctx.body = JSON.stringify({ token });
         } catch (e) {
             console.log(e)
         }
