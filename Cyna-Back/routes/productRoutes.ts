@@ -36,7 +36,7 @@ productRouter
     .post('/product/searchAll', async (ctx, next) => {
         console.log("/product/searchAll")
         try {
-            ctx.body = await prisma.product.findMany({});
+            ctx.body = await prisma.product.findMany();
         } catch (e) {
             console.log(e);
             ctx.body = e;
@@ -50,7 +50,7 @@ productRouter
                 console.log("No Data Received - Error #7-2")
                 return;
             }
-            let result = await prisma.product.findMany({
+            let result = await prisma.product.findFirstOrThrow({
                 where: {
                     id: receivedData.productId,
                 }
@@ -65,21 +65,23 @@ productRouter
     .post('/product/update', async (ctx, next) => {
         console.log("/product/update")
         try {
-            const receivedData = ctx.request.body;
-            if (!receivedData) {
+            const receivedData = ctx.request.body.updatedProduct;
+            if(!receivedData) {
                 console.log("No Data Received - Error #7-3")
+                ctx.status = 400;
+                ctx.body = "No Data Received - Error #7-3"
                 return;
             }
             let result = await prisma.product.update({
                 where: {
-                    id: receivedData.productId,
+                    id: receivedData.id,
                 },
                 data: {
-                    ean: receivedData.productEan,
-                    GUID: receivedData.productGuid,
-                    name: receivedData.productName,
-                    description: receivedData.productDescription,
-                    inStock: receivedData.productInStock,
+                    ean: receivedData.ean,
+                    GUID: receivedData.GUID,
+                    name: receivedData.name,
+                    description: receivedData.description,
+                    inStock: receivedData.inStock,
                 }
             })
             console.log(result)

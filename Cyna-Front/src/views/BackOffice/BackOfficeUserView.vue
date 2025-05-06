@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {createUser, deleteUser, find_user_by_id, getAllRoles, getAllUsers, updateUser} from "@/functions/functions.ts";
+import {createProduct, deleteProduct, find_user_by_id, getAllRoles, getAllUsers, updateUser} from "@/functions/functions.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
@@ -91,7 +91,7 @@ async function editUser(id: number) {
 /*USER DELETE*/
 function sendDeleteRequest(id: number) {
   console.log(id)
-  deleteUser(id)
+  deleteProduct(id)
 }
 
 /*USER CREATE*/
@@ -108,7 +108,7 @@ function closeCreateModal() : void{
 }
 
 async function sendCreatedUser(): Promise<void> {
-  await createUser(createdUser.value)
+  await createProduct(createdUser.value)
 }
 </script>
 

@@ -74,7 +74,6 @@ userRouter
             console.log(result)
             ctx.body = result;
         } catch (e) {
-            console.log("Error : ")
             console.log(e);
             ctx.body = e;
         }
@@ -104,7 +103,6 @@ userRouter
             ctx.body = result;
         }
         catch (e) {
-            console.log("Error : ")
             console.log(e);
             ctx.body = e;
         }

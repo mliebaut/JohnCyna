@@ -66,19 +66,7 @@ export async function getAllRoles(){
     }
 }
 
-export async function createUser(createdUser : any){
-    try {
-        const response = await fetch(Serv_Url + "/user/create", {
-            headers: {'Content-Type': 'application/json'},
-            method: "POST",
-            body: JSON.stringify({ createdUser}),
-        })
-        console.log(response);
-        return response;
-    } catch (e) {
-        console.log(e);
-    }
-}
+
 
 export async function updateUser(updatedUser: any){
     try {
@@ -95,33 +83,6 @@ export async function updateUser(updatedUser: any){
     }
 }
 
-export async function deleteUser(deletedUserId: any){
-    try {
-        const response = await fetch(Serv_Url + "/user/delete", {
-            headers: {'Content-Type': 'application/json'},
-            method: "POST",
-            body: JSON.stringify({ userId: deletedUserId }),
-        })
-        // .then(res => res.json())
-        console.log(response);
-        return response;
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-export async function getAllProducts(){
-    try {
-        const response = await fetch(Serv_Url + "/product/", {
-            method: "POST"
-        })
-            .then(res => res.json())
-        // console.log(response);
-        return response;
-    } catch (e) {
-        console.log(e);
-    }
-}
 
 export async function getAllAddresses(){
     try {
@@ -143,6 +104,80 @@ export async function getAllEntreprise(){
             method: "POST"
         })
             .then(res => res.json())
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+/*PRODUCT*/
+export async function createProduct(createdProduct : any){
+    try {
+        const response = await fetch(Serv_Url + "/product/create", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({ createdProduct}),
+        })
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function findProductById(productId : number){
+    try {
+        if(productId == null){console.log("No Product ID"); return;}
+        const response = await fetch(Serv_Url + "/product/searchById", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ productId: productId }),
+        }).then(res => res.json())
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+export async function updateProduct(updatedProduct : any){
+    try {
+        const response = await fetch(Serv_Url + "/product/update", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({ updatedProduct}),
+        })
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function deleteProduct(deletedUserId: any){
+    try {
+        const response = await fetch(Serv_Url + "/user/delete", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({ userId: deletedUserId }),
+        })
+        // .then(res => res.json())
+        console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function getAllProducts(){
+    try {
+        const response = await fetch(Serv_Url + "/product/searchAll", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+        })
+            .then(res => res.json())
+        // console.log(response);
         console.log(response);
         return response;
     } catch (e) {
