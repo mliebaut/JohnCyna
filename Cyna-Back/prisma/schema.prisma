@@ -29,6 +29,7 @@ model Product {
   GUID        String?
   name        String?
   description String?
+  prix        Float      @default(0)
   inStock     Boolean?   @default(false)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
