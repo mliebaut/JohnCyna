@@ -171,8 +171,10 @@ export async function generate_fake_data() {
         })
         await prisma.product.create({
             data: {
+                ean: faker.number.int(900000000),
                 name: faker.internet.domainWord(),
-                description: faker.hacker.phrase()
+                description: faker.hacker.phrase(),
+                inStock: faker.datatype.boolean(0.75)
             }
         })
         await prisma.category.create({
