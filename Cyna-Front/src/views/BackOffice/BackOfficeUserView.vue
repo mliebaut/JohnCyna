@@ -37,7 +37,6 @@ onMounted(async () => {
   rolesList.value = await getAllRoles()
   userEditModal.value = document.querySelector("#userEditModal")
   userCreationModal.value = document.querySelector("#userCreationModal")
-
   closeButton.value = document.querySelector("#closeButton")
 })
 
@@ -259,7 +258,6 @@ async function sendCreatedUser(): Promise<void> {
             </div>
             <div class="d-flex justify-content-between text-start">
               Role :
-              <!--              <input type="text"  v-model="modifiedUser.email" :placeholder="modifiedUser.email">-->
               <select v-model="createdUser.role">
                 <option v-for="option in rolesList" :value="option.value">
                   {{ option }}

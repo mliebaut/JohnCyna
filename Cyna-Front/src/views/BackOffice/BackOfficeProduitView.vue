@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {
-  // createProduct,
-  // deleteProduct,
-  findProductById,
+  createProduct,
+  deleteProduct,
+  findProductById, getAllCategories,
   getAllProducts,
   updateProduct,
 } from "@/functions/functions.ts";
@@ -10,22 +10,23 @@ import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
 const myProducts = ref()
+const closeButton = ref()
+
 const productEditModal = ref()
 const productEditModalOpen = ref(false)
-// const userCreationModal = ref()
-// const userCreateModalOpen = ref(false)
-const closeButton = ref()
+
+const productCreationModal = ref()
+const productCreateModalOpen = ref(false)
+
 const selectedProduct = ref()
-// const createdProduct = ref({
-//   id: null,
-//   ean: null,
-//   GUID: null,
-//   name: null,
-//   description: null,
-//   inStock: null,
-//   createdAt: null,
-//   updatedAt: null
-// })
+const createdProduct = ref({
+  ean: null,
+  GUID: null,
+  name: null,
+  description: null,
+  inStock: null,
+  categories: null
+})
 const modifiedProduct = ref({
   id: null,
   ean: null,
@@ -33,15 +34,16 @@ const modifiedProduct = ref({
   name: null,
   description: null,
   inStock: null,
-  createdAt: null,
-  updatedAt: null
+  categories: [],
 })
+const categoriesList = ref()
 
 onMounted(async () => {
-  myProducts.value = await getAllProducts()
+  myProducts.value = await getAllProducts(1)
   // TODO : Faire une fonction qui prends une liste de roles visible par l'utilisateur connecté. Genre, les moderateurs peuvent pas faire des admins.
+  categoriesList.value = await getAllCategories();
   productEditModal.value = document.querySelector("#productDivEditModal")
-  // userCreationModal.value = document.querySelector("#userCreationModal")
+  productCreationModal.value = document.querySelector("#productCreationModal")
   closeButton.value = document.querySelector("#closeButton")
 })
 
@@ -49,13 +51,12 @@ onMounted(async () => {
 
 // Bouton sauvegarder
 async function save(action: string): Promise<void> {
-  console.log(action)
   switch (action) {
-    // case "create":
-    //   closeCreateModal()
-    //   await sendCreatedUser()
-    //   await getUpdatedProducts()
-    //   break;
+    case "create":
+      closeCreateModal()
+      await sendCreatedProduct()
+      await getUpdatedProducts()
+      break;
     case "edit":
       closeEditModal()
       await sendUpdatedProduct()
@@ -65,30 +66,20 @@ async function save(action: string): Promise<void> {
 }
 
 async function getUpdatedProducts(): Promise<void> {
-  console.log("getUpdatedProducts()");
-  myProducts.value = await getAllProducts()
+  myProducts.value = await getAllProducts(1)
 }
 
 /*PRODUCT EDIT*/
 function openEditModal() {
-  console.log("openEditModal")
   productEditModalOpen.value = true
 }
 
 function closeEditModal() {
-  console.log("closeEditModal")
   productEditModalOpen.value = false;
 }
 
-async function sendUpdatedProduct(): Promise<void> {
-  console.log(modifiedProduct.value)
-  await updateProduct(modifiedProduct.value)
-}
-
 async function editProduct(productId: number) {
-  console.log("editProduct ", productId)
-  selectedProduct.value = await findProductById(productId)
-  console.log(selectedProduct.value)
+  selectedProduct.value = await findProductById(productId, 1)
   //On ajoute les valeurs manuellement pour eviter du passage par référence à cause de vue. - Thomas
   modifiedProduct.value.id = selectedProduct.value.id;
   modifiedProduct.value.ean = selectedProduct.value.ean;
@@ -96,31 +87,48 @@ async function editProduct(productId: number) {
   modifiedProduct.value.name = selectedProduct.value.name;
   modifiedProduct.value.description = selectedProduct.value.description;
   modifiedProduct.value.inStock = selectedProduct.value.inStock;
+  modifiedProduct.value.categories = selectedProduct.value.categories;
   openEditModal()
 }
 
+async function sendUpdatedProduct(): Promise<void> {
+  await updateProduct(modifiedProduct.value)
+}
+
 // /*PRODUCT DELETE*/
-// function sendDeleteRequest(id: number) {
-//   console.log(id)
-//   deleteProduct(id)
-// }
-//
-// /*PRODUCT CREATE*/
-// function newUser(): void {
-//   openCreateModal()
-// }
-//
-// function openCreateModal(): void {
-//   userCreateModalOpen.value = true
-// }
-//
-// function closeCreateModal(): void {
-//   userCreateModalOpen.value = false;
-// }
-//
-// async function sendCreatedUser(): Promise<void> {
-//   await createProduct(createdProduct.value)
-// }
+function sendDeleteRequest(id: number) {
+  deleteProduct(id)
+}
+
+/*PRODUCT CREATE*/
+function newProduct(): void {
+  openCreateModal()
+}
+
+function openCreateModal(): void {
+  productCreateModalOpen.value = true
+}
+
+function closeCreateModal(): void {
+  productCreateModalOpen.value = false;
+}
+
+async function sendCreatedProduct(): Promise<void> {
+  await createProduct(createdProduct.value)
+}
+
+function addRemoveCategory(option: object) {
+  console.log(modifiedProduct.value)
+  console.log(option)
+  if(modifiedProduct.value.categories.find(element => element['id'] == option.id)) {
+    console.log("Found category")
+    modifiedProduct.value.categories = modifiedProduct.value.categories.filter(element => element.id != option.id)
+    console.log(modifiedProduct.value.categories)
+  } else {
+    console.log("Didn't find category")
+    modifiedProduct.value.categories.push(option)
+  }
+}
 </script>
 
 <template>
@@ -133,9 +141,9 @@ async function editProduct(productId: number) {
     <div class="container mb-5">
 
       <div class="d-flex">
-<!--        <button class="btn btn-success" @click="newUser()">-->
-<!--          Nouveau-->
-<!--        </button>-->
+        <button class="btn btn-success" @click="newProduct()">
+          Nouveau
+        </button>
       </div>
       <table class="table table-striped table-sm">
         <thead>
@@ -180,46 +188,68 @@ async function editProduct(productId: number) {
             <button class="btn btn-success" @click="editProduct(item.id)">
               Edit
             </button>
-<!--            <button class="btn btn-danger" @click="sendDeleteRequest(item.id)">-->
-<!--              Delete-->
-<!--            </button>-->
+            <button class="btn btn-danger" @click="sendDeleteRequest(item.id)">
+              Delete
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
-      <!-- The Modal -->
+      <!-- Modal Edition -->
       <div id="productDivEditModal" class="modal" v-if="productEditModalOpen">
         <!-- Modal content -->
         <div class="modal-content">
           <span class="close btn btn-close" @click="closeEditModal"></span>
           <h3>Edition Produit</h3>
           <div class="d-flex-column p-1 m-1">
-            <div class="d-flex justify-content-between text-start">
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
               ID: {{ selectedProduct.id }}
               <div></div>
             </div>
-            <div class="d-flex justify-content-between text-start">
-              EAN : {{ selectedProduct.ean }}
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
+              EAN :
+              <div>
+                {{ selectedProduct.ean }}
+              </div>
               <input v-model="modifiedProduct.ean">
             </div>
-            <div class="d-flex justify-content-between text-start">
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
               GUID: {{ selectedProduct.GUID }}
               <input type="text" v-model="modifiedProduct.GUID">
             </div>
-            <div class="d-flex justify-content-between text-start">
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
               name : {{ selectedProduct.name }}
               <input type="text" v-model="modifiedProduct.name">
             </div>
-            <div class="d-flex justify-content-between text-start">
-              Description : {{ selectedProduct.description }}
+            <div class="d-flex flex-column flex-column justify-content-between ps-2 text-start">
+              <div>
+                Description :
+              </div>
+              <div>
+                {{ selectedProduct.description }}
+              </div>
               <input type="text" v-model="modifiedProduct.description">
             </div>
-            <div class="d-flex justify-content-between text-start">
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
               In Stock : {{ selectedProduct.inStock }}
               <input type="text" v-model="modifiedProduct.inStock">
             </div>
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
+              Categories :
+              <div>
+<!--                {{ selectedProduct.categories }}-->
+              </div>
+              <div v-for="cat in modifiedProduct.categories">
+                {{ cat.id }} - {{cat.name}}
+              </div>
+              <select v-model="selectedProduct.categories">
+                <option v-for="option in categoriesList" @click="addRemoveCategory(option)">
+                  {{ option.id }} - {{ option.name }}
+                </option>
+              </select>
+            </div>
             <hr>
-            <div class="d-flex justify-content-between text-start">
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
               <div>
                 Created :
                 {{ selectedProduct.createdAt }}
@@ -227,7 +257,7 @@ async function editProduct(productId: number) {
               <div>
               </div>
             </div>
-            <div class="d-flex justify-content-between text-start">
+            <div class="d-flex flex-column justify-content-between ps-2 text-start">
               <div>
                 Updated :
                 {{ selectedProduct.updatedAt }}
@@ -236,45 +266,59 @@ async function editProduct(productId: number) {
               </div>
             </div>
             <hr>
-            <div class="d-flex justify-content-between ">
+            <div class="d-flex justify-content-between ps-2 ">
               <button type="button" class="btn btn-success" @click="save('edit')">Sauvegarder</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Modal de creation utilisateur      -->
-<!--      <div id="userCreationModal" class="modal" v-if="userCreateModalOpen">-->
-<!--        &lt;!&ndash; Modal content &ndash;&gt;-->
-<!--        <div class="modal-content">-->
-<!--          <span class="close btn btn-close" @click="closeCreateModal"></span>-->
-<!--          <h3>Creation d'utilisateur</h3>-->
-<!--          <div class="d-flex-column p-1 m-1">-->
-<!--            <div class="d-flex justify-content-between text-start">-->
-<!--              Email :-->
-<!--              <input v-model="createdProduct.email">-->
-<!--            </div>-->
-<!--            <div class="d-flex justify-content-between text-start">-->
-<!--              <div>-->
-<!--                FirstName:-->
-<!--              </div>-->
-<!--              <input type="text" v-model="createdProduct.firstName">-->
-<!--            </div>-->
-<!--            <div class="d-flex justify-content-between text-start">-->
-<!--              LastName :-->
-<!--              <input type="text" v-model="createdProduct.lastName">-->
-<!--            </div>-->
-<!--            <div class="d-flex justify-content-between text-start">-->
-<!--              Password :-->
-<!--              <input v-model="createdProduct.password">-->
-<!--            </div>-->
-<!--            <hr>-->
-<!--            <div class="d-flex justify-content-between">-->
-<!--              <button type="button" class="btn btn-success" @click="save('create')">Sauvegarder</button>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!-- Modal de creation      -->
+      <div id="productCreationModal" class="modal" v-if="productCreateModalOpen">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close btn btn-close" @click="closeCreateModal"></span>
+          <h3>Creation produit</h3>
+          <div class="d-flex-column p-1 m-1">
+            <div class="d-flex justify-content-between ps-2 text-start">
+              Nom :
+              <input v-model="createdProduct.name">
+            </div>
+            <div class="d-flex justify-content-between ps-2 text-start">
+              Description :
+              <input type="text" v-model="createdProduct.description">
+            </div>
+            <div class="d-flex justify-content-between ps-2 text-start">
+              EAN :
+              <input type="text" v-model="createdProduct.ean">
+            </div>
+            <div class="d-flex justify-content-between ps-2 text-start">
+              GUID :
+              <input v-model="createdProduct.GUID">
+            </div>
+            <div class="d-flex justify-content-between ps-2 text-start">
+              En Stock :
+              <input v-model="createdProduct.inStock">
+            </div>
+            <br>
+            <div class="d-flex flex-column justify-content-between text-start">
+              <div>
+              Categories :
+
+              </div>
+              <select v-model="createdProduct.categories">
+                <option v-for="option in categoriesList" :value="option.value">
+                  {{ option.id }} - {{ option.name }}
+                </option>
+              </select>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between ps-2">
+              <button type="button" class="btn btn-success" @click="save('create')">Sauvegarder</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </div>

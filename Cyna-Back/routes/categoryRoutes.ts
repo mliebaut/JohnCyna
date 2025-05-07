@@ -29,7 +29,20 @@ categoryRouter
     .post('/category/searchAll', async (ctx, next) => {
         console.log("/category/searchAll")
         try {
-            ctx.body = await prisma.category.findMany({});
+            const receivedData = ctx.request.body;
+            let result;
+            switch (receivedData.relatedRecords) {
+                case 1:
+                    result = await prisma.category.findMany({include: {products: true}})
+                    break;
+                case 0:
+                    result = await prisma.category.findMany()
+                    break;
+                default:
+                    result = await prisma.category.findMany()
+                    break;
+            }
+            ctx.body = result;
         } catch (e) {
             console.log(e);
             ctx.body = e;
