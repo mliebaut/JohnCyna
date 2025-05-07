@@ -21,8 +21,6 @@
       <div class="mt-4">
         <h4>Total : {{ total }} €</h4>
       </div>
-  
-    
    
     </div>
   </template>
