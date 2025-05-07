@@ -1,20 +1,20 @@
 [
-    {
-        "title": "Cyna protège votre entreprise contre les cyberattaques",
-        "description": "Pure player en cybersécurité pour les PME & ETI.",
-        "buttonText": "En savoir plus",
-        "image": "https://via.placeholder.com/800x400?text=Product%201"
-    },
-    {
-        "title": "Cyna protège votre entreprise contre les cyberattaques",
-        "description": "Pure player en cybersécurité pour les PME & ETI.",
-        "buttonText": "En savoir plus",
-        "image": "https://via.placeholder.com/800x400?text=Product%202"
-    },
-    {
-        "title": "Cyna protège votre entreprise contre les cyberattaques",
-        "description": "Pure player en cybersécurité pour les PME & ETI.",
-        "buttonText": "En savoir plus",
-        "image": "https://via.placeholder.com/800x400?text=Product%203"
-    }
+  {
+    "titleKey": "carousel.slide1.title",
+    "descriptionKey": "carousel.slide1.description",
+    "buttonKey": "carousel.slide1.buttonText",
+    "image": "https://via.placeholder.com/800x400?text=Product%201"
+  },
+  {
+    "titleKey": "carousel.slide2.title",
+    "descriptionKey": "carousel.slide2.description",
+    "buttonKey": "carousel.slide2.buttonText",
+    "image": "https://via.placeholder.com/800x400?text=Product%202"
+  },
+  {
+    "titleKey": "carousel.slide3.title",
+    "descriptionKey": "carousel.slide3.description",
+    "buttonKey": "carousel.slide3.buttonText",
+    "image": "https://via.placeholder.com/800x400?text=Product%203"
+  }
 ]
