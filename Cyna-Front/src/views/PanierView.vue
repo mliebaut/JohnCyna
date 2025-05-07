@@ -16,6 +16,7 @@
         </div>
       </div>
   
+      <RouterLink class="btn btn-primary fs-4 px-4" to="/checkout">Payer panier</RouterLink>
    
       <div class="mt-4">
         <h4>Total : {{ total }} €</h4>
