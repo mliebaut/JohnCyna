@@ -91,9 +91,9 @@
   </nav>
 </template>
   
-  <script lang="ts" >
+  <script  >
     import categorie from '../json/categorie.json';
-    import { useUserStore } from "../store/user.ts";
+    import { useUserStore } from "../stores/user.js";
     import { ref } from "vue";
     import { useI18n } from "vue-i18n";
 

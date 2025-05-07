@@ -4,21 +4,9 @@ import {createRouter, createWebHistory} from 'vue-router'
 //import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
-import AjoutPanierView from '../views/AjoutPanierView.vue';
-import HomeView1 from '../views/HomeView1.vue';
 
 
 const routes = [
-    {
-        path: '/ajout-panier',
-        name: 'ajout-panier',
-        component: AjoutPanierView
-    },
-    {
-        path: '/',
-        name: 'Home',
-        component: HomeView1
-    },
     {
         path: '/',
         name: 'Home',
@@ -33,11 +21,6 @@ const routes = [
         path: '/about',
         name: 'About',
         component: () => import("../views/AboutView.vue")
-    },
-    {
-        path: '/contactOld',
-        name: 'ContactOld',
-        component: () => import("../views/ContactOldView.vue")
     },
     {
         path: '/contact',
@@ -57,7 +40,7 @@ const routes = [
     {
         path: '/connexion',
         name: 'Connexion',
-        component: () => import("../views/ConnexionView.vue")
+        component: () => import("../views/Account/ConnexionView.vue")
     },
     {
         path:'/reset-password',
@@ -110,24 +93,9 @@ const routes = [
         component: () => import("../views/Checkout/Cancel.vue")
     },
     {
-        path:'/private',
-        name:'Private page',
-        component: () => import("../views/PrivatePageView.vue")
-    },
-    {
         path: "/historique",
         name: "Historique",
         component: () => import("../views/OrderHistory.vue")
-    },
-    {
-        path: '/account',
-        name: 'UserAccount',
-        component: () => import('../views/Account/UserAccount.vue'),
-    },
-    {
-        path: '/account1',
-        name: 'Account',
-        component: () => import('../views/Account/AccountView.vue'),
     },
     {
         path: '/backoffice',
