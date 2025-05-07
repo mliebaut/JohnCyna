@@ -4,21 +4,9 @@ import {createRouter, createWebHistory} from 'vue-router'
 //import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
-import AjoutPanierView from '../views/AjoutPanierView.vue';
-import HomeView1 from '../views/HomeView1.vue';
 
 
 const routes = [
-    {
-        path: '/ajout-panier',
-        name: 'ajout-panier',
-        component: AjoutPanierView
-    },
-    {
-        path: '/',
-        name: 'Home',
-        component: HomeView1
-    },
     {
         path: '/',
         name: 'Home',
@@ -33,11 +21,6 @@ const routes = [
         path: '/about',
         name: 'About',
         component: () => import("../views/AboutView.vue")
-    },
-    {
-        path: '/contactOld',
-        name: 'ContactOld',
-        component: () => import("../views/ContactOldView.vue")
     },
     {
         path: '/contact',
@@ -57,11 +40,26 @@ const routes = [
     {
         path: '/connexion',
         name: 'Connexion',
-        component: () => import("../views/ConnexionView.vue")
+        component: () => import("../views/Account/ConnexionView.vue")
     },
     {
-        path: '/produit',
-        name: 'produit',
+        path:'/reset-password',
+        name:'Mot de passe oublié',
+        component: () => import("../views/MotDePasseOublieView.vue")
+    },
+    {
+        path:'/update-password',
+        name:'Réinitialiser le mot de passe',
+        component: () => import("../views/NouveauMotDePasseView.vue")
+    },
+    {
+        path:'/confirm-email',
+        name:'Confirmer email',
+        component: () => import("../views/ConfirmEmailView.vue")
+    },
+    {
+        path:'/produit/:id',
+        name:'produit',
         component: () => import("../views/ProduitView.vue")
     },
     {
@@ -100,16 +98,6 @@ const routes = [
         component: () => import("../views/OrderHistory.vue")
     },
     {
-        path: '/account',
-        name: 'UserAccount',
-        component: () => import('../views/Account/UserAccount.vue'),
-    },
-    {
-        path: '/account1',
-        name: 'Account',
-        component: () => import('../views/Account/AccountView.vue'),
-    },
-    {
         path: '/backoffice',
         name: 'BackOffice',
         component: () => import('../views/BackOffice/BackOfficeView.vue'),
@@ -139,6 +127,16 @@ const routes = [
         name: 'BackOffice Adresses',
         component: () => import('../views/BackOffice/BackOfficeAdresseView.vue'),
     },
+    {
+        path: '/service-details',
+        name: 'Service Details',
+        component: () => import('../views/ServiceDetails.vue'),
+    },
+    {
+        path: '/recherche',
+        name: 'recherche',
+        component: () => import('../views/rechercheView.vue'),
+    }
 ]
 
 const router = createRouter({

@@ -3,26 +3,34 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width">
   </head>
 
-  <div class="container">
+  <div v-if="product" class="container mt-5">
     <div class="article">
-      <div class="carousel">
-        <div class="img">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820219_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820223_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820222_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820221_1.jpg">
-          <img src="https://media.ldlc.com/r374/ld/products/00/05/82/02/LD0005820220_1.jpg">
+      <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="span-cont"></div>
+        <div class="carousel-inner">
+          <div v-for="(image, index) in urls" :key="index" class="carousel-item row" :class="{ active: index == 0}">
+            <div class="carousel-item">
+              <img class="d-block w-100" :src="(`${image}`)" alt="">
+            </div>
+          </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
+    </div>
       <div class="description">
-        <h2>ProCompute Cloud</h2>
+        <h2>{{ product.name }}</h2>
         <p>
-          Puce Apple M1 16 Go SSD 512 Go 13.3" LED Retina Wi-Fi AX/Bluetooth Webcam Touch Bar Mac OS Big Sur
-        </p>
-        <p>
-          ProCompute Cloud révolutionne votre manière de travailler en vous offrant un environnement Mac virtuel ultra-performant.
-          Boosté par l’infrastructure Apple Silicon, notre service cloud vous permet d’accéder à une puissance de calcul inégalée avec jusqu'à 2,8 fois plus de rapidité, des performances graphiques 5 fois supérieures et une disponibilité continue 24/7. Profitez d’une interface macOS fluide et sécurisée, d’un stockage SSD évolutif et d’une compatibilité totale avec vos outils professionnels, où que vous soyez.
+          {{ product.description }}
         </p>
       </div>
       <div class="achats">
@@ -46,15 +54,16 @@
         <p>
           1 899.95€
         </p>
-        <p>
-          3 en stock
+        <p v-if="product">
+          {{ product.inStock > 0 ? `${product.inStock} en stock` : 'Rupture de stock' }}
         </p>
-        <button>Ajouter au panier</button>
+        <button :disabled="product && product.inStock === 0">
+          Ajouter au panier
+        </button>
       </div>
     </div>
     <div class="tech">
       <h2>Fiche technique</h2>
-
       <div class="grid">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 29 29">
           <path d="M9 6h11a3 3 0 013 3v11a3 3 0 01-3 3H9a3 3 0 01-3-3V9a3 3 0 013-3zm0 .9A2.1 2.1 0 006.9 9v11c0 1.16.94 2.1 2.1 2.1h11a2.1 2.1 0 002.1-2.1V9A2.1 2.1 0 0020 6.9H9zM8 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM8 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM12 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM12 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM16 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM16 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM20 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM20 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM3.5 8h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 8h-3a.5.5 0 000 1h3a.5.5 0 000-1zM3.5 12h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 12h-3a.5.5 0 000 1h3a.5.5 0 000-1zM3.5 16h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 16h-3a.5.5 0 000 1h3a.5.5 0 000-1zM3.5 20h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 20h-3a.5.5 0 000 1h3a.5.5 0 000-1z" />
@@ -73,7 +82,6 @@
           <path fill-rule="evenodd" d="M14.03 2.8c1.04 0 1.87.84 1.87 1.88v22.45c0 1.03-.83 1.87-1.87 1.87H1.87A1.87 1.87 0 010 27.13V4.68C0 3.64.84 2.8 1.87 2.8h1.87v-.94C3.74.84 4.58 0 5.61 0h4.68c1.03 0 1.87.84 1.87 1.87v.94h1.87zM.93 4.69c0-.52.42-.94.94-.94h12.16c.52 0 .94.42.94.94v22.45c0 .52-.42.93-.94.93H1.87a.94.94 0 01-.93-.93V4.68zm3.75-2.8c0-.53.42-.94.93-.94h4.68c.52 0 .94.41.94.93v.94H4.68v-.94z" />
           <path fill-rule="evenodd" d="M13.56 25.26c0 .77-.62 1.4-1.4 1.4H3.74a1.4 1.4 0 01-1.4-1.4V15.9c0-.77.63-1.4 1.4-1.4h8.42c.78 0 1.4.63 1.4 1.4v9.36zm-9.82.47a.47.47 0 01-.47-.47v-2.34h9.36v2.34c0 .26-.21.47-.47.47H3.74zm-.47-3.75v-2.8h9.36v2.8H3.27zm9.36-6.08v2.34H3.27V15.9c0-.26.21-.46.47-.46h8.42c.26 0 .47.2.47.46z" />
         </svg>
-
         <p>Processeur</p>
         <p>Mémoire vive</p>
         <p>Écran</p>
@@ -83,38 +91,71 @@
         <p>16 Go</p>
         <p>13.3 pouces</p>
         <p>10h</p>
-
       </div>
-
     </div>
+      <div class="tech">
+        <h2>Recommandations  Produits</h2>
 
-    <div class="tech">
-
-      <h2>Recommandations  Produits</h2>
-
-      <img src="https://placehold.co/300x250" style="margin-right: 10px;">
-      <img src="https://placehold.co/300x250" style="margin-right: 10px;">
-      <img src="https://placehold.co/300x250">
+        <img src="https://placehold.co/300x250" style="margin-right: 10px;">
+        <img src="https://placehold.co/300x250" style="margin-right: 10px;">
+        <img src="https://placehold.co/300x250">
 
       <p></p>
 <p><button>Voir Produit</button></p>
-
-
-
-    </div>
-
-
-    </div>
+  <div v-if="product && product.inStock === 0" class="alert alert-warning mt-3">
+    Ce service est en rupture de stock. Veuillez nous contacter pour plus d'informations.
+  </div>
+  </div>
+  </div>
 
 </template>
+
 <script setup lang="ts">
+import { ref, watch, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router';
+import { find_product_by_id } from "../functions/product.ts";
+
 const button = document.querySelector('.product__button');
+const route = useRoute();
+let params = route.params.id;
+
+const product = ref<null | { name: string; description: string ;price: number; images: any[] }>(null);
+
+const urls = computed(() => {
+  if (product.value && product.value.images) {
+    return product.value.images.map((images: any) => images.url);
+  }
+  return [];
+});
+
+if (product.value && product.value.images) {
+  console.log("Oui")
+}
+onMounted(async () => {
+  product.value = await find_product_by_id(parseInt(params[0]));
+});
+
+watch(() => route.params.id, async (newValue) => {
+  product.value = await find_product_by_id(parseInt(newValue[0]));
+});
 
 function buttonAnimate() {
-  button.classList.add('product__button--success');
+  if (button){
+    button.classList.add('product__button--success');
+  }
 }
 
+onMounted(async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:3001/product/1')
+    if (!response.ok) throw new Error('Erreur serveur')
+    product.value = await response.json()
+  } catch (error) {
+    console.error('Erreur lors du chargement du produit:', error)
+  }
+})
 </script>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
 
@@ -123,8 +164,6 @@ html {
   color: rgb(34 34 34);
   background: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
 }
-
-
 
 footer {
   padding: 30px 10px;
@@ -162,7 +201,7 @@ footer {
   cursor: pointer;
   transition: 0.5s;
 }
-
+/*
 .carousel,
 .achats {
   width: clamp(200px, 100%, 400px);
@@ -178,12 +217,12 @@ footer {
 .carousel > .img > img {
   transition: 0.5s;
 }
-
+*/
 .stars > * {
   fill: #5397b4;
   width: 20px;
 }
-
+/*
 button {
   padding: 10px 20px;
   border: none;
@@ -198,7 +237,7 @@ button:hover {
   transform: scale(1.1);
   transition: 0.5s ease;
 }
-
+*/
 .tech {
   border-top: 1px solid rgb(200 200 200);
   display: block;
@@ -244,6 +283,15 @@ button:hover {
 
 .description > h2 {
   line-height: 40px;
+}
+
+/** Warning pour indiquer la rupture de stock d'un produit **/
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1em;
+  border-radius: 8px;
+  border: 1px solid #ffeeba;
 }
 
 </style>
