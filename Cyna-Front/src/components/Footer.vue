@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
-      <p class="nav col-md-4 mb-0 text-body-secondary justify-content-start">&copy; 2024 Company, Inc</p>
+      <p class="nav col-md-4 mb-0 text-body-secondary justify-content-start">&copy; 2025 Cyna, Inc</p>
   
       <div class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <ul class="nav justify-content-end list-unstyled d-flex">
@@ -16,13 +16,21 @@
           </svg></a></li>
         </ul>
       </div>
-  
+
       <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Mentions légales</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">CGU</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact</a></li>
+        <li class="nav-item">
+          <router-link class="nav-link px-2 text-body-secondary" to="/mentions-legales">Mentions légales</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link px-2 text-body-secondary" to="/cgu">CGU</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link px-2 text-body-secondary" to="/contact">Contact</router-link>
+        </li>
       </ul>
     </footer>
   </div>
   
   </template>
+<script setup lang="ts">
+</script>

@@ -12,9 +12,9 @@
           <div class="container h-100">
             <div class="row h-100">
               <div class="col-sm-5">
-                <h1>{{ carousel.title }}</h1>
-                <p>{{ carousel.description }}</p>
-                <button class="btn btn-primary fs-4 px-4">{{ carousel.buttonText }}</button>
+                <h1>{{ t(carousel.titleKey) }}</h1>
+                <p>{{ t(carousel.descriptionKey) }}</p>
+                <button class="btn btn-primary fs-4 px-4">{{ t(carousel.buttonKey) }}</button>
               </div>
                <div class="col-sm-7">
                 <img class="img-fluid" :src="(`${carousel.image}`)" alt="">
@@ -27,7 +27,7 @@
         </div>
         <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Précédant</span>
+          <span class="visually-hidden">Précédent</span>
         </button>
         <button class="carousel-control-next w-auto" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -37,26 +37,25 @@
 
       <!-- Banderole -->
       <div class="banderole">
-        <h4 class="container">Votre sécurité est notre métier,
-          construisez vos projets en toute sérénité.</h4>
+        <h4 class="container">{{ t('banderole') }}</h4>
       </div>
   
       <!-- Categories -->
-      <h2 class="mb-4 fs-1">Catégories</h2>
+      <h2 class="mb-4 fs-1">{{ t('categoriesTitle') }}</h2>
       <div class="category row justify-content-md-center container m-auto row-gap-5">
         <div class="col-xs-1 col-md-5 col-xl-4" v-for="category in categories" :key="category.title">
           <div class="card text-center m-auto" :style="{backgroundImage:`url(${category.image})`}">
             <div class="card-body d-flex flex-column justify-content-center align-items-center ">
               <h3 class="card-title">{{ category.title }}</h3>
                 <p class="card-text fs-5 fw-medium">{{ category.description }}</p>
-                <router-link class="btn btn-primary" :to="{ path: `/category/${category.title}`}">Voir catégorie</router-link>
+                <router-link class="btn btn-primary" :to="{ path: `/category/${category.title}`, query: { description: `${category.description}`, image: `${category.image}` }}">{{ t('viewCategory') }}</router-link>
             </div>
           </div>
         </div>
       </div>
   
       <!-- Meilleurs Produits -->
-      <h2 class="mt-5 mb-4 fs-1">Les Top Produits du moment</h2>
+      <h2 class="mt-5 mb-4 fs-1">{{ t('topProductsTitle') }}</h2>
       <div class="row container justify-content-md-center row-gap-5 m-auto">
         <div class="col-xs-1 col-md-5 col-xl-4" v-for="(product, rank) in topProducts" :key="rank">
           <svg v-if="product.rank === 1" width="100" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path fill="#FFD43B" d="M400.192,344.853c36.117-36.608,58.475-86.805,58.475-142.187C458.667,90.923,367.744,0,256,0 C144.256,0,53.333,90.923,53.333,202.667c0,55.381,22.357,105.579,58.475,142.208L54.592,451.733 c-1.771,3.307-1.664,7.296,0.256,10.517c1.92,3.2,5.397,5.184,9.152,5.184h56.491l32,40.533c2.027,2.56,5.12,4.032,8.363,4.032 c0.32,0,0.64,0,0.96-0.043c3.584-0.32,6.763-2.432,8.448-5.632l54.997-103.595c10.069,1.557,20.267,2.603,30.741,2.603 s20.672-1.045,30.741-2.581l54.997,103.595c1.685,3.179,4.864,5.312,8.448,5.632c0.32,0.021,0.64,0.021,0.96,0.021 c3.243,0,6.336-1.472,8.384-4.053l32-40.533H448c3.755,0,7.211-1.963,9.152-5.184c1.92-3.221,2.027-7.211,0.256-10.517 L400.192,344.853z M159.104,481.899l-25.067-31.765c-2.027-2.56-5.12-4.053-8.384-4.053H81.792l46.293-86.4 c21.824,17.813,47.488,30.997,75.456,38.528L159.104,481.899z M256,384c-99.989,0-181.333-81.344-181.333-181.333 S156.011,21.333,256,21.333s181.333,81.344,181.333,181.333S355.989,384,256,384z M386.347,446.08 c-3.264,0-6.357,1.493-8.384,4.053l-25.067,31.765l-44.437-83.691c27.968-7.509,53.632-20.693,75.456-38.528l46.293,86.4H386.347 z"/><path fill="#FFD43B" d="M256,42.667c-88.235,0-160,71.765-160,160s71.765,160,160,160s160-71.765,160-160S344.235,42.667,256,42.667z M256,341.333c-76.459,0-138.667-62.208-138.667-138.667S179.541,64,256,64s138.667,62.208,138.667,138.667 S332.459,341.333,256,341.333z"/><path fill="#FFD43B" d="M256,128h-21.333c-5.888,0-10.667,4.779-10.667,10.667s4.779,10.667,10.667,10.667h10.667v117.333 c0,5.888,4.779,10.667,10.667,10.667s10.667-4.779,10.667-10.667v-128C266.667,132.779,261.888,128,256,128z"/></svg>
@@ -67,7 +66,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text">Prix: {{ product.price }} €</p>
-              <a href="#" class="btn btn-primary">Voir le produit</a>
+              <a href="#" class="btn btn-primary">{{ t('viewProduct') }}</a>
             </div>
           </div>
         </div>
@@ -77,16 +76,59 @@
   import carousel from '../json/carousel.json'
   import topProduct from '../json/topProduct.json'
   import categorie from '../json/categorie.json'
+  import { useI18n } from 'vue-i18n'
+
   export default {
-    data() {
+    setup() {
+      const { t } = useI18n()
+
+      const carouselData = carousel
+
+      const topProducts = [
+        { name: 'Produit 1', price: 29.99, rank: 1, image: '/product1.jpg' },
+        { name: 'Produit 2', price: 49.99, rank: 2, image: '/product2.jpg' },
+        { name: 'Produit 3', price: 79.99, rank: 3, image: '/product3.jpg' },
+      ]
+
+      const categories = [
+        {
+          title: 'Prévention',
+          description: t('categories.prevention.description'),
+          image: '/Categorie1.jpg'
+        },
+        {
+          title: 'Protection',
+          description: t('categories.protection.description'),
+          image: '/Categorie2.jpg'
+        },
+        {
+          title: 'Réponse',
+          description: t('categories.reponse.description'),
+          image: '/Categorie3.jpg'
+        },
+        {
+          title: 'Anticipation',
+          description: t('categories.anticipation.description'),
+          image: '/Categorie2.jpg'
+        }
+      ]
+
       return {
-        carouselData: carousel,
+        /* carouselData: carousel,
         topProducts: topProduct,
         categories: categorie,
       };
     },
-  };
+  }; */
+        t,
+        carouselData,
+        topProducts,
+        categories
+      }
+    }
+  }
   </script>
+
   
   <style scoped>
 

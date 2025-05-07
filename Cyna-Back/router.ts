@@ -11,28 +11,17 @@ CynaRouter
     })
     .post('/', async (ctx, next) => {
         console.log("/ - Empty Post request");
-        try {
             ctx.body = 'Hello My Koa!';
-        } catch (e) {
-            console.log(e)
-        }
     })
     .post('/faker', async (ctx, next) => {
         console.log("/faker")
         try {
             const result = await fakertest.generate_fake_data();
-            console.log(result)
-            ctx.body = result
+            ctx.body = "Generated Basic Fixtures."
         } catch (e) {
             console.log(e)
             ctx.body = e
         }
     })
-    .all('/users/:id', (ctx, next) => {
-        try {
-        } catch (e) {
-            console.log(e)
-        }
-    });
 
 export default CynaRouter

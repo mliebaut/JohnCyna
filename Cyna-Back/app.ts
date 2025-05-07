@@ -12,13 +12,14 @@ import orderRouter from "./routes/orderRoutes";
 import productRouter from "./routes/productRoutes";
 import subscriptionRoutes from "./routes/subscriptionRoutes";
 import userRouter from "./routes/userRoutes";
+import dashboardRoutes from './routes/dashboardRoutes'
+
 
 //  Import du router Stripe
 //import stripeRouter from "./routes/stripe";
 //import successRouter from "./routes/success";
 
 const app = new Koa();
-
 //  Middleware CORS pour autoriser le frontend (Vue.js)
 app.use(
     cors({
@@ -32,15 +33,6 @@ app.use(
 //  Middleware pour parser les requêtes JSON
 app.use(koaBody());
 
-// //  Route de test pour vérifier que le serveur fonctionne
-// app.use(async (ctx, next) => {
-//     if (ctx.path === "/") {
-//         ctx.body = "Hello Koa";
-//         return;
-//     }
-//     await next();
-// });
-
 //  Intégration des routes existantes
 app.use(CynaRouter.routes()).use(CynaRouter.allowedMethods());
 app.use(addressRouter.routes()).use(addressRouter.allowedMethods());
@@ -51,6 +43,10 @@ app.use(orderRouter.routes()).use(orderRouter.allowedMethods());
 app.use(productRouter.routes()).use(productRouter.allowedMethods());
 app.use(subscriptionRoutes.routes()).use(subscriptionRoutes.allowedMethods());
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
+app.use(dashboardRoutes.routes()).use(dashboardRoutes.allowedMethods())
+
+app.use(dashboardRoutes.routes())
+app.use(dashboardRoutes.allowedMethods())
 
 //  Intégration des routes Stripe
 //app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());

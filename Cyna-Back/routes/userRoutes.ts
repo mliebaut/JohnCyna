@@ -9,29 +9,12 @@ const userRouter = new Router();
 const jwt = require('jsonwebtoken');
 
 userRouter
-    .post('/user', async (ctx, next) => {
-        console.log("/user");
-        try {
-            ctx.body = await prisma.user.findMany()
-        } catch (e) {
-            console.log(e)
-        }
-    })
-
     .post('/user/create', async (ctx, next) => {
         console.log("/user/create");
         try {
             const receivedData = ctx.request.body;
-            if(Object.keys(receivedData).length == 0){
-                console.log("No Data Received - Error #444959")
-                ctx.body = "No Data Received - Error #444959";
-                ctx.status = 404;
-                return;
-            }
             if(!receivedData){
-                console.log("No user email the data - Error #7D954235")
-                ctx.body = "No user email in the data - Error #7D954235"
-                ctx.status = 404;
+                console.log("No Data Received - Error #11-1")
                 return;
             }
             const content = JSON.parse(receivedData);
@@ -113,7 +96,17 @@ userRouter
             }else{
                 ctx.body = "authentification failed";
             }
-
+            
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+)
+    .post('/user/searchAll', async (ctx, next) => {
+        console.log("/user/searchAll");
+        try {
+            ctx.body = await prisma.user.findMany()
         } catch (e) {
             console.log(e)
         }
@@ -123,22 +116,23 @@ userRouter
         console.log("/user/searchById")
         try {
             const receivedData = ctx.request.body;
+            console.log(receivedData);
             if(Object.keys(receivedData).length == 0){
-                console.log("No Data Received - Error #55954959")
-                ctx.body = "No Data Received - Error #55954959";
+                console.log("No Data Received - Error #11-2")
+                ctx.body = "No Data Received - Error #11-2";
                 ctx.status = 404;
                 return;
             }
             if(!receivedData.userId){
-                console.log("No user ID in the data - Error #7D954959")
-                ctx.body = "No user ID in the data - Error #7D954959"
+                console.log("No user ID in the data - Error #11-3")
+                ctx.body = "No user ID in the data - Error #11-3"
                 ctx.status = 404;
                 return;
             }
-            let result = await prisma.user.findMany({
+            let result = await prisma.user.findFirstOrThrow({
                 where:{
-                    id: receivedData.userId,
-                }
+                    id: receivedData.userId
+                },
             })
             console.log(result)
             ctx.body = result;
@@ -155,8 +149,8 @@ userRouter
             let content = JSON.parse(receivedData);
             let email = Object.values(content)[0] as string;
             if(Object.keys(receivedData).length == 0){
-                console.log("No Data Received - Error #444959")
-                ctx.body = "No Data Received - Error #444959";
+                console.log("No Data Received - Error #11-4")
+                ctx.body = "No Data Received - Error #11-4";
                 ctx.status = 404;
                 return;
             }
@@ -398,7 +392,7 @@ userRouter
             console.log(e)
         }
     })
-    .del('/user/delete', async (ctx, next) => {
+    .post('/user/delete', async (ctx, next) => {
         console.log("/user/delete");
         try {
             const receivedData = ctx.request.body;
@@ -411,6 +405,44 @@ userRouter
             })
             console.log(userToDelete)
             ctx.body = userToDelete
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    .post('/user/login', async (ctx, next) => {
+        console.log("/user/login");
+        try {
+            const receivedData = ctx.request.body;
+            if(!receivedData){
+                console.log("No Data Received - Error #11-7")
+                return;
+            }
+            const content = JSON.parse(receivedData);
+            const email = Object.values(content)[0] as string;
+            const password = Object.values(content)[1] as string;
+
+            const existingUser = await prisma.user.findUnique({
+                select: {
+                    lastName: true,
+                    firstName: true,
+                    email: true,
+                    password: true,
+                },
+                where:{
+                    email: email,
+                }
+            })
+
+            if(!existingUser){
+                console.log("User not found")
+                return;
+            }
+            const passwordDB = Object.values(existingUser)[3];
+
+            if (await PassFunc.checkMyPassword(password, passwordDB)){
+                ctx.body = existingUser;
+            }
+
         } catch (e) {
             console.log(e)
         }
