@@ -1,29 +1,42 @@
 <template>
   <div class="about-page">
-    <h1>À propos</h1>
-    <p>
-      Post quorum necem nihilo lenius ferociens Gallus. Et est admodum mirum videre plebem innumeram.
-    </p>
-    <p>
-      Nihil est enim virtute amabilius, nihil quod magis. Auxerunt haec vulgi sordidioris audaciam, quod cum accedat huc suavitas quaedam oportet sermonum.
-    </p>
-    <p>
-      Iis igitur est difficilius satis facere, qui se. Et licet quocumque oculos flexeris feminas adfatim.
-    </p>
-    <p>
-      Alii nullo quaerente vultus severitate adsimulata. Mox dicta finierat, multitudo omnis ad, quae.
-    </p>
-    <p>
-      Dein Syria per speciosam interpatet diffusa. Post hoc impie perpetratum quod in aliis quoque.
-    </p>
-    <p>
-      Ibi victu recreati et quiete, postquam abierat. Sed saepe enim redeo ad Scipionem, cuius omnis.
-    </p>
-    <p>
-      Et quoniam mirari posse quosdam peregrinos.
-    </p>
+    <h1>Conditions Générales d’Utilisation (CGU)</h1>
+    
+    <p><strong>1. Présentation de la société</strong><br>
+    La société <em>CYNA</em>, SARL au capital de 20 000 €, immatriculée au RCS de Paris sous le numéro 123 456 789, dont le siège est situé au 42 rue des Octets, 75000 Paris, fournit des solutions informatiques personnalisées.</p>
+    
+    <p><strong>2. Objet</strong><br>
+    Les présentes CGU définissent les conditions d’accès et d’utilisation du site www.cyna-solutions.fr et des services proposés par CYNA.</p>
+
+    <p><strong>3. Acceptation des CGU</strong><br>
+    Toute utilisation des services implique l’acceptation totale et sans réserve des présentes conditions.</p>
+
+    <p><strong>4. Accès aux services</strong><br>
+    Certains services nécessitent un compte utilisateur. L'utilisateur est responsable de la confidentialité de ses identifiants.</p>
+
+    <p><strong>5. Services proposés</strong><br>
+    Cyna propose : développement logiciel, cybersécurité, hébergement, support technique, vente de matériel et licences.</p>
+
+    <p><strong>6. Engagements de l’utilisateur</strong><br>
+    L’utilisateur s’engage à utiliser les services dans le respect des lois et des présentes CGU.</p>
+
+    <p><strong>7. Propriété intellectuelle</strong><br>
+    Tous les éléments du site sont la propriété exclusive de Cyna ou de ses partenaires. Toute reproduction est interdite.</p>
+
+    <p><strong>8. Données personnelles</strong><br>
+    Les données collectées sont traitées conformément au RGPD. Contact : dpo@cyna-solutions.fr.</p>
+
+    <p><strong>9. Responsabilité</strong><br>
+    Cyna ne saurait être tenue responsable de pannes temporaires, pertes de données ou dommages indirects.</p>
+
+    <p><strong>10. Modification des CGU</strong><br>
+    Cyna peut modifier à tout moment les présentes CGU. L'utilisateur sera informé via le site ou par email.</p>
+
+    <p><strong>11. Droit applicable</strong><br>
+    Ces CGU sont régies par le droit français. En cas de litige, compétence est donnée aux tribunaux de Paris.</p>
+
     <p class="highlight">
-      J'aime les chats.
+      Cyna – L’informatique autrement.
     </p>
   </div>
 </template>
