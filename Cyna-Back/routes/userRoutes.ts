@@ -29,15 +29,7 @@ userRouter
                     }
                 }
             )
-            ctx.body = new_user;
-                data: {
-                    email: email,
-                    lastName: nom,
-                    firstName: prenom,
-                    password: hashed_password.toString()
-                }
-            }
-        )
+
             if(!new_user){
                 console.log("Create User failed")
                 return;
