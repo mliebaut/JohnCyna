@@ -14,7 +14,7 @@
               <div class="col-sm-5">
                 <h1>{{ t(carousel.titleKey) }}</h1>
                 <p>{{ t(carousel.descriptionKey) }}</p>
-                <button class="btn btn-primary fs-4 px-4">{{ t(carousel.buttonKey) }}</button>
+                <RouterLink class="btn btn-primary fs-4 px-4" to="/about">{{ t(carousel.buttonKey) }}</RouterLink>
               </div>
                <div class="col-sm-7">
                 <img class="img-fluid" :src="(`${carousel.image}`)" alt="">
