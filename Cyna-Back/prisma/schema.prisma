@@ -18,7 +18,7 @@ model User {
   confirmEmailToken  String?  @db.VarChar(1000)
   emailConfirmed     Boolean  @default(false)
   createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  updatedAt          DateTime @updatedAt()
   Orders             Order[]
   Company            Company[]
   Addresses          Address[]
@@ -28,7 +28,7 @@ model User {
 
 model Product {
   id          Int        @id @default(autoincrement())
-  ean         String?
+  ean         Int?
   GUID        String?
   name        String?
   description String?

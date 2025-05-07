@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run Dev" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="Cd Cyna-Front; npm run dev" />
+    <option name="SCRIPT_TEXT" value="cd Cyna-Front; npm run dev" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />

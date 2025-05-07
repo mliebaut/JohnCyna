@@ -5,7 +5,7 @@
   <main style="padding: 2rem; font-family: sans-serif; background-color: #f8f9fa; min-height: 100vh;">
     <h2 style="margin-bottom: 2rem; text-align: center;">🎛️ Interface Back Office</h2>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+    <nav style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
       <RouterLink
         to="/backoffice/user"
         class="card-link"
@@ -33,7 +33,7 @@
       >
         📍 Gestion des adresses
       </RouterLink>
-    </div>
+    </nav>
   </main>
 </template>
 

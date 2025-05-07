@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import {PrismaClient} from '@prisma/client'
 import * as PassFunc from '../functions/password'
+import {UserPermission} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
@@ -11,29 +12,24 @@ const jwt = require('jsonwebtoken');
 userRouter
     .post('/user/create', async (ctx, next) => {
         console.log("/user/create");
+        console.log(ctx.request.body);
         try {
-            const receivedData = ctx.request.body;
+            const receivedData = ctx.request.body.createdUser;
             if(!receivedData){
                 console.log("No Data Received - Error #11-1")
                 return;
             }
-            const content = JSON.parse(receivedData);
-            console.log(content);
-            const nom = Object.values(content)[0] as string;
-            const prenom = Object.values(content)[1] as string;
-            const email = Object.values(content)[2] as string;
-            const password = Object.values(content)[3] as string;
-
-            const hashed_password = await PassFunc.hashMyPassword(password.toString())
+            const hashed_password = await PassFunc.hashMyPassword(receivedData.password.toString())
             const new_user: any = await prisma.user.create({
-                data: {
-                    email: email,
-                    lastName: nom,
-                    firstName: prenom,
-                    password: hashed_password.toString()
+                    data: {
+                        email: receivedData.email.toLowerCase(),
+                        lastName: receivedData.lastName,
+                        firstName: receivedData.firstName,
+                        password: hashed_password.toString()
+                    }
                 }
-            }
-        )
+            )
+
             if(!new_user){
                 console.log("Create User failed")
                 return;
@@ -53,9 +49,17 @@ userRouter
             console.log(e)
         }
     })
+    .post('/user/getAllRoles', async (ctx, next) => {
+        console.log("/user/getAllRoles");
+        try {
+            ctx.body = UserPermission;
+        } catch (e) {
+            console.log(e)
+        }
+    })
     .post('/user/login', async (ctx, next) => {
         console.log("/user/login");
-        try {            
+        try {
             const receivedData = ctx.request.body;
             if(!receivedData){
                 console.log("No Data Received - Error #4477797")
@@ -67,7 +71,7 @@ userRouter
 
             const existingUser = await prisma.user.findUnique({
                 select: {
-                    lastName: true,  
+                    lastName: true,
                     firstName: true,
                     email: true,
                     password: true,
@@ -96,7 +100,7 @@ userRouter
             }else{
                 ctx.body = "authentification failed";
             }
-            
+
         }
         catch (e) {
             console.log(e)
@@ -169,7 +173,6 @@ userRouter
             ctx.body = result;
         }
         catch (e) {
-            console.log("Error : ")
             console.log(e);
             ctx.body = e;
         }
@@ -195,7 +198,7 @@ userRouter
             const existingUser = await prisma.user.findUnique({
                 select: {
                     id: true,
-                    lastName: true,  
+                    lastName: true,
                     firstName: true,
                     email: true,
                 },
@@ -239,7 +242,7 @@ userRouter
                         const existingUser: any = await prisma.user.findFirst({
                             select: {
                                 id: true,
-                                lastName: true,  
+                                lastName: true,
                                 firstName: true,
                                 email: true,
                                 password: true,
@@ -290,7 +293,7 @@ userRouter
                         const existingUser: any = await prisma.user.findFirst({
                             select: {
                                 id: true,
-                                lastName: true,  
+                                lastName: true,
                                 firstName: true,
                                 email: true,
                                 password: true,
@@ -374,22 +377,45 @@ userRouter
             console.log(e)
         }
     })
-    .post('user/update', async (ctx, next) => {
+    .post('/user/update', async (ctx, next) => {
         console.log("/user/update");
         try {
-            const receivedData = ctx.request.body;
+            if(!ctx.request.body){
+                console.log("No Data Received - Error #11-17")
+                ctx.body = "No Data Received - Error #11-17";
+                ctx.status = 404;
+                return
+            }
+            const receivedData = ctx.request.body.updatedUser;
+            if(Object.keys(receivedData).length == 0){
+                console.log("No Data Received - Error #11-14")
+                ctx.body = "No Data Received - Error #11-14";
+                ctx.status = 404;
+                return;
+            }
+            if(!receivedData.email){
+                console.log("No user email the data - Error #11-9")
+                ctx.body = "No user email in the data - Error #11-9"
+                ctx.status = 404;
+                return;
+            }
             console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
             console.log(receivedData);
             const userToUpdate: any = await prisma.user.update({
                 where: {
-                    id: receivedData.userId
+                    id: receivedData.id
                 },
                 data: {
-                    //     METTRE LES ARGUMENTS ICI
+                    email: receivedData.email.toLowerCase(),
+                    lastName: receivedData.lastName,
+                    firstName: receivedData.firstName,
+                    role: receivedData.role
                 }
             })
+            ctx.body = userToUpdate;
         } catch (e) {
             console.log(e)
+            ctx.body = e;
         }
     })
     .post('/user/delete', async (ctx, next) => {
@@ -435,12 +461,19 @@ userRouter
 
             if(!existingUser){
                 console.log("User not found")
-                return;
+                ctx.body = "User not found";
             }
-            const passwordDB = Object.values(existingUser)[3];
 
-            if (await PassFunc.checkMyPassword(password, passwordDB)){
-                ctx.body = existingUser;
+            const passwordResult = await PassFunc.checkMyPassword(receivedData.password, existingUser.password);
+            console.log(passwordResult)
+            if (passwordResult){
+                console.log("Passwords Match")
+                //Envoie d'un token ICI
+                ctx.body = "Passwords Match!";
+            } else {
+                console.log("Wrong Password")
+                ctx.status = 404;
+                ctx.body = 'Wrong Password'
             }
 
         } catch (e) {
