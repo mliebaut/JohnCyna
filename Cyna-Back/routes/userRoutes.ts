@@ -342,16 +342,10 @@ userRouter
                 return;
             }
             const content = JSON.parse(receivedData);
-            console.log(content);
-            const nom = Object.values(content)[0] as string;
-            const prenom = Object.values(content)[1] as string;
-            const email = Object.values(content)[2] as string;
 
             const thisUser: any = await prisma.user.findFirst({
                 where: {
-                    email: email,
-                    lastName: nom,
-                    firstName: prenom,
+                    id: content.user.id,
                 }
             }
         )
@@ -363,7 +357,7 @@ userRouter
             console.log(token)
             await prisma.user.update({
                 where: {
-                    email: Object.values(content)[2] as string,
+                    id: content.user.id,
                 },
                 data: {
                     confirmEmailToken: token,

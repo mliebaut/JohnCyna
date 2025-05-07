@@ -11,7 +11,7 @@
           <p>
             Votre email n'a pas été vérifié. Veuillez clique sur le lien ci-dessous pour renvoyer le mail de confirmation.
           </p>
-          <button @click="newConfirmEmail">Renvoyer le mail de confirmation</button>
+          <button type="button" @click="newConfirmEmail">Renvoyer le mail de confirmation</button>
           <p class="confirm-link text-body-secondary" style="display: none;">{{ userStore.urlConfirmEmail }}</p>
         </div>
       <div class="inputs">
