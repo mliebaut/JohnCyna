@@ -10,9 +10,9 @@
         </div>
         <div>
           <button class="btn btn-danger btn-sm me-2" @click="removeFromCart(index)">Supprimer</button>
-          <button class="btn btn-primary btn-sm" @click="item.quantity++">+</button>
+          <button class="btn btn-primary btn-sm" @click="item.quantity--" :disabled="item.quantity === 1" >-</button>
           <span class="mx-2">{{ item.quantity }}</span>
-          <button class="btn btn-primary btn-sm" @click="item.quantity--" :disabled="item.quantity === 1">-</button>
+          <button class="btn btn-primary btn-sm" @click="item.quantity++" >+</button>
         </div>
       </div>
   
@@ -22,12 +22,7 @@
       </div>
   
     
-      <div class="mt-4">
-        <h5>Ajouter un produit :</h5>
-        <input type="text" v-model="newProduct.name" placeholder="Nom" class="form-control mb-2">
-        <input type="number" v-model="newProduct.price" placeholder="Prix" class="form-control mb-2">
-        <button class="btn btn-success" @click="addToCart">Ajouter au panier</button>
-      </div>
+   
     </div>
   </template>
   
