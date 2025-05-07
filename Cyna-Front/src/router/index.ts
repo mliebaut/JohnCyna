@@ -139,6 +139,11 @@ const routes = [
         name: 'BackOffice Adresses',
         component: () => import('../views/BackOffice/BackOfficeAdresseView.vue'),
     },
+    {
+        path: '/service-details',
+        name: 'Service Details',
+        component: () => import('../views/ServiceDetails.vue'),
+    }
 ]
 
 const router = createRouter({
