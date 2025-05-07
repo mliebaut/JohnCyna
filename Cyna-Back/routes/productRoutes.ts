@@ -66,13 +66,24 @@ productRouter
     console.log("/product/searchById")
     try {
         const receivedData = ctx.request.body;
+        console.log('Reçu :', ctx.request.body.id);
+
         if(!receivedData){
             console.log("No Data Received - Error #13595959")
             return;
         }
-        let result = await prisma.product.findMany({
+        let result = await prisma.product.findFirst({
+            select: {
+                ean: true,  
+                GUID: true,
+                name: true,
+                description: true,
+                inStock: true,
+                categories: true,
+                images: true,
+            },
             where:{
-                id: receivedData.productId,
+                id: ctx.request.body.id,
             }
         })
         console.log(result)

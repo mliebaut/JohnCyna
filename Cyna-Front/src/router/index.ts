@@ -58,9 +58,23 @@ const routes = [
         name:'Connexion',
         component: () => import("../views/ConnexionView.vue")
     },
-
     {
-        path:'/produit',
+        path:'/reset-password',
+        name:'Mot de passe oublié',
+        component: () => import("../views/MotDePasseOublieView.vue")
+    },
+    {
+        path:'/update-password',
+        name:'Réinitialiser le mot de passe',
+        component: () => import("../views/NouveauMotDePasseView.vue")
+    },
+    {
+        path:'/confirm-email',
+        name:'Confirmer email',
+        component: () => import("../views/ConfirmEmailView.vue")
+    },
+    {
+        path:'/produit/:id',
         name:'produit',
         component: () => import("../views/ProduitView.vue")
     },
@@ -90,6 +104,11 @@ const routes = [
     {   path: "/cancel", 
         name: 'cancel',
         component: () => import("../views/Checkout/Cancel.vue") 
+    },
+    {
+        path:'/private',
+        name:'Private page',
+        component: () => import("../views/PrivatePageView.vue")
     },
     {
         path: "/historique",

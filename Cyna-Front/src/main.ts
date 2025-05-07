@@ -1,6 +1,6 @@
+import App from './App.vue'
 import { createApp } from 'vue'
 import './style.css'
-import App from './App.vue'
 import router from './router'
 import { createPinia } from "pinia";
 import 'bootstrap/dist/js/bootstrap';
@@ -21,15 +21,22 @@ pinia.use((context) => {
         deserialize: JSON.parse
     }
 
-    const fromStorage = serilizer.deserialize(window.localStorage.getItem(storeId))
+    try {
+        const fromStorage = serilizer.deserialize(window.localStorage.getItem(storeId)!)
 
-    if (fromStorage) {
-        context.store.$patch(fromStorage)
+        if (fromStorage) {
+            context.store.$patch(fromStorage)
+        }
+    
+        context.store.$subscribe((mutation, state) => {
+            window.localStorage.setItem(storeId, serilizer.serialize(state))
+        })
+    }
+    catch(e){
+        console.log(e);
     }
 
-    context.store.$subscribe((mutation, state) => {
-        window.localStorage.setItem(storeId, serilizer.serialize(state))
-    })
+
 })
 
 app.use(router)
