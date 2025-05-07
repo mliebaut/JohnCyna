@@ -4,7 +4,7 @@ type Product = {
     name: string;
     description: string;
     price: number;
-    image: string;
+    images: any[];
   };
 
 export async function ping_server(){
@@ -38,6 +38,7 @@ export async function find_product_by_id(id : any){
         }
     
         const product: Product = await response.json();
+        console.log(product);
         return product;
       } catch (e) {
         console.error(e);

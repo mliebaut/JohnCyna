@@ -73,6 +73,15 @@ productRouter
             return;
         }
         let result = await prisma.product.findFirst({
+            select: {
+                ean: true,  
+                GUID: true,
+                name: true,
+                description: true,
+                inStock: true,
+                categories: true,
+                images: true,
+            },
             where:{
                 id: ctx.request.body.id,
             }

@@ -3,7 +3,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width">
   </head>
 
-  <div v-if="product" class="container">
+  <div v-if="product" class="container mt-5">
     <div class="article">
       <div id="carouselExampleDark" class="carousel carousel-dark slide">
         <div class="carousel-indicators">
@@ -12,16 +12,11 @@
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="10000">
-            <img src="https://loremflickr.com/cache/resized/defaultImage.small_1280_529_nofilter.jpg" class="d-block w-100" alt="...">
+          <div v-for="(image, index) in urls" :key="index" class="carousel-item row" :class="{ active: index == 0}">
+            <div class="carousel-item">
+              <img class="d-block w-100" :src="(`${image}`)" alt="">
+            </div>
           </div>
-          <div class="carousel-item" data-bs-interval="2000">
-            <img src="https://loremflickr.com/cache/resized/defaultImage.small_1280_529_nofilter.jpg" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="https://loremflickr.com/cache/resized/defaultImage.small_1280_529_nofilter.jpg" class="d-block w-100" alt="...">
-          </div>
-        </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
@@ -31,6 +26,7 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+    </div>
       <div class="description">
         <h2>{{ product.name }}</h2>
         <p>
@@ -112,25 +108,31 @@
       <p><button>Voir Produit</button></p>
 
 
-
-    </div>
-
-
+  </div>
   </div>
 
 </template>
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router';
 import { find_product_by_id } from "../functions/product.ts";
 
 const button = document.querySelector('.product__button');
 const route = useRoute();
 let params = route.params.id;
-console.log(route.params.id);
 
-const product = ref<null | { name: string; description: string ;price: number; image: string }>(null);
+const product = ref<null | { name: string; description: string ;price: number; images: any[] }>(null);
 
+const urls = computed(() => {
+  if (product.value && product.value.images) {
+    return product.value.images.map((images: any) => images.url);
+  }
+  return [];
+});
+
+if (product.value && product.value.images) {
+  console.log("Oui")
+}
 onMounted(async () => {
   product.value = await find_product_by_id(parseInt(params[0]));
 });

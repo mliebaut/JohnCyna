@@ -26,7 +26,7 @@ export async function generate_fake_data() {
                 lastName: faker.person.lastName(),
                 firstName: faker.person.firstName(),
                 password: faker.food.adjective(),
-                resetPasswordToken: faker.food.adjective()
+                resetPasswordToken: faker.food.adjective(),
             }
         })
         await prisma.company.create({

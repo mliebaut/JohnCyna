@@ -1,6 +1,9 @@
 <template>
   <section class="confirm">
-    <p class="confirm-link text-body-secondary" style="display: none;">{{ userStore.urlConfirmEmail }}</p>
+    <div style="display: none;" class="confirm-email">
+      <p>Votre email a été confirmé, vous pouvez désormais vous connecter</p>
+      <router-link to="/connexion">Se connecter</router-link>
+    </div>
   </section>
 </template>
 
@@ -8,27 +11,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 
-<script >
+<script>
 import { useUserStore } from "../stores/user.js";
+import { useRoute } from 'vue-router';
 
-export default {
-  setup() {
-    const userStore = useUserStore();
-    return { userStore };
-  },
-  data() {
-    return {
-      nom: "",
-      prenom: "",
-      email: "",
-      password: "",
-    };
-  },
-  methods: {
-    async register() {
-      await this.userStore.signUp(this.nom, this.prenom, this.email, this.password);
-    },
-  },
-};
+const route = useRoute();
+const userStore = useUserStore();
+
+userStore.confirmEmail()
 
 </script>
