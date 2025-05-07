@@ -163,6 +163,11 @@ const routes = [
         path: '/service-details',
         name: 'Service Details',
         component: () => import('../views/ServiceDetails.vue'),
+    },
+    {
+        path: '/recherche',
+        name: 'recherche',
+        component: () => import('../views/rechercheView.vue'),
     }
 ]
 
