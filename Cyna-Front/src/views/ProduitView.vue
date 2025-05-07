@@ -95,6 +95,10 @@
         <p><button>Voir Produit</button></p>
       </div>
   </div>
+  <div v-if="product && product.inStock === 0" class="alert alert-warning mt-3">
+    Ce service est en rupture de stock. Veuillez nous contacter pour plus d'informations.
+  </div>
+
 </template>
 
 <script setup lang="ts">
@@ -246,4 +250,14 @@ button:hover {
 .description > h2 {
   line-height: 40px;
 }
+
+/** Warning pour indiquer la rupture de stock d'un produit **/
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1em;
+  border-radius: 8px;
+  border: 1px solid #ffeeba;
+}
+
 </style>
