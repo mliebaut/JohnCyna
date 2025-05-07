@@ -171,6 +171,7 @@ export async function generate_fake_data() {
         })
         await prisma.product.create({
             data: {
+                GUID: faker.string.uuid(),
                 ean: faker.number.int(900000000),
                 name: faker.internet.domainWord(),
                 description: faker.hacker.phrase(),
