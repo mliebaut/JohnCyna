@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import Serv_Url from "../main.ts";
 
 
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
@@ -56,6 +57,19 @@ export const useUserStore = defineStore("user", {
           document.querySelector('.msg-alert').style.display = 'block';
         } 
         else{
+          await this.login(email, password)
+        }
+      }
+      } catch (e) {
+        console.log(e);
+    }
+    },
+    async login(email, password) {
+      try {
+        const res = await fetch(Serv_Url + '/user/login', {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        });
           const user = await res.json();
           this.user = user;
           if (this.returnUrl != null){
@@ -64,8 +78,6 @@ export const useUserStore = defineStore("user", {
           }else {
             window.location.href = "/";
           }
-        }
-      }
       } catch (e) {
         console.log(e);
     }
