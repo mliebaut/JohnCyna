@@ -46,15 +46,16 @@
         <p>
           1 899.95€
         </p>
-        <p>
-          3 en stock
+        <p v-if="product">
+          {{ product.inStock > 0 ? `${product.inStock} en stock` : 'Rupture de stock' }}
         </p>
-        <button>Ajouter au panier</button>
+        <button :disabled="product && product.inStock === 0">
+          Ajouter au panier
+        </button>
       </div>
     </div>
     <div class="tech">
       <h2>Fiche technique</h2>
-
       <div class="grid">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 29 29">
           <path d="M9 6h11a3 3 0 013 3v11a3 3 0 01-3 3H9a3 3 0 01-3-3V9a3 3 0 013-3zm0 .9A2.1 2.1 0 006.9 9v11c0 1.16.94 2.1 2.1 2.1h11a2.1 2.1 0 002.1-2.1V9A2.1 2.1 0 0020 6.9H9zM8 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM8 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM12 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM12 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM16 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM16 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM20 25.5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM20 .5v3a.5.5 0 001 0v-3a.5.5 0 00-1 0zM3.5 8h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 8h-3a.5.5 0 000 1h3a.5.5 0 000-1zM3.5 12h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 12h-3a.5.5 0 000 1h3a.5.5 0 000-1zM3.5 16h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 16h-3a.5.5 0 000 1h3a.5.5 0 000-1zM3.5 20h-3a.5.5 0 000 1h3a.5.5 0 000-1zM28.5 20h-3a.5.5 0 000 1h3a.5.5 0 000-1z" />
@@ -73,7 +74,6 @@
           <path fill-rule="evenodd" d="M14.03 2.8c1.04 0 1.87.84 1.87 1.88v22.45c0 1.03-.83 1.87-1.87 1.87H1.87A1.87 1.87 0 010 27.13V4.68C0 3.64.84 2.8 1.87 2.8h1.87v-.94C3.74.84 4.58 0 5.61 0h4.68c1.03 0 1.87.84 1.87 1.87v.94h1.87zM.93 4.69c0-.52.42-.94.94-.94h12.16c.52 0 .94.42.94.94v22.45c0 .52-.42.93-.94.93H1.87a.94.94 0 01-.93-.93V4.68zm3.75-2.8c0-.53.42-.94.93-.94h4.68c.52 0 .94.41.94.93v.94H4.68v-.94z" />
           <path fill-rule="evenodd" d="M13.56 25.26c0 .77-.62 1.4-1.4 1.4H3.74a1.4 1.4 0 01-1.4-1.4V15.9c0-.77.63-1.4 1.4-1.4h8.42c.78 0 1.4.63 1.4 1.4v9.36zm-9.82.47a.47.47 0 01-.47-.47v-2.34h9.36v2.34c0 .26-.21.47-.47.47H3.74zm-.47-3.75v-2.8h9.36v2.8H3.27zm9.36-6.08v2.34H3.27V15.9c0-.26.21-.46.47-.46h8.42c.26 0 .47.2.47.46z" />
         </svg>
-
         <p>Processeur</p>
         <p>Mémoire vive</p>
         <p>Écran</p>
@@ -83,38 +83,41 @@
         <p>16 Go</p>
         <p>13.3 pouces</p>
         <p>10h</p>
-
       </div>
-
     </div>
+      <div class="tech">
+        <h2>Recommandations  Produits</h2>
 
-    <div class="tech">
+        <img src="https://placehold.co/300x250" style="margin-right: 10px;">
+        <img src="https://placehold.co/300x250" style="margin-right: 10px;">
+        <img src="https://placehold.co/300x250">
 
-      <h2>Recommandations  Produits</h2>
-
-      <img src="https://placehold.co/300x250" style="margin-right: 10px;">
-      <img src="https://placehold.co/300x250" style="margin-right: 10px;">
-      <img src="https://placehold.co/300x250">
-
-      <p></p>
-<p><button>Voir Produit</button></p>
-
-
-
-    </div>
-
-
-    </div>
-
+        <p><button>Voir Produit</button></p>
+      </div>
+  </div>
 </template>
+
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 const button = document.querySelector('.product__button');
 
 function buttonAnimate() {
   button.classList.add('product__button--success');
 }
 
+const product = ref<any>(null)
+
+onMounted(async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:3001/product/1')
+    if (!response.ok) throw new Error('Erreur serveur')
+    product.value = await response.json()
+  } catch (error) {
+    console.error('Erreur lors du chargement du produit:', error)
+  }
+})
 </script>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
 
@@ -123,8 +126,6 @@ html {
   color: rgb(34 34 34);
   background: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
 }
-
-
 
 footer {
   padding: 30px 10px;
@@ -245,5 +246,4 @@ button:hover {
 .description > h2 {
   line-height: 40px;
 }
-
 </style>
