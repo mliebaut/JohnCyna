@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import {
-  createProduct,
-  deleteProduct,
-  findProductById, getAllCategories,
-  getAllProducts,
-  updateProduct,
-} from "@/functions/functions.ts";
+import {getAllCategories} from "@/functions/functions.ts";
+import { createProduct, deleteProduct, findProductById, getAllProducts, updateProduct} from "@/functions/product.ts";
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 

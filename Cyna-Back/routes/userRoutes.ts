@@ -18,7 +18,8 @@ userRouter
             const receivedData = ctx.request.body.createdUser;
             if(!receivedData){
                 console.log("No Data Received - Error #11-1")
-                return;
+                ctx.status = 400;
+                ctx.body = "No Data Received - Error #11-1"
             }
             const hashed_password = await PassFunc.hashMyPassword(receivedData.password.toString())
             const new_user: any = await prisma.user.create({
@@ -26,11 +27,9 @@ userRouter
                         email: receivedData.email.toLowerCase(),
                         lastName: receivedData.lastName,
                         firstName: receivedData.firstName,
-                        password: hashed_password.toString()
-                    }
-                }
-            )
-
+                        password: hashed_password,
+                        role: await selectCorrectUserPermission(receivedData.role)
+                    }})
             if(!new_user){
                 console.log("Create User failed")
                 return;
@@ -39,7 +38,7 @@ userRouter
             console.log(token)
             await prisma.user.update({
                 where: {
-                    email: Object.values(content)[2] as string,
+                    email: receivedData.email.toLowerCase()
                 },
                 data: {
                     confirmEmailToken: token,

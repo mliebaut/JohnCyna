@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {createProduct, deleteProduct, find_user_by_id, getAllRoles, getAllUsers, updateUser} from "@/functions/functions.ts";
+import {createUser, find_user_by_id, getAllUsers, updateUser} from "@/functions/user.ts";
+import {getAllRoles} from "@/functions/functions.ts"
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
 
@@ -11,13 +12,10 @@ const userCreateModalOpen = ref(false)
 const closeButton = ref()
 const selectedUser = ref()
 const createdUser = ref({
-  id: null,
   email: null,
   lastName: null,
   firstName: null,
   password: null,
-  createdAt: null,
-  updatedAt: null,
   role: null,
 })
 const modifiedUser = ref({
@@ -25,8 +23,6 @@ const modifiedUser = ref({
   email: null,
   lastName: null,
   firstName: null,
-  createdAt: null,
-  updatedAt: null,
   role: null,
 })
 const rolesList = ref()
@@ -90,7 +86,7 @@ async function editUser(id: number) {
 /*USER DELETE*/
 function sendDeleteRequest(id: number) {
   console.log(id)
-  deleteProduct(id)
+  deleteUser()
 }
 
 /*USER CREATE*/
@@ -107,7 +103,8 @@ function closeCreateModal() : void{
 }
 
 async function sendCreatedUser(): Promise<void> {
-  await createProduct(createdUser.value)
+  console.log(createdUser.value)
+  await createUser(createdUser.value)
 }
 </script>
 
@@ -259,10 +256,11 @@ async function sendCreatedUser(): Promise<void> {
             <div class="d-flex justify-content-between text-start">
               Role :
               <select v-model="createdUser.role">
-                <option v-for="option in rolesList" :value="option.value">
+                <option v-for="option in rolesList">
                   {{ option }}
                 </option>
               </select>
+              <div>{{createdUser.role}}</div>
             </div>
             <hr>
             <div class="d-flex justify-content-between">
