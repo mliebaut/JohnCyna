@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import {PrismaClient} from '@prisma/client'
 import * as PassFunc from '../functions/password'
 import {UserPermission} from "@prisma/client";
+import selectCorrectUserPermission from "../functions/BackFunctions";
 
 const prisma = new PrismaClient()
 
@@ -409,7 +410,7 @@ userRouter
                     email: receivedData.email.toLowerCase(),
                     lastName: receivedData.lastName,
                     firstName: receivedData.firstName,
-                    role: receivedData.role
+                    role: await selectCorrectUserPermission(receivedData.role)
                 }
             })
             ctx.body = userToUpdate;
