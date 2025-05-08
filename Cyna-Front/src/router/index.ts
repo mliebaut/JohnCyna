@@ -35,7 +35,7 @@ const routes = [
     {
         path: '/inscription',
         name: 'Inscription',
-        component: () => import("../views/InscriptionView.vue")
+        component: () => import("../views/Account/InscriptionView.vue")
     },
     {
         path: '/connexion',
@@ -45,17 +45,17 @@ const routes = [
     {
         path:'/reset-password',
         name:'Mot de passe oublié',
-        component: () => import("../views/MotDePasseOublieView.vue")
+        component: () => import("../views/Account/MotDePasseOublieView.vue")
     },
     {
         path:'/update-password',
         name:'Réinitialiser le mot de passe',
-        component: () => import("../views/NouveauMotDePasseView.vue")
+        component: () => import("../views/Account/NouveauMotDePasseView.vue")
     },
     {
         path:'/confirm-email',
         name:'Confirmer email',
-        component: () => import("../views/ConfirmEmailView.vue")
+        component: () => import("../views/Account/ConfirmEmailView.vue")
     },
     {
         path:'/produit/:id',
@@ -135,7 +135,7 @@ const routes = [
     {
         path: '/recherche',
         name: 'recherche',
-        component: () => import('../views/rechercheView.vue'),
+        component: () => import('../views/RechercheView.vue'),
     }
 ]
 

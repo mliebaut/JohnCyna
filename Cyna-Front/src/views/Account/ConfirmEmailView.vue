@@ -12,7 +12,7 @@
 
 
 <script>
-import { useUserStore } from "../stores/user.js";
+import { useUserStore } from "../../stores/user.js";
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

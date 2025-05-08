@@ -22,7 +22,7 @@
 
 
 <script >
-import { useUserStore } from "../stores/user.js";
+import { useUserStore } from "../../stores/user.js";
 
 export default {
   setup() {
