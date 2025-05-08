@@ -8,32 +8,6 @@ type Product = {
   };
 
 
-
-
-export async function find_product_by_id(id : any){
-    try {
-        console.log(id);
-        const response = await fetch(Serv_Url + "/product/searchById", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id }),
-        });
-    
-        if (!response.ok) {
-          throw new Error("Failed to fetch product");
-        }
-    
-        const product: Product = await response.json();
-        console.log(product);
-        return product;
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-}
-
 export async function createProduct(createdProduct: any) {
     try {
         const response = await fetch(Serv_Url + "/product/create", {
@@ -61,6 +35,30 @@ export async function getAllProducts(includeRelatedRecords: number) {
         return response;
     } catch (e) {
         console.log(e);
+    }
+}
+
+export async function find_product_by_id(id : any){
+    try {
+        console.log(id);
+        const response = await fetch(Serv_Url + "/product/searchById", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch product");
+        }
+
+        const product: Product = await response.json();
+        console.log(product);
+        return product;
+    } catch (e) {
+        console.error(e);
+        return null;
     }
 }
 
