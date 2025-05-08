@@ -75,7 +75,9 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {faker_generate, find_user_by_id, getAllProducts, getAllUsers, ping_server} from "../functions/functions.ts";
+import {faker_generate, ping_server} from "@/functions/functions.ts";
+import {find_user_by_id, getAllUsers} from "@/functions/user.ts";
+import {getAllProducts} from "@/functions/product.ts";
 
 const userID = ref(0)
 const ping_output = ref()

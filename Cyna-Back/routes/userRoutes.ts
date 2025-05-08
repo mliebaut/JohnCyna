@@ -422,11 +422,9 @@ userRouter
         console.log("/user/delete");
         try {
             const receivedData = ctx.request.body;
-            console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
-            console.log(receivedData);
             const userToDelete: any = await prisma.user.delete({
                 where: {
-                    id: receivedData.userId
+                    id: receivedData.id
                 }
             })
             console.log(userToDelete)

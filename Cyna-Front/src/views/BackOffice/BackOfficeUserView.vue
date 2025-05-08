@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {createUser, find_user_by_id, getAllUsers, updateUser} from "@/functions/user.ts";
+import {createUser, find_user_by_id, getAllUsers, updateUser, deleteUser} from "@/functions/user.ts";
 import {getAllRoles} from "@/functions/functions.ts"
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
@@ -85,9 +85,9 @@ async function sendUpdatedUser(): Promise<void> {
 
 
 /*USER DELETE*/
-function sendDeleteRequest(id: number) {
-  console.log(id)
-  deleteUser()
+async function sendDeleteRequest(userId: number) {
+  await deleteUser(userId)
+  await getUpdatedUsers();
 }
 
 /*USER CREATE*/

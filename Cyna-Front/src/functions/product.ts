@@ -93,12 +93,12 @@ export async function updateProduct(updatedProduct: any) {
     }
 }
 
-export async function deleteProduct(deletedUserId: any) {
+export async function deleteProduct(deletedProductId: any) {
     try {
         const response = await fetch(Serv_Url + "/product/delete", {
             headers: {'Content-Type': 'application/json'},
             method: "POST",
-            body: JSON.stringify({id: deletedUserId}),
+            body: JSON.stringify({id: deletedProductId}),
         })
         // .then(res => res.json())
         // console.log(response);
