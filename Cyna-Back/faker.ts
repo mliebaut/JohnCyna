@@ -43,7 +43,6 @@ async function generate_unique_users() {
 }
 
 async function create_categories() {
-    var etest = faker.food.description()
     await prisma.category.createMany({
         data: [
             {name: "Application Control", description: faker.food.description()},
