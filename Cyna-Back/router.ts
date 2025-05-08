@@ -11,7 +11,15 @@ CynaRouter
     })
     .post('/', async (ctx, next) => {
         console.log("/ - Empty Post request");
-            ctx.body = 'Hello My Koa!';
+        ctx.body = 'Hello My Koa!';
+    })
+    .post('/ping', async (ctx, next) => {
+        console.log("/ping");
+        const appHostname = process.env.APP_HOSTNAME || "127.0.0.1";
+        const appPort = Number(process.env.APP_API_PORT) || 3001;
+        ctx.status = 201;
+        ctx.body = 'Hello Koa!';
+        // ctx.body = `✅ Serveur démarré : http://${appHostname}:${appPort}`;
     })
     .post('/faker', async (ctx, next) => {
         console.log("/faker")

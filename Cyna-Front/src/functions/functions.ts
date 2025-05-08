@@ -8,8 +8,15 @@ export async function ping_server() {
         console.log("No response from server")
         return "No response from server"
     }
+    return await response.text();
+}
+
+export async function faker_generate() {
+    const response = await fetch(Serv_Url + "/faker", {
+        method: "POST",
+    });
     console.log(response);
-    return response;
+    return await response.text();
 }
 
 export async function find_user_by_id(user_id: number) {
