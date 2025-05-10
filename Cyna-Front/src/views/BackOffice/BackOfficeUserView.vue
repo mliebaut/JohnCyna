@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {createUser, find_user_by_id, getAllUsers, updateUser} from "@/functions/user.ts";
+import {createUser, find_user_by_id, getAllUsers, updateUser, deleteUser} from "@/functions/user.ts";
 import {getAllRoles} from "@/functions/functions.ts"
 import {onMounted, ref} from "vue";
 import BackOfficeNav from "@/components/BackOfficeNav.vue";
@@ -68,10 +68,6 @@ function closeEditModal() {
   userEditModalOpen.value = false;
 }
 
-async function sendUpdatedUser(): Promise<void> {
-  await updateUser(modifiedUser.value)
-}
-
 async function editUser(id: number) {
   selectedUser.value = await find_user_by_id(id)
   //On ajoute les valeurs manuellement pour eviter du passage par référence à cause de vue. - Thomas
@@ -83,10 +79,15 @@ async function editUser(id: number) {
   openEditModal()
 }
 
+async function sendUpdatedUser(): Promise<void> {
+  await updateUser(modifiedUser.value)
+}
+
+
 /*USER DELETE*/
-function sendDeleteRequest(id: number) {
-  console.log(id)
-  deleteUser()
+async function sendDeleteRequest(userId: number) {
+  await deleteUser(userId)
+  await getUpdatedUsers();
 }
 
 /*USER CREATE*/
@@ -130,11 +131,10 @@ async function sendCreatedUser(): Promise<void> {
           <th>Prénom</th>
           <th>Nom</th>
           <th>Role</th>
-          <th>Created At</th>
-          <th>Updated At</th>
+          <th>Creation</th>
+          <th>Mise à Jour</th>
         </tr>
         </thead>
-
         <tbody>
         <tr v-for="item in myUsers">
           <td>
@@ -198,7 +198,7 @@ async function sendCreatedUser(): Promise<void> {
               Role : {{ selectedUser.role }}
               <!--              <input type="text"  v-model="modifiedUser.email" :placeholder="modifiedUser.email">-->
               <select v-model="modifiedUser.role">
-                <option v-for="option in rolesList" :value="option.value">
+                <option v-for="option in rolesList">
                   {{ option }}
                 </option>
               </select>

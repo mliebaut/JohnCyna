@@ -72,3 +72,19 @@ export async function updateUser(updatedUser: any) {
         console.log(e);
     }
 }
+
+export async function deleteUser(deletedUserId: any) {
+    try {
+        const response = await fetch(Serv_Url + "/user/delete", {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify({id: deletedUserId}),
+        })
+        // .then(res => res.json())
+        // console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
