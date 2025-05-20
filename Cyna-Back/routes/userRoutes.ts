@@ -290,10 +290,7 @@ userRouter
                         const existingUser: any = await prisma.user.findFirst({
                             select: {
                                 id: true,
-                                lastName: true,  
-                                firstName: true,
                                 email: true,
-                                password: true,
                             },
                             where: {
                                 confirmEmailToken: token,
@@ -344,6 +341,10 @@ userRouter
             const content = JSON.parse(receivedData);
 
             const thisUser: any = await prisma.user.findFirst({
+                select: {
+                    id: true,
+                    email: true,
+                },
                 where: {
                     id: content.user.id,
                 }
