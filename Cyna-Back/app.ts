@@ -13,27 +13,27 @@ import productRouter from "./routes/productRoutes";
 import subscriptionRoutes from "./routes/subscriptionRoutes";
 import userRouter from "./routes/userRoutes";
 import dashboardRoutes from './routes/dashboardRoutes'
+
 //  Import du router Stripe
 import stripeRouter from './routes/stripe';
 
 const app = new Koa();
 
-app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
 //  Middleware CORS pour autoriser le frontend (Vue.js)
 
-app.use(async (ctx, next) => {
-    ctx.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-    ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    ctx.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    ctx.set('Access-Control-Allow-Credentials', 'true');
-  
-    if (ctx.method === 'OPTIONS') {
-      ctx.status = 204;
-      return;
-    }
-  
-    await next();
-  });
+// app.use(async (ctx, next) => {
+//     ctx.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+//     ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+//     ctx.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     ctx.set('Access-Control-Allow-Credentials', 'true');
+//
+//     if (ctx.method === 'OPTIONS') {
+//       ctx.status = 204;
+//       return;
+//     }
+//
+//     await next();
+//   });
   
 app.use(
     cors({
@@ -59,11 +59,8 @@ app.use(subscriptionRoutes.routes()).use(subscriptionRoutes.allowedMethods());
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
 app.use(dashboardRoutes.routes()).use(dashboardRoutes.allowedMethods())
 
-app.use(dashboardRoutes.routes())
-app.use(dashboardRoutes.allowedMethods())
-
 //  Intégration des routes Stripe
-//app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
-//app.use(successRouter.routes()).use(successRouter.allowedMethods());
+app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
+
 
 export default app;
