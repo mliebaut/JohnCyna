@@ -48,7 +48,6 @@
     <div class="d-flex flex-column" style="background-color:#1e0000">
       <router-link to="/">/</router-link>
       <router-link to="/about">about</router-link>
-      <router-link to="/contactOld">contactOld</router-link>
       <router-link to="/contact">contact</router-link>
       <router-link to="/mentions-legales">mentions-legales</router-link>
       <router-link to="/inscription">inscription</router-link>
@@ -61,7 +60,6 @@
       <router-link to="/cancel">cancel</router-link>
       <router-link to="/historique">historique</router-link>
       <router-link to="/account">account</router-link>
-      <router-link to="/account1">account1</router-link>
       <router-link to="/backoffice">backoffice</router-link>
       <router-link to="/backoffice/user">backoffice/user</router-link>
       <router-link to="/backoffice/dashboard">backoffice/dashboard</router-link>
