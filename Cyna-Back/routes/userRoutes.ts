@@ -1,12 +1,15 @@
 import Router from 'koa-router';
 import {PrismaClient} from '@prisma/client'
 import * as PassFunc from '../functions/password'
+import jwt from 'jsonwebtoken';
+import passport from 'koa-passport';
+import session from 'koa-session';
 
 const prisma = new PrismaClient()
 
 const userRouter = new Router();
 
-const jwt = require('jsonwebtoken');
+const ensureAuthenticated = require('../middlewares/authPassport');
 
 userRouter
     .post('/user/create', async (ctx, next) => {
@@ -54,7 +57,7 @@ userRouter
         }
     })
     .post('/user/login', async (ctx, next) => {
-        console.log("/user/login");
+        /*console.log("/user/login");
         try {            
             const receivedData = ctx.request.body;
             if(!receivedData){
@@ -100,10 +103,24 @@ userRouter
         }
         catch (e) {
             console.log(e)
+        }*/
+        return passport.authenticate('local', async (err, user, info) => {
+        if (err) {
+        ctx.status = 500;
+        ctx.body = { error: err.message };
+        return;
         }
+        if (!user) {
+        ctx.status = 401;
+        ctx.body = { error: info ? info.message : "Authentication failed" };
+        return;
+        }
+        await ctx.login(user); // Crée la session si tu utilises koa-session
+        ctx.body = user; // Tu peux personnaliser la réponse ici
+    })(ctx, next);
     }
 )
-    .post('/user/searchAll', async (ctx, next) => {
+    .post('/user/searchAll',ensureAuthenticated, async (ctx, next) => {
         console.log("/user/searchAll");
         try {
             ctx.body = await prisma.user.findMany()
