@@ -136,6 +136,11 @@ const routes = [
         path: '/recherche',
         name: 'recherche',
         component: () => import('../views/RechercheView.vue'),
+    },
+    {
+        path: '/:pathMatch(.*)*', // or '*'
+        name: 'NotFound',
+        component: () => import('../views/404.vue'),
     }
 ]
 
