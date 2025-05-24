@@ -94,7 +94,8 @@
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">Prix: {{ product.price }} €</p>
-          <a href="#" class="btn btn-primary">{{ t('viewProduct') }}</a>
+          <!--          TODO : Faire un vrai lien avec des vrai produits-->
+          <a :href="'/produit/' + product.rank" class="btn btn-primary">{{ t('viewProduct') }}</a>
         </div>
       </div>
     </div>
