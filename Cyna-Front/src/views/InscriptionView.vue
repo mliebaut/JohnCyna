@@ -13,7 +13,7 @@
         <button class="btn btn-primary fs-4 px-4 mt-2" type="submit">Créer mon compte</button>
       </div>
     </form>
-    <a class="confirm-link text-body-secondary" style="display: none;" href={{ userStore.urlConfirmEmail }}>Lien pour confirmer l'email</a>
+    <a class="confirm-link text-body-secondary" style="display: none;" :href="userStore.urlConfirmEmail">Lien pour confirmer l'email</a>
   </section>
 </template>
 
@@ -43,5 +43,4 @@ export default {
     },
   },
 };
-
 </script>

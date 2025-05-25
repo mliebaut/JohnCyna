@@ -6,17 +6,17 @@
      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-    <div class="carousel-inner container h-100">     
-      <div v-for="(carousel, index) in carouselData" :key="index" class="carousel-item row h-100 " :class="{ active: index == 0}">
+    <div class="carousel-inner h-100">     
+      <div v-for="(carousel, index) in carouselData" :key="index" class="carousel-item row h-100" :class="{ active: index == 0}">
         <div class="banner h-100">
-          <div class="container h-100">
+          <div class="container-sm h-100">
             <div class="row h-100">
-              <div class="col-sm-5">
+              <div class="col-md-5">
                 <h1>{{ t(carousel.titleKey) }}</h1>
                 <p>{{ t(carousel.descriptionKey) }}</p>
                 <button class="btn btn-primary fs-4 px-4">{{ t(carousel.buttonKey) }}</button>
               </div>
-               <div class="col-sm-7">
+               <div class="col-md-7">
                 <img class="img-fluid" :src="(`${carousel.image}`)" alt="">
                 </div>
               </div>
@@ -144,11 +144,11 @@
     }
 
     .carousel-item h1{
-      font-size: 42px;
+      font-size: 32px;
     }
 
     .carousel-item p{
-      font-size: 30px;
+      font-size: 26px;
     }
 
     .category .card{
@@ -181,22 +181,6 @@
       background-repeat: no-repeat;
     }
 
-    .btn-primary{
-      --bs-btn-color: #fff;
-      --bs-btn-bg: #7200ff;
-      --bs-btn-border-color: #7200ff;
-      --bs-btn-hover-color: #fff;
-      --bs-btn-hover-bg: #7200ff;
-      --bs-btn-hover-border-color: #4d00aa;
-      --bs-btn-focus-shadow-rgb: 49, 132, 253;
-      --bs-btn-active-color: #fff;
-      --bs-btn-active-bg: #4d00aa;
-      --bs-btn-active-border-color: #4d00aa;
-      --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-      --bs-btn-disabled-color: #fff;
-      --bs-btn-disabled-bg: #7c10ff;
-      --bs-btn-disabled-border-color: #7708ff;
-    }
     .banderole{
       height: 20em;
       display: flex;
@@ -211,7 +195,7 @@
       display: flex;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
       
       .carousel-item{
         text-align: start;

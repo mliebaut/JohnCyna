@@ -4,13 +4,12 @@ import * as PassFunc from '../functions/password'
 import jwt from 'jsonwebtoken';
 import passport from 'koa-passport';
 import session from 'koa-session';
+import app from '../app';
 
 const prisma = new PrismaClient()
 
 const userRouter = new Router();
-
 const ensureAuthenticated = require('../middlewares/authPassport');
-
 userRouter
     .post('/user/create', async (ctx, next) => {
         console.log("/user/create");
@@ -55,9 +54,9 @@ userRouter
         } catch (e) {
             console.log(e)
         }
-    })
+    })       
     .post('/user/login', async (ctx, next) => {
-        /*console.log("/user/login");
+        console.log("/user/login");
         try {            
             const receivedData = ctx.request.body;
             if(!receivedData){
@@ -103,21 +102,26 @@ userRouter
         }
         catch (e) {
             console.log(e)
-        }*/
+        }
+        /*
         return passport.authenticate('local', async (err, user, info) => {
+            console.log("passport auth");
         if (err) {
+            console.log("failed1");
         ctx.status = 500;
         ctx.body = { error: err.message };
         return;
         }
         if (!user) {
+            console.log("failed2");
         ctx.status = 401;
         ctx.body = { error: info ? info.message : "Authentication failed" };
         return;
         }
-        await ctx.login(user); // Crée la session si tu utilises koa-session
-        ctx.body = user; // Tu peux personnaliser la réponse ici
-    })(ctx, next);
+        console.log(user);
+        await ctx.login(user);
+        ctx.body = user;
+    })(ctx, next);*/
     }
 )
     .post('/user/searchAll',ensureAuthenticated, async (ctx, next) => {

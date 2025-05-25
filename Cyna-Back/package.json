@@ -19,7 +19,7 @@
   "homepage": "https://gitlab.com/melusine.liebaut/johncyna#readme",
   "dependencies": {
     "@koa/cors": "^5.0.0",
-    "@prisma/client": "^6.1.0",
+    "@prisma/client": "^6.8.2",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "jsonwebtoken": "^9.0.2",

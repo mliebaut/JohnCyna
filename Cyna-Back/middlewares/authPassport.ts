@@ -25,8 +25,8 @@ module.exports = async function ensureAuthenticated(ctx, next) {
 };
 
 passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
+    email: 'email',
+    password: 'password'
   },
   async (email, password, done) => {
     try {
@@ -42,18 +42,23 @@ passport.use(new LocalStrategy({
       });
 
       if (!user) {
+        console.log("not found");
         return done(null, false, { message: 'User not found' });
       }
       if (!user.emailConfirmed) {
+        console.log("not verified");
         return done(null, false, { message: 'Email not verified' });
+
       }
       const isValid = await PassFunc.checkMyPassword(password, user.password);
       if (!isValid) {
+        console.log("failed");
         return done(null, false, { message: 'Authentication failed' });
       }
-      delete user.password;
+      console.log("done");
       return done(null, user);
     } catch (err) {
+      console.log("done");
       return done(err);
     }
   }
