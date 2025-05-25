@@ -19,7 +19,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text">Prix: {{ product.price }} €</p>
-              <a href="#" class="btn btn-primary">Voir le produit</a>
+              <a :href="'/produit/' + product.id" class="btn btn-primary">Voir le produit</a>
             </div>
           </div>
         </div>
@@ -49,12 +49,12 @@ onMounted(() => {
   console.log(currentCategory.value.title);
 })
 const products =  [
-        { name: 'Produit 1', price: 29.99, image: '/product1.jpg'},
-        { name: 'Produit 2', price: 49.99, image: '/product2.jpg'},
-        { name: 'Produit 3', price: 79.99, image: '/product3.jpg'},
-        { name: 'Produit 4', price: 29.99, image: '/product1.jpg'},
-        { name: 'Produit 5', price: 49.99, image: '/product2.jpg'},
-        { name: 'Produit 6', price: 79.99, image: '/product3.jpg'},
+        { name: 'Produit 1', price: 29.99, image: '/product1.jpg', id:1},
+        { name: 'Produit 2', price: 49.99, image: '/product2.jpg', id:2},
+        { name: 'Produit 3', price: 79.99, image: '/product3.jpg', id:3},
+        { name: 'Produit 4', price: 29.99, image: '/product1.jpg', id:4},
+        { name: 'Produit 5', price: 49.99, image: '/product2.jpg', id:5},
+        { name: 'Produit 6', price: 79.99, image: '/product3.jpg', id:6},
       ]
 </script>
 
