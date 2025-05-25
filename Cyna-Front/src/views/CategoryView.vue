@@ -1,16 +1,17 @@
 <template>
     <!-- Banner -->
-    <div v-if="categorieQuery">
-      <div class="banner-category" :style="{backgroundImage:`url(${ categorieQuery.image })`}">
-          <h1 class="container">{{ categorieQuery.title }}</h1>
-      </div>
-      <div class="description container my-4">
-          <p class="fw-medium fs-3">{{ categorieQuery.description }}</p>
-      </div>
-    </div>
+<!--    <div v-if="categorieQuery">-->
+<!--      <div class="banner-category" :style="{backgroundImage:`url(${ categorieQuery.image })`}">-->
+<!--          <h1 class="container">{{ categorieQuery.title }}</h1>-->
+<!--      </div>-->
+<!--      <div class="description container my-4">-->
+<!--          <p class="fw-medium fs-3">{{ categorieQuery.description }}</p>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <!-- Les Produits -->
-    <h2 class="mt-5 mb-5 fs-1">Les produits</h2>
+    <h2 class="mt-5 mb-5 fs-1">{{currentCategoryTitle}}</h2>
+      <div class="p-2 m-2">{{currentCategoryDescription}}</div>
       <div class="row container justify-content-md-center row-gap-5 m-auto">
         <div class="col-xs-1 col-md-5 col-xl-4" v-for="product in products">
           <div class="card text-center m-auto">
@@ -26,14 +27,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import {ref, onMounted} from 'vue';
 import categorie from '../json/categorie.json'
 import { useRoute } from 'vue-router';
+// import {getAllEntreprise} from "@/functions/functions.ts";
 
 const route = useRoute();
-const categories = ref(categorie)
-let params = route.params.title;
+const categories = ref(categorie);
+const currentCategory = ref();
+const currentCategoryTitle = ref("");
+const currentCategoryDescription = ref("");
+// let params = route.params.title;
+// currentCategory.value = categorie.find(item => item.id == route.params.title);
 
+
+onMounted(() => {
+  currentCategory.value = categorie.find(item => item.id == route.params.title);
+  currentCategoryTitle.value = currentCategory.value.title;
+  currentCategoryDescription.value = currentCategory.value.description;
+  console.log(currentCategory.value);
+  console.log(currentCategory.value.title);
+})
 const products =  [
         { name: 'Produit 1', price: 29.99, image: '/product1.jpg'},
         { name: 'Produit 2', price: 49.99, image: '/product2.jpg'},
@@ -42,11 +56,6 @@ const products =  [
         { name: 'Produit 5', price: 49.99, image: '/product2.jpg'},
         { name: 'Produit 6', price: 79.99, image: '/product3.jpg'},
       ]
-let categorieQuery = computed(() => categories.value.find(p => p.title === params));
-
-watch(() => route.params.title, (newValue) => {
-  categorieQuery = computed(() => categories.value.find(p => p.title === newValue));
-});
 </script>
 
 <style>

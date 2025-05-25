@@ -55,9 +55,9 @@
           1 899.95€
         </p>
         <p v-if="product">
-          {{ product.inStock > 0 ? `${product.inStock} en stock` : 'Rupture de stock' }}
+          {{ product.inStock > 0 ? `En stock` : 'Rupture de stock' }}
         </p>
-        <button :disabled="product && product.inStock === 0">
+        <button :disabled="product && product.inStock === 0" @click="addCart()">
           Ajouter au panier
         </button>
       </div>
@@ -114,12 +114,16 @@
 import { ref, watch, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router';
 import { find_product_by_id } from "../functions/product.ts";
+import { useCartStore } from "../stores/Cart"
 
+const cartStore = useCartStore();
 const button = document.querySelector('.product__button');
 const route = useRoute();
 let params = route.params.id;
+// console.log(params)
 
-const product = ref<null | { name: string; description: string ;price: number; images: any[] }>(null);
+// const product = ref<null | { name: string; description: string ;price: number; images: any[] }>(null);
+const product = ref();
 
 const urls = computed(() => {
   if (product.value && product.value.images) {
@@ -128,32 +132,41 @@ const urls = computed(() => {
   return [];
 });
 
-if (product.value && product.value.images) {
-  console.log("Oui")
-}
-onMounted(async () => {
-  product.value = await find_product_by_id(parseInt(params[0]));
-});
-
-watch(() => route.params.id, async (newValue) => {
-  product.value = await find_product_by_id(parseInt(newValue[0]));
-});
-
-function buttonAnimate() {
-  if (button){
-    button.classList.add('product__button--success');
-  }
-}
+// if (product.value && product.value.images) {
+//   console.log("Oui")
+// }
 
 onMounted(async () => {
-  try {
-    const response = await fetch('http://127.0.0.1:3001/product/1')
-    if (!response.ok) throw new Error('Erreur serveur')
-    product.value = await response.json()
-  } catch (error) {
-    console.error('Erreur lors du chargement du produit:', error)
-  }
-})
+  console.log(params)
+  product.value = await find_product_by_id(parseInt(params));
+});
+
+// watch(() => route.params.id, async (newValue) => {
+//   product.value = await find_product_by_id(parseInt(newValue[0]));
+// });
+
+
+// onMounted(async () => {
+//   try {
+//     const response = await fetch('http://127.0.0.1:3001/product/' + params)
+//     if (!response.ok) throw new Error('Erreur serveur')
+//     product.value = await response.json()
+//   } catch (error) {
+//     console.error('Erreur lors du chargement du produit:', error)
+//   }
+// })
+
+function addCart(){
+  console.log("AddCart")
+  cartStore.addProduct(product.value)
+}
+
+// function buttonAnimate() {
+//   if (button){
+//     button.classList.add('product__button--success');
+//   }
+// }
+
 </script>
 
 <style scoped>

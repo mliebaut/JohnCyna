@@ -3,7 +3,7 @@ import Serv_Url from "../main.ts";
 type Product = {
     name: string;
     description: string;
-    price: number;
+    prix: number;
     images: any[];
   };
 
@@ -38,15 +38,18 @@ export async function getAllProducts(includeRelatedRecords: number) {
     }
 }
 
-export async function find_product_by_id(id : any){
+export async function find_product_by_id(productId : number){
     try {
-        console.log(id);
+        console.log(productId);
         const response = await fetch(Serv_Url + "/product/searchById", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id }),
+            body: JSON.stringify({
+                productId: productId,
+                relatedRecords: 0
+            }),
         });
 
         if (!response.ok) {

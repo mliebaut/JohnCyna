@@ -18,13 +18,13 @@ export default {
   },
   categories: {
     prevention: {
-      description: "Mettre en place des mesures et des bonnes pratiques pour éviter les cyberattaques. Cela inclut la formation..."
+      description: "Mettre en place des mesures et des bonnes pratiques pour éviter les cyberattaques. Cela inclut la formation."
     },
     protection: {
-      description: "Sécuriser vos systèmes et données contre les cyberattaques grâce à des solutions avancées..."
+      description: "Sécuriser vos systèmes et données contre les cyberattaques grâce à des solutions avancées."
     },
     reponse: {
-      description: "Réagir rapidement et efficacement en cas d'incident de cybersécurité..."
+      description: "Réagir rapidement et efficacement en cas d'incident de cybersécurité."
     },
     anticipation: {
       description: "Surveiller, analyser et prédire les évolutions des menaces pour ajuster vos défenses."

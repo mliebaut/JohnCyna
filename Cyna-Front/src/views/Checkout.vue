@@ -110,7 +110,7 @@
                         Payer avec PayPal
                     </button>
 
-                    <p>Valeur actuelle de selectedPayment: {{ selectedPayment }}</p>
+<!--                    <p>Valeur actuelle de selectedPayment: {{ selectedPayment }}</p>-->
 
                 </form>
             </div>

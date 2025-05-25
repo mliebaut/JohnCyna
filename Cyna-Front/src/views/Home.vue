@@ -52,8 +52,9 @@
         <div class="card-body d-flex flex-column justify-content-center align-items-center ">
           <h3 class="card-title">{{ category.title }}</h3>
           <p class="card-text fs-5 fw-medium">{{ category.description }}</p>
+          <!--:to="{ path: `/category/${category.title}`, query: { description: `${category.description}`, image: `${category.image}` }}">-->
           <router-link class="btn btn-primary"
-                       :to="{ path: `/category/${category.title}`, query: { description: `${category.description}`, image: `${category.image}` }}">
+            :to="{ path: `/category/${category.id}`}">
             {{ t('viewCategory') }}
           </router-link>
         </div>
@@ -121,22 +122,26 @@ export default {
       {
         title: 'Prévention',
         description: t('categories.prevention.description'),
-        image: '/Categorie1.jpg'
+        image: '/Categorie1.jpg',
+        id: 1
       },
       {
         title: 'Protection',
         description: t('categories.protection.description'),
-        image: '/Categorie2.jpg'
+        image: '/Categorie2.jpg',
+        id: 2
       },
       {
         title: 'Réponse',
         description: t('categories.reponse.description'),
-        image: '/Categorie3.jpg'
+        image: '/Categorie3.jpg',
+        id: 3
       },
       {
         title: 'Anticipation',
         description: t('categories.anticipation.description'),
-        image: '/Categorie2.jpg'
+        image: '/Categorie2.jpg',
+        id: 4
       }
     ]
 

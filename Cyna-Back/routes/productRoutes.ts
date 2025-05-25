@@ -87,11 +87,13 @@ productRouter
         console.log("/product/searchById")
         try {
             const receivedData = ctx.request.body;
-            if (!receivedData) {
+            if (!receivedData || typeof receivedData.relatedRecords == 'undefined') {
                 console.log("No Data Received - Error #7-2")
+                ctx.body = "No Data Received - Error #7-2"
                 return;
             }
             let result;
+            console.log(receivedData);
             switch (receivedData.relatedRecords) {
                 case 1:
                     result = await prisma.product.findFirstOrThrow({

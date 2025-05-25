@@ -18,13 +18,13 @@ export default {
   },
   categories: {
     prevention: {
-      description: "Implement measures and best practices to avoid cyberattacks. This includes training, risk assessment, and appropriate security policies..."
+      description: "Implement measures and best practices to avoid cyberattacks. This includes training, risk assessment, and appropriate security policies."
     },
     protection: {
-      description: "Secure your systems and data from cyberattacks with advanced solutions..."
+      description: "Secure your systems and data from cyberattacks with advanced solutions."
     },
     reponse: {
-      description: "React quickly and effectively in the event of a cybersecurity incident..."
+      description: "React quickly and effectively in the event of a cybersecurity incident."
     },
     anticipation: {
       description: "Monitor, analyze and predict threat trends to adjust your defenses."
