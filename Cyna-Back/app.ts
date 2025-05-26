@@ -1,5 +1,9 @@
 import Koa from 'koa';
 import koaBody from 'koa-body';
+import bodyParser from "koa-bodyparser";
+import session from "koa-session";
+import { Strategy } from "passport-local";
+import passport from "koa-passport";
 import cors from '@koa/cors';
 
 // Import des routes existantes
@@ -47,6 +51,13 @@ app.use(
 
 //  Middleware pour parser les requêtes JSON
 app.use(koaBody());
+
+app.keys = ['secret'];
+app.use(session(app));
+app.use(bodyParser());
+require('./middlewares/authPassport');
+app.use(passport.initialize());
+app.use(passport.session());
 
 //  Intégration des routes existantes
 app.use(CynaRouter.routes()).use(CynaRouter.allowedMethods());
