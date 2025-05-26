@@ -1,15 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
-
-//import AboutView from './AboutView.vue'
-//import HomeView from '../components/HelloWorld.vue'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
-import Checkout from "@/components/Checkout.vue";
-import Success from "@/components/Checkout/Success.vue";
-import Cancel from "@/components/Checkout/Cancel.vue";
-import AjoutPanierView from '../views/AjoutPanierView.vue';
-
-import HomeView1 from '../views/HomeView1.vue';
 import Sidebar from '../components/Sidebar.vue';
 import DashboardLayout from '../views/DashboardLayout.vue';
 import PersonalInfo from '../components/account/PersonalInfo.vue';
@@ -29,12 +20,6 @@ const routes = [
     name: 'catalogue',
     component: ProductCatalog
   },
-    {
-        path: '/ajout-panier',
-        name: 'ajout-panier',
-        component: AjoutPanierView
-    },
-
     {
         path: '/Sidebar',
         name: 'Sidebar',
@@ -87,11 +72,7 @@ const routes = [
           }
         ]
       },
-      {
-        path: '/',
-        name: 'Home',
-        component: HomeView1
-      },
+      
     {
         path: '/',
         name: 'Home',
