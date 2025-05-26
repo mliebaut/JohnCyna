@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { verifyToken } from "../middlewares/authMiddleware";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ router.post('/create-checkout-session', async (ctx) => {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
-            success_url: 'http://localhost:5173/success?token=${token}',
+            success_url: `http://localhost:5173/success?token=${token}`,
             cancel_url: 'http://localhost:5173/cancel',
             line_items: [
                 {
@@ -44,6 +45,12 @@ router.post('/create-checkout-session', async (ctx) => {
         ctx.status = 500;
         ctx.body = { error: "Erreur lors de la création de la session Stripe" };
     }
+});
+
+// Route sécurisée avec JWT
+router.get('/success', verifyToken, async (ctx) => {
+    console.log("Route /success atteinte après vérification du token !");
+    ctx.body = { message: "Paiement réussi", user: ctx.state.user };
 });
 
 export default router;

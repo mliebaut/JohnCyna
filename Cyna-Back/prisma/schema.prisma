@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["relationJoins"]
@@ -20,50 +14,62 @@ model User {
   lastName           String
   firstName          String
   password           String
-  resetPasswordToken String?  @db.VarChar(400)
+  resetPasswordToken String?  @db.VarChar(1000)
+  confirmEmailToken  String?  @db.VarChar(1000)
+  emailConfirmed     Boolean  @default(false)
   createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  updatedAt          DateTime @updatedAt()
   Orders             Order[]
   Company            Company[]
   Addresses          Address[]
+  ProfilePictures    ProfilePictures[]
   role               UserPermission @default(USER)
-}
-
+  pendingEmail       String?
+  emailVerificationToken  String?
+  paymentMethods      PaymentMethod[]
+  userSubscriptions   UserSubscription[]
+} 
 
 model Product {
-  id                 Int     @id @default(autoincrement())
-  ean                String?
-  GUID               String?
-  name               String?
-  description        String?
-  inStock            Boolean? @default(false)
-  categories         Category[]
-  order              Order[]
-  Basket             Basket[]
-  images             Image[]
+  id          Int        @id @default(autoincrement())
+  ean         Int?
+  GUID        String?
+  name        String?
+  description String?
+  prix        Float      @default(0)
+  inStock     Boolean?   @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  categories  Category[]
+  order       Order[]
+  Basket      Basket[]
+  images      Image[]
 }
 
 model Category {
-  id                 Int     @id @default(autoincrement())
-  name               String
-  description        String?
-  products           Product[]
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  products    Product[]
 }
 
 model Order {
-  id                 Int     @id @default(autoincrement())
-  referenceNumber    Int?
-  price              Float?
-  paid               Boolean @default(false)
-  user               User[]
-  products           Product[]
+  id              Int       @id @default(autoincrement())
+  referenceNumber Int?
+  price           Float?
+  paid            Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  user            User[]
+  products        Product[]
 }
 
 model Image {
-  id                 Int     @id @default(autoincrement())
-  altText            String?
-  url                String?
-  Product            Product[]
+  id      Int       @id @default(autoincrement())
+  // Alt text c'est la description si jamais l'image ne passe pas.
+  altText String?
+  url     String?
+  Product Product[]
 }
 
 model Address {
@@ -76,26 +82,29 @@ model Address {
   extraInformation   String?
   Company            Company[]
   User               User[]
+  type               String?     
+  isDefault          Boolean     @default(false)
 }
 
-// - TODO: Rajouter un lien entre adresse et entreprise
-// - TODO: Rajouter des attributs à entreprise?
+// - TODO: Rajouter des attributs à entreprise? Il manque peut-être des trucs.
 
 model Company {
-  id                 Int     @id @default(autoincrement())
-  name               String
-  website            String?
-  Addresses          Address[]
-  Contacts           User[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  phone     String?
+  website   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Addresses Address[]
+  Contacts  User[]
 }
 
-
 model Basket {
-  id                 Int     @id @default(autoincrement())
-  name               String?
-  price              Int?
-  subscriptionType   String?
-  Products           Product[]
+  id               Int       @id @default(autoincrement())
+  name             String?
+  price            Int?
+  subscriptionType String?
+  Products         Product[]
 }
 
 // - TODO: Modifier le nom des types dans l'enum
@@ -109,6 +118,8 @@ model Subscription {
   type               TypeSubscription?
   price              Int?
   duration           Int?
+  userSubscriptions  UserSubscription[]
+
 }
 
 // // C'est un WIP, hein? Mais si on gère le backoffice, ca, ca marche.
@@ -123,4 +134,50 @@ enum UserPermission {
   PRODUCTMANAGER
   ADMIN
   DEVDEBUG
+}
+
+model ProfilePictures {
+  id             Int     @id @default(autoincrement())
+  avatarLocation String?
+
+  User User[]
+}
+
+// Nouveau modèle pour les méthodes de paiement
+model PaymentMethod {
+  id            Int              @id @default(autoincrement())
+  type          String           // 'card', 'paypal', 'sepa'
+  cardType      String?
+  lastFour      String?
+  expiryDate    String?
+  accountEmail  String?
+  accountHolder String?
+  iban          String?          // À stocker de manière sécurisée en production
+  isDefault     Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  User          User[]
+  UserSubscription UserSubscription[]
+}
+
+// Nouveau modèle pour les abonnements utilisateur (distinct du modèle Subscription existant)
+model UserSubscription {
+  id              Int             @id @default(autoincrement())
+  name            String
+  status          String          // 'active', 'canceled', 'expired', 'pending'
+  renewalDate     DateTime
+  basePrice       Float
+  price           Float
+  billingCycle    String          // 'monthly', 'yearly'
+  startDate       DateTime        @default(now())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  User            User[]
+  PaymentMethod   PaymentMethod?  @relation(fields: [paymentMethodId], references: [id])
+  paymentMethodId Int?
+  Subscription    Subscription?   @relation(fields: [subscriptionId], references: [id])
+  subscriptionId  Int?
+
+  @@index([paymentMethodId])
+  @@index([subscriptionId])
 }

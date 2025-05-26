@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { PDFDocument, rgb } from "pdf-lib";
 
-// Définition du type Order, a redef car dans la db on a que la ref de la commande
+// Définition du type Order, a redef car dans la db, on n'a que la ref de la commande
 interface Order {
   id: number;
   date: string;
@@ -64,7 +64,7 @@ const generateInvoicePDF = async (order: Order): Promise<void> => {
               :class="{
                 'badge bg-success': order.status === 'Payé',
                 'badge bg-warning text-dark': order.status === 'En attente',
-                'badge bg-primary': order.status === 'Expédié' // Ou autre je ne sais pas encore quel statut rajouter
+                'badge bg-primary': order.status === 'Expédié' // Ou autre, je ne sais pas encore quel statut rajouter
               }"
             >
               {{ order.status }}

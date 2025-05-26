@@ -2,21 +2,25 @@
     { 
       "title": "Prévention", 
       "description": "Mettre en place des mesures et des bonnes pratiques pour éviter les cyberattaques. Cela inclut la formation, l'évaluation des risques et la mise en place de politiques de sécurité adaptées pour anticiper les menaces.",
-      "image": "/Categorie1.jpg" 
+      "image": "/Categorie1.jpg",
+      "id": 1
     },
     { 
       "title": "Protection", 
       "description": "Sécuriser vos systèmes et données contre les cyberattaques grâce à des solutions avancées, comme les pare-feu, les antivirus, et la gestion des accès, pour garantir une défense solide et continue.",
-      "image": "/Categorie2.jpg"
+      "image": "/Categorie2.jpg",
+      "id": 2
      },
     { 
       "title": "Réponse", 
       "description": "Réagir rapidement et efficacement en cas d'incident de cybersécurité, avec des processus de gestion de crise, de récupération des données et de coordination avec les autorités pour minimiser l'impact des attaques.",
-      "image": "/Categorie3.jpg"
+      "image": "/Categorie3.jpg",
+      "id": 3
     },
     { 
       "title": "Anticipation", 
       "description": "Surveiller, analyser et prédire les évolutions des menaces pour ajuster en permanence vos défenses. Grâce à une veille proactive et des technologies avancées, nous identifions les risques potentiels avant qu'ils ne deviennent des menaces réelles.",
-      "image": "/Categorie2.jpg"
+      "image": "/Categorie2.jpg",
+      "id": 4
     }
   ]
