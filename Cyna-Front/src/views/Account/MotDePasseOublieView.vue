@@ -9,7 +9,7 @@
         <input v-model="email" placeholder="Email" type="email"/>
         <button class="btn btn-primary fs-4 px-4 mt-2" type="submit">Envoyer</button>
       </div>
-      <p class="reset-link text-body-secondary" style="display: none;">{{ userStore.urlResetPassword }}</p>
+      <a class="reset-link text-body-secondary" style="display: none;" :href="userStore.urlResetPassword">Lien pour modifier le mot de passe</a>
     </form>
     
   </section>

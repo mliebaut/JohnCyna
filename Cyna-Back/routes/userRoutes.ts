@@ -1,15 +1,15 @@
 import Router from 'koa-router';
 import {PrismaClient} from '@prisma/client'
 import * as PassFunc from '../functions/password'
-import {UserPermission} from "@prisma/client";
-import selectCorrectUserPermission from "../functions/BackFunctions";
+import jwt from 'jsonwebtoken';
+import passport from 'koa-passport';
+import session from 'koa-session';
+import app from '../app';
 
 const prisma = new PrismaClient()
 
 const userRouter = new Router();
-
-const jwt = require('jsonwebtoken');
-
+const ensureAuthenticated = require('../middlewares/authPassport');
 userRouter
     .post('/user/create', async (ctx, next) => {
         console.log("/user/create");
@@ -105,9 +105,28 @@ userRouter
         catch (e) {
             console.log(e)
         }
+        /*
+        return passport.authenticate('local', async (err, user, info) => {
+            console.log("passport auth");
+        if (err) {
+            console.log("failed1");
+        ctx.status = 500;
+        ctx.body = { error: err.message };
+        return;
+        }
+        if (!user) {
+            console.log("failed2");
+        ctx.status = 401;
+        ctx.body = { error: info ? info.message : "Authentication failed" };
+        return;
+        }
+        console.log(user);
+        await ctx.login(user);
+        ctx.body = user;
+    })(ctx, next);*/
     }
 )
-    .post('/user/searchAll', async (ctx, next) => {
+    .post('/user/searchAll',ensureAuthenticated, async (ctx, next) => {
         console.log("/user/searchAll");
         try {
             ctx.body = await prisma.user.findMany()
@@ -293,10 +312,7 @@ userRouter
                         const existingUser: any = await prisma.user.findFirst({
                             select: {
                                 id: true,
-                                lastName: true,
-                                firstName: true,
                                 email: true,
-                                password: true,
                             },
                             where: {
                                 confirmEmailToken: token,
@@ -345,16 +361,14 @@ userRouter
                 return;
             }
             const content = JSON.parse(receivedData);
-            console.log(content);
-            const nom = Object.values(content)[0] as string;
-            const prenom = Object.values(content)[1] as string;
-            const email = Object.values(content)[2] as string;
 
             const thisUser: any = await prisma.user.findFirst({
+                select: {
+                    id: true,
+                    email: true,
+                },
                 where: {
-                    email: email,
-                    lastName: nom,
-                    firstName: prenom,
+                    id: content.user.id,
                 }
             }
         )
@@ -366,7 +380,7 @@ userRouter
             console.log(token)
             await prisma.user.update({
                 where: {
-                    email: Object.values(content)[2] as string,
+                    id: content.user.id,
                 },
                 data: {
                     confirmEmailToken: token,
@@ -445,7 +459,7 @@ userRouter
             ctx.body = "No User ID Received";
             return;
         }
-        
+
         const user = await prisma.user.findUnique({
             where: { id: receivedData.userId },
             select: {
@@ -455,13 +469,13 @@ userRouter
                 email: true
             }
         });
-        
+
         if (!user) {
             ctx.status = 404;
             ctx.body = { message: "Utilisateur non trouvé" };
             return;
         }
-        
+
         ctx.body = user;
     } catch (e) {
         console.log(e);
@@ -481,33 +495,33 @@ userRouter
             ctx.body = "No User ID Received";
             return;
         }
-        
+
         const { userId, firstName, lastName, email } = receivedData;
-        
+
         const user = await prisma.user.findUnique({
             where: { id: userId }
         });
-        
+
         if (!user) {
             ctx.status = 404;
             ctx.body = { message: "Utilisateur non trouvé" };
             return;
         }
-        
+
         let updateData: any = {};
-        
+
         if (firstName !== undefined) updateData.firstName = firstName;
         if (lastName !== undefined) updateData.lastName = lastName;
-        
+
         // Si l'email est modifié, nous devons déclencher un processus de vérification
         if (email && email !== user.email) {
             // Générer un token de vérification (à implémenter dans functions/password.ts)
             const token = await PassFunc.generateToken({ userId, email });
-            
+
             updateData.pendingEmail = email;
             updateData.emailVerificationToken = token;
         }
-        
+
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: updateData,
@@ -519,11 +533,11 @@ userRouter
                 pendingEmail: true
             }
         });
-        
+
         ctx.body = {
             user: updatedUser,
-            message: email !== user.email 
-                ? "Vos informations ont été mises à jour. Veuillez vérifier votre nouvelle adresse email." 
+            message: email !== user.email
+                ? "Vos informations ont été mises à jour. Veuillez vérifier votre nouvelle adresse email."
                 : "Vos informations ont été mises à jour avec succès."
         };
     } catch (e) {
@@ -544,28 +558,28 @@ userRouter
             ctx.body = "No User ID Received";
             return;
         }
-        
+
         const { userId, currentPassword, newPassword } = receivedData;
-        
+
         const user = await prisma.user.findUnique({
             where: { id: userId }
         });
-        
+
         if (!user) {
             ctx.status = 404;
             ctx.body = { message: "Utilisateur non trouvé" };
             return;
         }
-        
+
         // Vérifier que le mot de passe actuel est correct
         const isPasswordValid = await PassFunc.checkMyPassword(currentPassword, user.password);
-        
+
         if (!isPasswordValid) {
             ctx.status = 400;
             ctx.body = { message: "Le mot de passe actuel est incorrect" };
             return;
         }
-        
+
         // Validation du nouveau mot de passe
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!passwordRegex.test(newPassword)) {
@@ -573,15 +587,15 @@ userRouter
             ctx.body = { message: "Le nouveau mot de passe ne respecte pas les critères de sécurité" };
             return;
         }
-        
+
         // Hasher et mettre à jour le nouveau mot de passe
         const hashedPassword = await PassFunc.hashMyPassword(newPassword);
-        
+
         await prisma.user.update({
             where: { id: userId },
             data: { password: hashedPassword }
         });
-        
+
         ctx.body = { message: "Votre mot de passe a été mis à jour avec succès" };
     } catch (e) {
         console.log(e);
@@ -595,13 +609,13 @@ userRouter
     console.log("/user/verify-email");
     try {
         const { token } = ctx.request.body;
-        
+
         if (!token) {
             ctx.status = 400;
             ctx.body = { message: "Token manquant" };
             return;
         }
-        
+
         // Vérifier le token (à implémenter dans functions/password.ts)
         const payload = await PassFunc.verifyToken(token);
         if (!payload) {
@@ -609,20 +623,20 @@ userRouter
             ctx.body = { message: "Le lien de vérification est invalide ou a expiré" };
             return;
         }
-        
+
         const user = await prisma.user.findFirst({
             where: {
                 id: payload.userId,
                 emailVerificationToken: token
             }
         });
-        
+
         if (!user || !user.pendingEmail) {
             ctx.status = 400;
             ctx.body = { message: "Le lien de vérification est invalide ou a expiré" };
             return;
         }
-        
+
         // Mettre à jour l'email de l'utilisateur
         await prisma.user.update({
             where: { id: user.id },
@@ -632,7 +646,7 @@ userRouter
                 emailVerificationToken: null
             }
         });
-        
+
         ctx.body = { message: "Votre adresse email a été confirmée avec succès" };
     } catch (e) {
         console.log(e);
@@ -652,7 +666,7 @@ userRouter
             ctx.body = "No User ID Received";
             return;
         }
-        
+
         const addresses = await prisma.address.findMany({
             where: {
                 User: {
@@ -662,7 +676,7 @@ userRouter
                 }
             }
         });
-        
+
         ctx.body = addresses;
     } catch (e) {
         console.log(e);
@@ -681,9 +695,9 @@ userRouter
             ctx.body = "No User ID Received";
             return;
         }
-        
+
         const { userId, streetName, streetNumber, postalCode, cityName, country, extraInformation, type, isDefault } = receivedData;
-        
+
         // Si cette adresse est définie par défaut, mettre à jour les autres adresses du même type
         if (isDefault) {
             await prisma.$transaction(async (prisma) => {
@@ -699,7 +713,7 @@ userRouter
                         isDefault: true
                     }
                 });
-                
+
                 // Mettre à jour ces adresses pour qu'elles ne soient plus par défaut
                 for (const address of defaultAddresses) {
                     await prisma.address.update({
@@ -709,7 +723,7 @@ userRouter
                 }
             });
         }
-        
+
         // Créer la nouvelle adresse
         const newAddress = await prisma.address.create({
             data: {
@@ -728,7 +742,7 @@ userRouter
                 }
             }
         });
-        
+
         ctx.body = newAddress;
     } catch (e) {
         console.log(e);
@@ -747,9 +761,9 @@ userRouter
             ctx.body = "No User ID or Address ID Received";
             return;
         }
-        
+
         const { userId, addressId, streetName, streetNumber, postalCode, cityName, country, extraInformation, type, isDefault } = receivedData;
-        
+
         // Vérifier que l'adresse existe et appartient à l'utilisateur
         const address = await prisma.address.findFirst({
             where: {
@@ -761,13 +775,13 @@ userRouter
                 }
             }
         });
-        
+
         if (!address) {
             ctx.status = 404;
             ctx.body = { message: "Adresse non trouvée" };
             return;
         }
-        
+
         // Si cette adresse est définie par défaut, mettre à jour les autres adresses du même type
         if (isDefault && !address.isDefault) {
             await prisma.$transaction(async (prisma) => {
@@ -783,7 +797,7 @@ userRouter
                         isDefault: true
                     }
                 });
-                
+
                 // Mettre à jour ces adresses pour qu'elles ne soient plus par défaut
                 for (const addr of defaultAddresses) {
                     await prisma.address.update({
@@ -793,7 +807,7 @@ userRouter
                 }
             });
         }
-        
+
         // Préparation des données à mettre à jour
         let updateData: any = {};
         if (streetName !== undefined) updateData.streetName = streetName;
@@ -804,13 +818,13 @@ userRouter
         if (extraInformation !== undefined) updateData.extraInformation = extraInformation;
         if (type !== undefined) updateData.type = type;
         if (isDefault !== undefined) updateData.isDefault = isDefault;
-        
+
         // Mise à jour de l'adresse
         const updatedAddress = await prisma.address.update({
             where: { id: addressId },
             data: updateData
         });
-        
+
         ctx.body = updatedAddress;
     } catch (e) {
         console.log(e);
@@ -829,9 +843,9 @@ userRouter
             ctx.body = "No User ID or Address ID Received";
             return;
         }
-        
+
         const { userId, addressId } = receivedData;
-        
+
         // Vérifier que l'adresse existe et appartient à l'utilisateur
         const address = await prisma.address.findFirst({
             where: {
@@ -843,13 +857,13 @@ userRouter
                 }
             }
         });
-        
+
         if (!address) {
             ctx.status = 404;
             ctx.body = { message: "Adresse non trouvée" };
             return;
         }
-        
+
         // Supprimer l'association avec l'utilisateur
         await prisma.address.update({
             where: { id: addressId },
@@ -861,7 +875,7 @@ userRouter
                 }
             }
         });
-        
+
         // Si l'adresse n'est plus associée à aucun utilisateur, la supprimer
         const updatedAddress = await prisma.address.findUnique({
             where: { id: addressId },
@@ -869,13 +883,13 @@ userRouter
                 User: true
             }
         });
-        
+
         if (updatedAddress && updatedAddress.User.length === 0) {
             await prisma.address.delete({
                 where: { id: addressId }
             });
         }
-        
+
         ctx.body = { message: "Adresse supprimée avec succès" };
     } catch (e) {
         console.log(e);
@@ -894,9 +908,9 @@ userRouter
             ctx.body = "Missing required data (userId, addressId, type)";
             return;
         }
-        
+
         const { userId, addressId, type } = receivedData;
-        
+
         // Vérifier que l'adresse existe et appartient à l'utilisateur
         const address = await prisma.address.findFirst({
             where: {
@@ -908,13 +922,13 @@ userRouter
                 }
             }
         });
-        
+
         if (!address) {
             ctx.status = 404;
             ctx.body = { message: "Adresse non trouvée" };
             return;
         }
-        
+
         await prisma.$transaction(async (prisma) => {
             // Réinitialiser toutes les adresses du même type
             const addressesToReset = await prisma.address.findMany({
@@ -928,24 +942,24 @@ userRouter
                     isDefault: true
                 }
             });
-            
+
             for (const addr of addressesToReset) {
                 await prisma.address.update({
                     where: { id: addr.id },
                     data: { isDefault: false }
                 });
             }
-            
+
             // Définir l'adresse sélectionnée comme adresse par défaut
             await prisma.address.update({
                 where: { id: addressId },
-                data: { 
+                data: {
                     isDefault: true,
                     type // Assurer que le type est correct
                 }
             });
         });
-        
+
         ctx.body = { message: `Adresse définie comme adresse ${type === 'billing' ? 'de facturation' : 'de livraison'} par défaut` };
     } catch (e) {
         console.log(e);
