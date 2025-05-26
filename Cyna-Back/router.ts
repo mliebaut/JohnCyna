@@ -11,28 +11,25 @@ CynaRouter
     })
     .post('/', async (ctx, next) => {
         console.log("/ - Empty Post request");
-        try {
-            ctx.body = 'Hello My Koa!';
-        } catch (e) {
-            console.log(e)
-        }
+        ctx.body = 'Hello My Koa!';
+    })
+    .post('/ping', async (ctx, next) => {
+        console.log("/ping");
+        const appHostname = process.env.APP_HOSTNAME || "127.0.0.1";
+        const appPort = Number(process.env.APP_API_PORT) || 3001;
+        ctx.status = 201;
+        ctx.body = 'Hello Koa!';
+        // ctx.body = `✅ Serveur démarré : http://${appHostname}:${appPort}`;
     })
     .post('/faker', async (ctx, next) => {
         console.log("/faker")
         try {
             const result = await fakertest.generate_fake_data();
-            console.log(result)
-            ctx.body = result
+            ctx.body = "Generated Basic Fixtures."
         } catch (e) {
             console.log(e)
             ctx.body = e
         }
     })
-    .all('/users/:id', (ctx, next) => {
-        try {
-        } catch (e) {
-            console.log(e)
-        }
-    });
 
 export default CynaRouter

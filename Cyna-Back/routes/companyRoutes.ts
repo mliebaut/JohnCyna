@@ -5,14 +5,6 @@ const prisma = new PrismaClient()
 const companyRouter = new Router();
 
 companyRouter
-    .post('/company', async (ctx, next) => {
-        console.log("/company");
-        try {
-            ctx.body = await prisma.company.findMany()
-        } catch (e) {
-            console.log(e)
-        }
-    })
     .post('/company/create', async (ctx, next) => {
         console.log("/company/create");
         try {
@@ -25,6 +17,14 @@ companyRouter
             })
         } catch (e) {
             console.log(e)
+        }
+    })
+    .post('/company/searchAll', async (ctx, next) => {
+        console.log("/company/searchAll");
+        try {
+            ctx.body = await prisma.address.findMany();
+        } catch (e) {
+            console.log(e);
         }
     })
     .post('/company/searchById', async (ctx, next) => {
@@ -72,8 +72,8 @@ companyRouter
             ctx.body = e;
         }
     })
-    .post('/company/update_adresses', async (ctx, next) => {
-        console.log("/company/update_adresses")
+    .post('/company/updateAdresses', async (ctx, next) => {
+        console.log("/company/updateAdresses")
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){
@@ -97,8 +97,8 @@ companyRouter
             ctx.body = e;
         }
     })
-    .post('/company/update_contacts', async (ctx, next) => {
-        console.log("/company/update_contacts")
+    .post('/company/updateContacts', async (ctx, next) => {
+        console.log("/company/updateContacts")
         try {
             const receivedData = ctx.request.body;
             if(!receivedData){

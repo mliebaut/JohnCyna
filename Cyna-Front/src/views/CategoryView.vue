@@ -1,16 +1,19 @@
 <template>
     <!-- Banner -->
-    <div class="banner-category" :style="{backgroundImage:`url(${ $route.query.image })`}">
-        <h1 class="container">{{ $route.params.title }}</h1>
-    </div>
-    <div class="description container my-4">
-        <p class="fw-medium fs-3">{{ $route.query.description }}</p>
-    </div>
+<!--    <div v-if="categorieQuery">-->
+<!--      <div class="banner-category" :style="{backgroundImage:`url(${ categorieQuery.image })`}">-->
+<!--          <h1 class="container">{{ categorieQuery.title }}</h1>-->
+<!--      </div>-->
+<!--      <div class="description container my-4">-->
+<!--          <p class="fw-medium fs-3">{{ categorieQuery.description }}</p>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <!-- Les Produits -->
-    <h2 class="mt-5 mb-5 fs-1">Les produits</h2>
+    <h2 class="mt-5 mb-5 fs-1">{{currentCategoryTitle}}</h2>
+      <div class="p-2 m-2">{{currentCategoryDescription}}</div>
       <div class="row container justify-content-md-center row-gap-5 m-auto">
-        <div class="col-xs-1 col-md-4" v-for="product in products">
+        <div class="col-xs-1 col-md-5 col-xl-4" v-for="product in products">
           <div class="card text-center m-auto">
             <img :src="(`${product.image}`)" height="300" class="card-img-top" alt="Product {{ index + 1 }}">
             <div class="card-body">
@@ -24,6 +27,27 @@
 </template>
 
 <script setup lang="ts">
+import {ref, onMounted} from 'vue';
+import categorie from '../json/categorie.json'
+import { useRoute } from 'vue-router';
+// import {getAllEntreprise} from "@/functions/functions.ts";
+
+const route = useRoute();
+const categories = ref(categorie);
+const currentCategory = ref();
+const currentCategoryTitle = ref("");
+const currentCategoryDescription = ref("");
+// let params = route.params.title;
+// currentCategory.value = categorie.find(item => item.id == route.params.title);
+
+
+onMounted(() => {
+  currentCategory.value = categorie.find(item => item.id == route.params.title);
+  currentCategoryTitle.value = currentCategory.value.title;
+  currentCategoryDescription.value = currentCategory.value.description;
+  console.log(currentCategory.value);
+  console.log(currentCategory.value.title);
+})
 const products =  [
         { name: 'Produit 1', price: 29.99, image: '/product1.jpg'},
         { name: 'Produit 2', price: 49.99, image: '/product2.jpg'},

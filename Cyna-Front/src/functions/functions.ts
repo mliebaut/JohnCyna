@@ -1,41 +1,80 @@
 import Serv_Url from "../main.ts";
 
-export async function ping_server(){
+export async function ping_server() {
     const response = await fetch(Serv_Url + "/ping", {
         method: "POST",
-        // body: JSON.stringify({ username: "example" }),
-        // headers: myHeaders,
-        mode:"no-cors"
     });
-    if(!response) {
+    if (!response) {
         console.log("No response from server")
         return "No response from server"
     }
-    console.log(response);
-    return response;
+    return await response.text();
 }
 
-export async function find_user_by_id(user_id : number){
+export async function faker_generate() {
+    const response = await fetch(Serv_Url + "/faker", {
+        method: "POST",
+    });
+    console.log(response);
+    return await response.text();
+}
+
+// -------------------------------------------------------------------------------------
+
+export async function getAllRoles() {
     try {
-        const response = await fetch(Serv_Url + "/user/searchById", {
-            method: "POST",
-            body: JSON.stringify({ user_id: user_id }),
-            mode:"no-cors"
-        });
-        console.log(response);
+        const response = await fetch(Serv_Url + "/user/getAllRoles", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        // console.log(response);
+        return response;
     } catch (e) {
         console.log(e);
     }
 }
 
-export async function find_user_by_email(email : string){
+export async function getAllAddresses() {
     try {
-        const response = await fetch(Serv_Url + "/user/searchById", {
-            method: "POST",
-            body: JSON.stringify({ email: email }),
-            mode:"no-cors"
-        });
+        const response = await fetch(Serv_Url + "/address/searchAll", {
+            method: "POST"
+        })
+            .then(res => res.json())
+        //  console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function getAllEntreprise() {
+    try {
+        const response = await fetch(Serv_Url + "/company/searchAll", {
+            method: "POST"
+        })
+            .then(res => res.json())
         console.log(response);
+        return response;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+/*CATEGORIES*/
+// -------------------------------------------------------------------------------------
+
+export async function getAllCategories(includeRelatedRecords: number) {
+    try {
+        const response = await fetch(Serv_Url + "/category/searchAll", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({relatedRecords : includeRelatedRecords}),
+        })
+            .then(res => res.json())
+        // console.log(response);
+        console.log(response);
+        return response;
     } catch (e) {
         console.log(e);
     }

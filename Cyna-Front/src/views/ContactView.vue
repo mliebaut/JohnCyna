@@ -43,7 +43,6 @@
       </div>
     </div>
   </div>
-  <ChatBot />
 </template>
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');

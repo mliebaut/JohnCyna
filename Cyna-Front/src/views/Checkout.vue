@@ -1,47 +1,3 @@
-<script setup>
-import { ref } from "vue";
-import { loadStripe } from "@stripe/stripe-js";
-
-const selectedPayment = ref("stripe"); // Stripe est sélectionné par défaut
-const STRIPE_PUBLIC_KEY = "pk_test_51Qrbj1RpPV5B6AP6PJBvF1mNbile2IZsuOrBmyoBEFfmoGOyqfqUGTtZ6GwB3VG8QVEfABIB7AOlBV84Sa3QzS2200Ky16YOr8";
-const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
-
-const handleCheckout = async () => {
-    console.log("🛠️ handleCheckout() a été appelé avec", selectedPayment.value);
-
-    if (selectedPayment.value === "stripe") {
-        console.log("🔵 Paiement avec Stripe...");
-
-        const stripe = await stripePromise;
-        if (!stripe) {
-            console.error("❌ Erreur: Stripe n'est pas chargé.");
-            return;
-        }
-
-        try {
-            const response = await fetch("http://localhost:3001/create-checkout-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-            });
-
-            if (!response.ok) {
-                throw new Error("❌ Erreur lors de la création de la session Stripe");
-            }
-
-            const session = await response.json();
-            console.log("✅ Session Stripe créée :", session.url);
-            window.location.href = session.url;
-        } catch (error) {
-            console.error("❌ Erreur lors du paiement :", error);
-        }
-    } else if (selectedPayment.value === "paypal") {
-        console.log("🟡 Paiement avec PayPal... (à implémenter)");
-        alert("Redirection vers PayPal... (fonctionnalité en cours de développement)");
-    }
-};
-
-</script>
-
 <template>
     <div class="container mt-5">
         <div class="row">
@@ -154,14 +110,58 @@ const handleCheckout = async () => {
                         Payer avec PayPal
                     </button>
 
-
-                    <p>Valeur actuelle de selectedPayment: {{ selectedPayment }}</p>
+<!--                    <p>Valeur actuelle de selectedPayment: {{ selectedPayment }}</p>-->
 
                 </form>
             </div>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import { loadStripe } from "@stripe/stripe-js";
+
+// On met Stripe par défaut
+const selectedPayment = ref("stripe"); 
+const STRIPE_PUBLIC_KEY = "pk_test_51Qrbj1RpPV5B6AP6PJBvF1mNbile2IZsuOrBmyoBEFfmoGOyqfqUGTtZ6GwB3VG8QVEfABIB7AOlBV84Sa3QzS2200Ky16YOr8";
+const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
+
+const handleCheckout = async () => {
+    console.log("handleCheckout() a été appelé avec", selectedPayment.value);
+
+    if (selectedPayment.value === "stripe") {
+        console.log("Paiement avec Stripe...");
+
+        const stripe = await stripePromise;
+        if (!stripe) {
+            console.error("Erreur: Stripe n'est pas chargé.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:3001/create-checkout-session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (!response.ok) {
+                throw new Error("Erreur lors de la création de la session Stripe");
+            }
+
+            const session = await response.json();
+            console.log("✅ Session Stripe créée :", session.url);
+            window.location.href = session.url;
+        } catch (error) {
+            console.error("Erreur lors du paiement :", error);
+        }
+    } else if (selectedPayment.value === "paypal") {
+        console.log("Paiement avec PayPal... (à implémenter)");
+        alert("Redirection vers PayPal... (fonctionnalité en cours de développement)");
+    }
+};
+
+</script>
 
 <style>
     .radio-btn {

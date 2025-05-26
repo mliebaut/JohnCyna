@@ -7,15 +7,6 @@ const prisma = new PrismaClient()
 const addressRouter = new Router();
 
 addressRouter
-    .post('/address', async (ctx, next) => {
-        console.log("/address");
-        try {
-            ctx.body = await prisma.address.findMany();
-        } catch (e) {
-            console.log(e);
-        }
-    })
-
     .post('/address/create', async (ctx, next) => {
         console.log("/address/create")
         try {
@@ -39,6 +30,14 @@ addressRouter
         } catch (e) {
             console.log(e);
             ctx.body = e;
+        }
+    })
+    .post('/address/searchAll', async (ctx, next) => {
+        console.log("/address/searchAll");
+        try {
+            ctx.body = await prisma.address.findMany();
+        } catch (e) {
+            console.log(e);
         }
     })
     .post('/address/searchById', async (ctx, next) => {
