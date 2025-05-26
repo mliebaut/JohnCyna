@@ -12,10 +12,6 @@ import ProductCatalog from '../views/ProductCatalog.vue';
 
 const routes = [
   {
-    path: '/',
-    redirect: '/catalogue'
-  },
-  {
     path: '/catalogue',
     name: 'catalogue',
     component: ProductCatalog

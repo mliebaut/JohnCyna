@@ -16,7 +16,7 @@ import dashboardRoutes from './routes/dashboardRoutes'
 
 //  Import du router Stripe
 import stripeRouter from "./routes/stripe";
-import successRouter from "./routes/success";
+// import successRouter from "./routes/success";
 
 const app = new Koa();
 
@@ -62,6 +62,6 @@ app.use(dashboardRoutes.routes()).use(dashboardRoutes.allowedMethods())
 
 //  Intégration des routes Stripe
 app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
-app.use(successRouter.routes()).use(successRouter.allowedMethods());
+// app.use(successRouter.routes()).use(successRouter.allowedMethods());
 
 export default app;
