@@ -27,7 +27,11 @@ model User {
   Addresses          Address[]
   ProfilePictures    ProfilePictures[]
   role               UserPermission @default(USER)
-}
+  pendingEmail       String?
+  emailVerificationToken  String?
+  paymentMethods      PaymentMethod[]
+  userSubscriptions   UserSubscription[]
+} 
 
 
 model Product {
@@ -77,6 +81,8 @@ model Address {
   extraInformation   String?
   Company            Company[]
   User               User[]
+  type               String?     
+  isDefault          Boolean     @default(false)
 }
 
 // - TODO: Rajouter des attributs à entreprise? Il manque peut-être des trucs.
@@ -109,6 +115,8 @@ model Subscription {
   type               TypeSubscription?
   price              Int?
   duration           Int?
+  userSubscriptions  UserSubscription[]
+
 }
 
 // // C'est un WIP, hein? Mais si on gère le backoffice, ca, ca marche.
@@ -130,4 +138,43 @@ model ProfilePictures {
   avatarLocation     String?
 
   User User[]
+}
+
+// Nouveau modèle pour les méthodes de paiement
+model PaymentMethod {
+  id            Int              @id @default(autoincrement())
+  type          String           // 'card', 'paypal', 'sepa'
+  cardType      String?
+  lastFour      String?
+  expiryDate    String?
+  accountEmail  String?
+  accountHolder String?
+  iban          String?          // À stocker de manière sécurisée en production
+  isDefault     Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  User          User[]
+  UserSubscription UserSubscription[]
+}
+
+// Nouveau modèle pour les abonnements utilisateur (distinct du modèle Subscription existant)
+model UserSubscription {
+  id              Int             @id @default(autoincrement())
+  name            String
+  status          String          // 'active', 'canceled', 'expired', 'pending'
+  renewalDate     DateTime
+  basePrice       Float
+  price           Float
+  billingCycle    String          // 'monthly', 'yearly'
+  startDate       DateTime        @default(now())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  User            User[]
+  PaymentMethod   PaymentMethod?  @relation(fields: [paymentMethodId], references: [id])
+  paymentMethodId Int?
+  Subscription    Subscription?   @relation(fields: [subscriptionId], references: [id])
+  subscriptionId  Int?
+
+  @@index([paymentMethodId])
+  @@index([subscriptionId])
 }
