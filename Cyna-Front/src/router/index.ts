@@ -151,10 +151,10 @@ const routes = [
         name: 'Sidebar',
         component: Sidebar
     },
-
     {
         path: '/account',
         component: DashboardLayout,
+        redirect: '/account/personal-info',
         children: [
             {
                 path: 'personal-info',
