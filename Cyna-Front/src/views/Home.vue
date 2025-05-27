@@ -14,7 +14,8 @@
               <div class="col-md-5">
                 <h1>{{ t(carousel.titleKey) }}</h1>
                 <p>{{ t(carousel.descriptionKey) }}</p>
-                <button class="btn btn-primary fs-4 px-4">{{ t(carousel.buttonKey) }}</button>
+<!--                <button href="/about" class="btn btn-primary fs-4 px-4">{{ t(carousel.buttonKey) }}</button>-->
+                <router-link to="/about"  class="btn btn-primary fs-4 px-4">{{ t(carousel.buttonKey) }}</router-link>
               </div>
                <div class="col-md-7">
                 <img class="img-fluid" :src="(`${carousel.image}`)" alt="">
@@ -48,7 +49,7 @@
             <div class="card-body d-flex flex-column justify-content-center align-items-center ">
               <h3 class="card-title">{{ category.title }}</h3>
                 <p class="card-text fs-5 fw-medium">{{ category.description }}</p>
-                <router-link class="btn btn-primary" :to="{ path: `/category/${category.title}`, query: { description: `${category.description}`, image: `${category.image}` }}">{{ t('viewCategory') }}</router-link>
+                <router-link class="btn btn-primary" :to="{ path: `/category/${category.id}`}">{{ t('viewCategory') }}</router-link>
             </div>
           </div>
         </div>
@@ -94,22 +95,26 @@
         {
           title: 'Prévention',
           description: t('categories.prevention.description'),
-          image: '/Categorie1.jpg'
+          image: '/Categorie1.jpg',
+          id:1
         },
         {
           title: 'Protection',
           description: t('categories.protection.description'),
-          image: '/Categorie2.jpg'
+          image: '/Categorie2.jpg',
+          id:2
         },
         {
           title: 'Réponse',
           description: t('categories.reponse.description'),
-          image: '/Categorie3.jpg'
+          image: '/Categorie3.jpg',
+          id:3
         },
         {
           title: 'Anticipation',
           description: t('categories.anticipation.description'),
-          image: '/Categorie2.jpg'
+          image: '/Categorie2.jpg',
+          id:3
         }
       ]
 
