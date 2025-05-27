@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from "../views/Home.vue";
 import CategoryViewView from '../views/CategoryView.vue';
 import Sidebar from '../components/Sidebar.vue';
-import DashboardLayout from '../views/DashboardLayout.vue';
+import DashboardLayout from '../views/BackOffice/DashboardLayout.vue';
 import PersonalInfo from '../components/account/PersonalInfo.vue';
 import Addresses from '../components/account/Addresses.vue';
 import PaymentMethods from '../components/account/PaymentMethods.vue';
@@ -11,64 +11,7 @@ import Security from '../components/account/Security.vue';
 import ProductCatalog from '../views/ProductCatalog.vue';
 
 const routes = [
-  {
-    path: '/catalogue',
-    name: 'catalogue',
-    component: ProductCatalog
-  },
-    {
-        path: '/Sidebar',
-        name: 'Sidebar',
-        component: Sidebar
-    },
-    
-      {
-        path: '/account',
-        component: DashboardLayout,
-        children: [
-          {
-            path: 'personal-info',
-            name: 'PersonalInfo',
-            component: PersonalInfo,
-            meta: {
-              title: 'Informations personnelles'
-            }
-          },
-          {
-            path: 'subscriptions',
-            name: 'Subscriptions',
-            component: Subscriptions,
-            meta: {
-              title: 'Abonnements'
-            }
-          },
-          {
-            path: 'addresses',
-            name: 'Addresses',
-            component: Addresses,
-            meta: {
-              title: 'Adresses'
-            }
-          },
-          {
-            path: 'payment-methods',
-            name: 'PaymentMethods',
-            component: PaymentMethods,
-            meta: {
-              title: 'Méthodes de paiement'
-            }
-          },
-          {
-            path: 'security',
-            name: 'Security',
-            component: Security,
-            meta: {
-              title: 'Sécurité'
-            }
-          }
-        ]
-      },
-      
+
     {
         path: '/',
         name: 'Home',
@@ -200,10 +143,68 @@ const routes = [
         component: () => import('../views/RechercheView.vue'),
     },
     {
+        path: '/catalogue',
+        name: 'catalogue',
+        component: ProductCatalog
+    },
+    {
+        path: '/Sidebar',
+        name: 'Sidebar',
+        component: Sidebar
+    },
+
+    {
+        path: '/account',
+        component: DashboardLayout,
+        children: [
+            {
+                path: 'personal-info',
+                name: 'PersonalInfo',
+                component: PersonalInfo,
+                meta: {
+                    title: 'Informations personnelles'
+                }
+            },
+            {
+                path: 'subscriptions',
+                name: 'Subscriptions',
+                component: Subscriptions,
+                meta: {
+                    title: 'Abonnements'
+                }
+            },
+            {
+                path: 'addresses',
+                name: 'Addresses',
+                component: Addresses,
+                meta: {
+                    title: 'Adresses'
+                }
+            },
+            {
+                path: 'payment-methods',
+                name: 'PaymentMethods',
+                component: PaymentMethods,
+                meta: {
+                    title: 'Méthodes de paiement'
+                }
+            },
+            {
+                path: 'security',
+                name: 'Security',
+                component: Security,
+                meta: {
+                    title: 'Sécurité'
+                }
+            }
+        ]
+    },
+    {
         path: '/:pathMatch(.*)*', // or '*'
         name: 'NotFound',
         component: () => import('../views/404.vue'),
     }
+
 ]
 
 const router = createRouter({
