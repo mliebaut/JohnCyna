@@ -1,10 +1,11 @@
 import Router from 'koa-router';
-import {PrismaClient} from '@prisma/client'
+import {PrismaClient, UserPermission} from '@prisma/client'
 import * as PassFunc from '../functions/password'
 import jwt from 'jsonwebtoken';
 import passport from 'koa-passport';
 import session from 'koa-session';
 import app from '../app';
+import selectCorrectUserPermission from "../functions/BackFunctions";
 
 const prisma = new PrismaClient()
 
@@ -126,7 +127,8 @@ userRouter
     })(ctx, next);*/
     }
 )
-    .post('/user/searchAll',ensureAuthenticated, async (ctx, next) => {
+    // .post('/user/searchAll',ensureAuthenticated, async (ctx, next) => {
+    .post('/user/searchAll', async (ctx, next) => {
         console.log("/user/searchAll");
         try {
             ctx.body = await prisma.user.findMany()
