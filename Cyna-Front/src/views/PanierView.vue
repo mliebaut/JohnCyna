@@ -7,7 +7,7 @@
 <!--        {{myProducts}}-->
       </div>
     </div>
-    <div v-for="(item, index) in myProducts" :key="index"
+    <div v-if="myProducts.length" v-for="(item, index) in myProducts" :key="index"
          class="d-flex justify-content-between align-items-center border-bottom py-2">
       <div>
         <h5>{{ item.name }}</h5>
@@ -20,9 +20,12 @@
         <button class="btn btn-primary btn-sm" @click="item.amountInCart++;calculateTotalPrice()">+</button>
       </div>
     </div>
+    <div v-else>
+      Pas encore d'articles dans le panier... N'hésitez pas!
+    </div>
     <br>
     <RouterLink class="btn btn-primary fs-4 px-4" to="/checkout">Payer panier</RouterLink>
-    <button @click="emptyCart()">Debug - vider Panier</button>
+<!--    <button @click="emptyCart()">Debug - vider Panier</button>-->
 
     <div class="mt-4">
       <h4>Total : {{ totalPrice }} €</h4>
