@@ -62,10 +62,10 @@
             </li>
             <div v-else>
               <li class="nav-item">
-                <router-link class="btn btn-primary m-2 w-75 fs-5" :to="{ name: 'Connexion'}">Se connecter</router-link>
+                <router-link class="btn btn-primary m-2 w-75 fs-5" to="/connexion">Se connecter</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="btn btn-primary m-2 w-75 fs-5" :to="{ name: 'Inscription'}">Créer un compte
+                <router-link class="btn btn-primary m-2 w-75 fs-5" to="/inscription">Créer un compte
                 </router-link>
               </li>
             </div>
