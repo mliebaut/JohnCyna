@@ -53,13 +53,13 @@
       <router-link to="/inscription">inscription</router-link>
       <router-link to="/connexion">connexion</router-link>
       <router-link to="/produit/1">produit numéro 1</router-link>
-      <router-link to="/panier">panier</router-link>
-      <router-link to="/cgu">cgu</router-link>
-      <router-link to="/checkout">checkout</router-link>
-      <router-link to="/success">success</router-link>
-      <router-link to="/cancel">cancel</router-link>
-      <router-link to="/historique">historique</router-link>
-      <router-link to="/historique">historique</router-link>
+      <router-link to="/panier">Panier</router-link>
+      <router-link to="/cgu">CGU</router-link>
+      <router-link to="/checkout">Checkout</router-link>
+      <router-link to="/success">Success</router-link>
+      <router-link to="/cancel">Cancel</router-link>
+      <router-link to="/historique">Historique</router-link>
+      <router-link to="/catalogue">Catalogue</router-link>
 
       <hr>
       <router-link to="/account">account</router-link>
