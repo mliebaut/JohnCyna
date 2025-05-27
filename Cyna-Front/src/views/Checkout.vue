@@ -150,7 +150,7 @@ const handleCheckout = async () => {
             }
 
             const session = await response.json();
-            console.log("✅ Session Stripe créée :", session.url);
+            console.log("Session Stripe créée :", session.url);
             window.location.href = session.url;
         } catch (error) {
             console.error("Erreur lors du paiement :", error);
