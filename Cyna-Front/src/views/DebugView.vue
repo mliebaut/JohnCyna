@@ -59,6 +59,8 @@
       <router-link to="/success">success</router-link>
       <router-link to="/cancel">cancel</router-link>
       <router-link to="/historique">historique</router-link>
+      <router-link to="/historique">historique</router-link>
+
       <hr>
       <router-link to="/account">account</router-link>
       <router-link to="/account/personal-info">Personal Info</router-link>
