@@ -34,6 +34,15 @@
         📍 Gestion des adresses
       </RouterLink>
     </nav>
+    <hr>
+    <nav style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+      <RouterLink
+          to="/backoffice/dashboard"
+          class="card-link"
+      >
+        📈 Dashboard
+      </RouterLink>
+    </nav>
   </main>
 </template>
 
