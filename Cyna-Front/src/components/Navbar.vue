@@ -71,7 +71,6 @@
             </div>
           </ul>
           <div>
-          {{userStore.user}}
             <router-link v-if="userStore.user && userStore.user.role !== USER" class="btn btn-info m-2 w-75 fs-5" to="/backoffice">Backoffice</router-link>
           </div>
 
