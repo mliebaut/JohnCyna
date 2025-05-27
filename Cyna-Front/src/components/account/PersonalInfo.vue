@@ -13,7 +13,7 @@
           Vos informations ont été mises à jour avec succès !
         </b-alert>
         
-        <b-form @submit.prevent="updateProfile">
+        <b-form @submit.prevent="updateProfile" class="w-100">
           <b-form-group label="Nom complet" label-for="fullName">
             <b-form-input
               id="fullName"
@@ -52,7 +52,7 @@
       
       <b-card class="mb-4">
         <h3 class="h5 mb-3">Informations de contact</h3>
-        <b-form @submit.prevent="updateContact">
+        <b-form @submit.prevent="updateContact" class="w-100">
           <b-form-group 
             label="Adresse e-mail" 
             label-for="email"
