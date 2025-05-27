@@ -57,7 +57,6 @@ pinia.use((context) => {
 
 app.use(pinia)
 app.use(router)
-app.use(pinia)
 app.use(BootstrapVue3)
 app.use(i18n)
 app.mount('#app')
