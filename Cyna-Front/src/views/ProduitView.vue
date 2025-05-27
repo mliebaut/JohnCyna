@@ -57,7 +57,7 @@
         <p v-if="product">
           {{ product.inStock > 0 ? `En stock` : 'Rupture de stock' }}
         </p>
-        <button :disabled="product && product.inStock === 0" @click="addCart()">
+        <button class="btn btn-warning" :disabled="product && product.inStock === 0" @click="addCart()">
           Ajouter au panier
         </button>
       </div>
@@ -101,7 +101,7 @@
         <img src="https://placehold.co/300x250">
 
       <p></p>
-<p><button>Voir Produit</button></p>
+<p><button class="btn btn-secondary">Voir plus</button></p>
   <div v-if="product && product.inStock === 0" class="alert alert-warning mt-3">
     Ce service est en rupture de stock. Veuillez nous contacter pour plus d'informations.
   </div>
