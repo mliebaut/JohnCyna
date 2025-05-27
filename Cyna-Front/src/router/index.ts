@@ -11,7 +11,6 @@ import Security from '../components/account/Security.vue';
 import ProductCatalog from '../views/ProductCatalog.vue';
 
 const routes = [
-
     {
         path: '/',
         name: 'Home',

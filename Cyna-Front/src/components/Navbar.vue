@@ -60,7 +60,7 @@
               <router-link v-if="userStore.user && userStore.user.role !== USER" class="btn btn-info m-2 w-75 fs-5" to="/backoffice">Backoffice</router-link>
             </li>
             <li>
-              <router-link v-if="userStore.user" class="btn btn-warning m-2 w-75 fs-5" to="/account">Mon Compte</router-link>
+              <router-link v-if="userStore.user" class="btn btn-warning m-2 w-75 fs-5" to="/account/personal-info">Mon Compte</router-link>
             </li>
             <li v-if="userStore.user" class="nav-item mt-5">
               <p class="text-body-secondary">Bonjour, {{ userStore.user.lastName }}</p>
