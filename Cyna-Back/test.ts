@@ -5,6 +5,7 @@ dotenv.config();
 
 console.log("Server");
 
+//Test bidon. Il faudrait qu'on essaye de faire plus de choses, mais c'est bon pour le moment.
 function server_start() {
     try {
         console.log("Starting app..");
