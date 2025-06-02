@@ -12,7 +12,7 @@
     <!-- Les Produits -->
     <h2 class="mt-5 mb-5 fs-1">{{currentCategoryTitle}}</h2>
       <div class="p-2 m-2">{{currentCategoryDescription}}</div>
-      <div class="row container justify-content-md-center row-gap-5 m-auto">
+      <div class="d-flex row container justify-content-md-center row-gap-5 m-auto">
         <div class="col-xs-1 col-md-5 col-xl-4" v-for="product in products">
           <div class="card text-center m-auto">
             <img :src="(`${product.image}`)" height="300" class="card-img-top" alt="Product {{ index + 1 }}">

@@ -45,27 +45,37 @@
     </div>
     <hr>
     <h3>Router</h3>
-    <div class="d-flex flex-column" style="background-color:#1e0000">
+    <div class="d-flex flex-column" style="background-color:deepskyblue">
       <router-link to="/">/</router-link>
       <router-link to="/about">about</router-link>
       <router-link to="/contact">contact</router-link>
       <router-link to="/mentions-legales">mentions-legales</router-link>
       <router-link to="/inscription">inscription</router-link>
       <router-link to="/connexion">connexion</router-link>
-      <router-link to="/produit">produit</router-link>
-      <router-link to="/panier">panier</router-link>
-      <router-link to="/cgu">cgu</router-link>
-      <router-link to="/checkout">checkout</router-link>
-      <router-link to="/success">success</router-link>
-      <router-link to="/cancel">cancel</router-link>
-      <router-link to="/historique">historique</router-link>
+      <router-link to="/produit/1">produit numéro 1</router-link>
+      <router-link to="/panier">Panier</router-link>
+      <router-link to="/cgu">CGU</router-link>
+      <router-link to="/checkout">Checkout</router-link>
+      <router-link to="/success">Success</router-link>
+      <router-link to="/cancel">Cancel</router-link>
+      <router-link to="/historique">Historique</router-link>
+      <router-link to="/catalogue">Catalogue</router-link>
+
+      <hr>
       <router-link to="/account">account</router-link>
+      <router-link to="/account/personal-info">Personal Info</router-link>
+      <router-link to="/account/subscriptions">Subscriptions</router-link>
+      <router-link to="/account/addresses">Addresses</router-link>
+      <router-link to="/account/payment-methods">Payment Methods</router-link>
+      <router-link to="/account/security">Security</router-link>
+      <hr>
       <router-link to="/backoffice">backoffice</router-link>
       <router-link to="/backoffice/user">backoffice/user</router-link>
       <router-link to="/backoffice/dashboard">backoffice/dashboard</router-link>
       <router-link to="/backoffice/produits">backoffice/produits</router-link>
       <router-link to="/backoffice/entreprises">backoffice/entreprises</router-link>
       <router-link to="/backoffice/adresses">backoffice/adresses</router-link>
+      <hr>
       <router-link to="/debug">about</router-link>
     </div>
   </div>

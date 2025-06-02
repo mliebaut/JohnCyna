@@ -218,7 +218,7 @@ async function connect_entities() {
     }
     for (let i = 0; i < Math.round(userNumber * 0.1); i++) {
         await prisma.user.update({
-            where: {id: faker.number.int({min: 1, max: userNumber})},
+            where: {id: faker.number.int({min: 3, max: userNumber})},
             data: {
                 role: "ADMIN"
             }
@@ -226,7 +226,7 @@ async function connect_entities() {
     }
     for (let i = 0; i < Math.round(userNumber * 0.2); i++) {
         await prisma.user.update({
-            where: {id: faker.number.int({min: 1, max: userNumber})},
+            where: {id: faker.number.int({min: 3, max: userNumber})},
             data: {
                 role: "PRODUCTMANAGER"
             }
@@ -234,7 +234,7 @@ async function connect_entities() {
     }
     for (let i = 0; i < Math.round(userNumber * 0.1); i++) {
         await prisma.user.update({
-            where: {id: faker.number.int({min: 1, max: userNumber})},
+            where: {id: faker.number.int({min: 3, max: userNumber})},
             data: {
                 role: "DEVDEBUG"
             }

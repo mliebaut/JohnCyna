@@ -1,5 +1,9 @@
 import Koa from 'koa';
 import koaBody from 'koa-body';
+import bodyParser from "koa-bodyparser";
+import session from "koa-session";
+import { Strategy } from "passport-local";
+import passport from "koa-passport";
 import cors from '@koa/cors';
 
 // Import des routes existantes
@@ -15,7 +19,8 @@ import userRouter from "./routes/userRoutes";
 import dashboardRoutes from './routes/dashboardRoutes'
 
 //  Import du router Stripe
-import stripeRouter from './routes/stripe';
+import stripeRouter from "./routes/stripe";
+// import successRouter from "./routes/success";
 
 const app = new Koa();
 
@@ -47,6 +52,13 @@ app.use(
 //  Middleware pour parser les requêtes JSON
 app.use(koaBody());
 
+app.keys = ['secret'];
+app.use(session(app));
+app.use(bodyParser());
+require('./middlewares/authPassport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 //  Intégration des routes existantes
 app.use(CynaRouter.routes()).use(CynaRouter.allowedMethods());
 app.use(addressRouter.routes()).use(addressRouter.allowedMethods());
@@ -61,6 +73,6 @@ app.use(dashboardRoutes.routes()).use(dashboardRoutes.allowedMethods())
 
 //  Intégration des routes Stripe
 app.use(stripeRouter.routes()).use(stripeRouter.allowedMethods());
-
+// app.use(successRouter.routes()).use(successRouter.allowedMethods());
 
 export default app;
