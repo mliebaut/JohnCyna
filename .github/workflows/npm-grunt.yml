@@ -2,7 +2,7 @@ name: NodeJS with Grunt
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev-tsx" ]
   pull_request:
     branches: [ "main" ]
 
@@ -20,4 +20,4 @@ jobs:
       run: | 
         cd Cyna-Back
         npm install
-        npm run main --quit
+        npm test
