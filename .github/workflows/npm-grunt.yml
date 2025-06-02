@@ -22,10 +22,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
-    - run: cd my/directory && npm install && npm ci
-    - run: cd my/directory && npm install && npm run build --if-present
-    - run: cd my/directory && npm install && npm test
+    - name: Build Back
+    - run: cd Cyna-Back && npm install && npm run main
+    - name: Build Front
+    - run: cd Cyna-Front && npm install && npm run build --if-present
+    - name: Build Back
+    - run: cd Cyna-Back && npm install && npx validate
 
         
         
