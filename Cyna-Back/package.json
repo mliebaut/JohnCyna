@@ -4,14 +4,13 @@
   "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "server",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "main": "ts-node-dev --respawn --files --transpile-only server.ts "
+    "test": "node test.ts",
+    "main": "ts-node-dev --respawn --files --transpile-only server.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://gitlab.com/melusine.liebaut/johncyna.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/melusine.liebaut/johncyna/issues"
@@ -33,11 +32,13 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pinia": "^3.0.0",
-    "stripe": "^17.6.0"
+    "stripe": "^17.6.0",
+    "tsx": "^4.19.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
     "@tailwindcss/postcss": "^4.0.6",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/koa-router": "^7.4.8",
     "prisma": "^6.2.1",
