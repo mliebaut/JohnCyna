@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Build Back
-      run: cd Cyna-Back && npm install && npm run main
+      run: cd cyna-back && npm install && npm run main
     - name: Build Front
       run: cd Cyna-Front && npm install && npm run build --if-present
     - name: Build Back
