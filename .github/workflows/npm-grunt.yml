@@ -2,10 +2,9 @@ name: NodeJS with Grunt
 
 on:
   push:
-    branches: [ "dev-tsx" ]
-  pull_request:
-    branches: [ "main" ]
-
+    branches: 
+    - dev
+    - main
 jobs:
   build:
     runs-on: ubuntu-latest
