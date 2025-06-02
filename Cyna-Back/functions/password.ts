@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+
 const saltRounds = 10;
 
 export async function hashMyPassword(password: string) {
