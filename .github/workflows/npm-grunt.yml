@@ -20,4 +20,4 @@ jobs:
       run: | 
         cd Cyna-Back
         npm install
-        npm run main
+        npm run main --quit
