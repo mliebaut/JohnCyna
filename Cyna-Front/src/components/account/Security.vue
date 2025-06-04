@@ -177,6 +177,23 @@
           </template>
         </b-table>
       </b-card>
+
+      <b-card>
+        <h3 class="h5 mb-3">Suppression des données</h3>
+        <p class="text-muted mb-3">
+          Vous pouvez faire une demande de suppression de données.
+          <p>
+            Nous supprimerons toutes les données personnelles vous concernant, et nous anonymiserions les données non-personnelles.
+          </p>
+        </p>
+
+        <b-button
+            variant="danger"
+            @click="terminateAllSessions"
+        >
+          Demander l'effacement de vos données.
+        </b-button>
+      </b-card>
       
       <!-- Modal pour l'activation de l'authentification à deux facteurs -->
       <b-modal 
